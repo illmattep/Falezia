@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "name": "Falezia",
+    "tagline": "tattico 5v5 · estrazione · round senza respawn",
+    "milestone": "M0",
+    "engine": "Godot 4.7.2 .NET (C#)",
+    "sim": "C# .NET 8 · System.Numerics · zero dipendenze dal motore",
+    "tick_rate_hz": 64,
+    "snapshot_rate_hz": 32,
+    "dt_s": 0.015625,
+    "first_person": true,
+    "vehicles": false,
+    "destruction": false
+  },
+
+  "match": {
+    "team_size": 5,
+    "extractions_to_win": 5,
+    "round_timer_s": 480,
+    "match_cap_min": 60,
+    "round_timer_suspends_during_extraction": true,
+    "core_remove_ends_round": true,
+    "timeout_without_extraction": "null_round"
+  },
+
+  "round": {
+    "buy_s_max": 40,
+    "crate_hands_s": 15,
+    "crate_kit_s": 10,
+    "crate_robot_s": 15,
+    "crate_robot_engineer_s": 10,
+    "robot_place_s": 5.0,
+    "robot_place_engineer_s": 1.5,
+    "grab_s": 3,
+    "extract_start_s": 5,
+    "siege_s": 120,
+    "siege_overclock_s": 90,
+    "core_remove_s": 5,
+    "core_returns_to_crate": false,
+    "crate_stays_open": true
+  },
+
+  "damage": {
+    "health": 100,
+    "plate_light_points": 20,
+    "plate_heavy_points": 40,
+    "plate_light_price": 250,
+    "plate_heavy_price": 500,
+    "head_multiplier": 4.0,
+    "neck_multiplier": 2.5,
+    "arm_multiplier": 0.85,
+    "leg_multiplier": 0.75,
+    "regeneration": false,
+    "medkit_heal": 50,
+    "medkit_channel_s": 3,
+    "dbno_bleed_s": 30,
+    "dbno_revive_s": 5,
+    "revive_bare_s": 15,
+    "revive_bare_with_medic_s": 10,
+    "revive_medkit_s": 10,
+    "revive_medkit_with_medic_s": 5
+  },
+
+  "movement": {
+    "walk_mps": 4.2,
+    "sprint_mps": 6.5,
+    "crouch_mps": 2.2,
+    "ads_multiplier": 0.55,
+    "knife_multiplier": 1.08,
+    "stamina_s": 10,
+    "stamina_recovery_s": 8,
+    "gravity_mps2": 18,
+    "jump_mps": 6.0,
+    "jump_cooldown_s": 0.15,
+    "air_control_max_wish_mps": 0.3,
+    "bunny_hop": false,
+    "air_strafe": false
+  },
+
+  "doors": {
+    "states": ["closed", "ajar", "open"],
+    "open_slow_s": 0.6,
+    "open_normal_s": 1.5,
+    "open_kick_s": 0.3,
+    "close_s": 1.0,
+    "noise_m": {
+      "slow": 8,
+      "normal": 15,
+      "kick": 35,
+      "close": 12
+    },
+    "breaching": false,
+    "wedge": false,
+    "barricade": false
+  },
+
+  "economy": {
+    "personal_start": 1000,
+    "team_chest_start": 5000,
+    "round_win": 3000,
+    "round_loss_progressive": [2000, 2400, 2800, 3200],
+    "round_draw": 1200,
+    "free_purchase_threshold": 300,
+    "approval_window_s": 5,
+    "anti_spiral_floor": 1000,
+    "anti_spiral_grant": 1500,
+    "objective_bonus": {
+      "open_crate": 150,
+      "grab_core": 200,
+      "extraction": 300
+    },
+    "sell_only_same_buy_phase": true,
+    "equipment_persists_if_alive": true
+  },
+
+  "map": {
+    "name": "Calanera",
+    "size_m": [240, 220],
+    "spawn_distance_from_center_m": 120,
+    "extraction_distance_from_center_m": 95,
+    "spawn_to_center_walk_s": 28.6,
+    "center_to_extraction_walk_s": 22.6,
+    "zones": {
+      "spawn_north": "Porto Vecchio",
+      "spawn_south": "Forte San Verano",
+      "center": "Piazza Vecchia",
+      "extract_east": "Grotta del Levante",
+      "extract_west": "Galleria Vecchia",
+      "ring": ["Via Stretta", "Scalinata Lunga", "Lungomare", "Mura"]
+    },
+    "rotationally_symmetric": true,
+    "static_geometry": true
+  },
+
+  "weapons": [
+    { "name": "Standard", "class": "pistol", "damage": 25, "shots": [4, 5, 6], "interval_s": 0.20, "mag": 17, "price": 0,    "ads_s": 0.20, "note": "base, sempre disponibile" },
+    { "name": "Hush",     "class": "pistol", "damage": 22, "shots": [5, 6, 7], "interval_s": 0.22, "mag": 15, "price": 400,  "ads_s": 0.24, "note": "silenziata; non uccide di testa (88)" },
+    { "name": "Snub",     "class": "pistol", "damage": 50, "shots": [2, 3, 3], "interval_s": 0.25, "mag": 6,  "price": 500,  "ads_s": 0.16, "note": "ADS piu rapido del gioco; ricarica 3 s" },
+    { "name": "Hammer",   "class": "pistol", "damage": 70, "shots": [2, 2, 2], "interval_s": 0.55, "mag": 7,  "price": 700,  "ads_s": 0.35, "note": "2 colpi sempre, anche contro piastra pesante" },
+    { "name": "Chatter",  "class": "auto_pistol", "damage": 18, "shots": [6, 7, 8], "interval_s": 0.06, "mag": 20, "price": 600, "ads_s": 0.28 },
+
+    { "name": "Cadence",  "class": "smg", "damage": 20, "shots": [5, 6, 7], "interval_s": 0.075, "mag": 30, "price": 900,  "ads_s": 0.26, "note": "controllabile" },
+    { "name": "Blitz",    "class": "smg", "damage": 16, "shots": [7, 8, 9], "interval_s": 0.052, "mag": 30, "price": 1000, "ads_s": 0.24, "note": "1150 rpm, solo corta distanza" },
+    { "name": "Scrap",    "class": "smg", "damage": 17, "shots": [6, 8, 9], "interval_s": 0.067, "mag": 20, "price": 600,  "ads_s": 0.24, "note": "arma da ECO" },
+
+    { "name": "Choke",    "class": "shotgun", "damage": 130, "shots": [1, 1, 2], "interval_s": 0.90, "mag": 6, "price": 1100, "ads_s": 0.30, "note": "pompa; ricarica 0.6 s per cartuccia" },
+    { "name": "Sweeper",  "class": "shotgun", "damage": 100, "shots": [1, 2, 2], "interval_s": 0.35, "mag": 7, "price": 1400, "ads_s": 0.32, "note": "semiauto, non uccide mai con 1 colpo" },
+
+    { "name": "Anvil",    "class": "rifle", "damage": 30, "shots": [4, 4, 5], "interval_s": 0.100, "mag": 30, "price": 1400, "ads_s": 0.30, "note": "unica AR che non perde colpi contro piastra leggera" },
+    { "name": "Service",  "class": "rifle", "damage": 25, "shots": [4, 5, 6], "interval_s": 0.086, "mag": 30, "price": 1400, "ads_s": 0.28, "note": "la standard" },
+    { "name": "Vantage",  "class": "rifle_semi", "damage": 60, "shots": [2, 2, 3], "interval_s": 0.40, "mag": 20, "price": 1800, "ads_s": 0.45, "note": "ADS piu lento del gioco" },
+
+    { "name": "Spotter",  "class": "sniper_semi", "damage": 75, "shots": [2, 2, 2], "interval_s": 0.35, "mag": 10, "price": 1800, "ads_s": 0.40, "note": "2 colpi anche contro piastra pesante" },
+    { "name": "Longshot", "class": "sniper_bolt", "damage": 150, "shots": [1, 1, 1], "interval_s": 1.40, "mag": 5, "price": 2400, "ads_s": 0.50, "note": "oneshot torso+; gambe 60 danni" }
+  ],
+
+  "knife": {
+    "damage": 55,
+    "interval_s": 0.6,
+    "quick_melee_damage": 45,
+    "quick_melee_s": 0.7,
+    "backstab_lethal": true,
+    "move_multiplier": 1.08
+  },
+
+  "specializations": [
+    { "name": "Decifratore", "effect": "crate 7.5s (5s with kit)", "malus": null },
+    { "name": "Rianimatore", "effect": "revive 10s bare (5s with medkit)", "malus": null },
+    { "name": "Portatore",   "effect": "core carry 4.8 m/s, no stamina drain", "malus": null },
+    { "name": "Ingegnere",   "effect": "robot place 1.5s, opens 10s, repairable", "malus": null },
+    { "name": "Ricognitore", "effect": "sensors +40% range, ping 4s, silent endoscope", "malus": null }
+  ],
+
+  "loadout": {
+    "max_presets": 5,
+    "chosen_during_loading": true,
+    "editable_until_round_1": true,
+    "locked_after": true,
+    "public": true,
+    "contains": ["pistol", "one_specialization", "one_fixed_consumable"],
+    "consumable_slots": 3,
+    "perks": false,
+    "classes": false,
+    "heroes": false
+  },
+
+  "performance_targets": {
+    "low":  { "gpu": "GTX 970",     "resolution": "1080p", "fps": 60,  "max_draw_calls": 900,  "max_triangles": 1200000, "visibility_m": 150 },
+    "high": { "gpu": "GTX 1070 Ti", "resolution": "1080p", "fps": 120, "max_draw_calls": 1500, "max_triangles": 2000000, "visibility_m": 400 },
+    "dev_graybox": { "max_draw_calls": 200, "max_triangles": 300000, "textures": false }
+  },
+
+  "forbidden": [
+    "respawn",
+    "classes",
+    "heroes",
+    "perks",
+    "functional_progression",
+    "pay_to_win",
+    "destruction",
+    "breaching",
+    "door_wedge",
+    "vehicles",
+    "loot_boxes_purchasable",
+    "live_sensor_marker",
+    "non_optics_attachments"
+  ]
+}

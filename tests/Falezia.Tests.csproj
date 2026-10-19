@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    QUESTO PROGETTO È IL CANCELLO ARCHITETTURALE.
+    Compila solo sim/ e net/, che NON devono contenere "using Godot".
+    Se qualcuno aggiunge una dipendenza dal motore nella simulazione,
+    questo progetto smette di compilare. Il confine è verificato dal compilatore.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>Falezia.Tests</AssemblyName>
+    <RootNamespace>Falezia.Tests</RootNamespace>
+    <LangVersion>12</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="../game/sim/**/*.cs" />
+    <Compile Include="../game/net/**/*.cs" />
+  </ItemGroup>
+</Project>
