@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a18427-68c7-76c5-930a-d28d89700a1b/output/model.glb?Expires=4946745600&Signature=IOoR9rr25Y653UoSBwigGO92iGl8niBG21LUa~HsOUx62gcwQ7DNHpLBHtKDbh~UJP7FFIepBws-dtIFx2vOg4M3qBXyT96HexcNCmmJWTmyB4EC~0PKQ3i3Ib73ZiSiPx15oHrJOdVaWvlLjFHXetVbZFusUhUdBG24-ucZWzG11UsZpDFLdoQUvD7cqPXQYJySUV~4wvEyopsk~xdArjcJBgh6AlRLTXPnHq7EjIusWwzEl5gy6HzkQozpdDpAMM~N~~EvRMWA-~xTcYx6HtM614deJ3H7ghy2idE0pQxM1NjfYG4-prKb2ci0wkcN5G0mvDLPcufZKdya~SzkMg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "casse_pesce",
+ "prompt": "Stack of weathered light-wood fish crates with iron straps, crushed ice and a few fish inside, two crates slightly offset and one lid open. Real-world scale 2.5 x 1.0 x 2.5 m. Stylized game prop, Valorant-like art direction: clean readable forms, matte PBR, subtle hand-painted wear, no photorealism. Single object, no ground plane, no text, no shadow, no background, no baked lighting.",
+ "preview_task_id": "01a18424-3b75-774f-a29a-90fffe03f54c",
+ "texture_task_id": "01a18427-68c7-76c5-930a-d28d89700a1b",
+ "bytes": 38235332
+}

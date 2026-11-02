@@ -1,0 +1,8 @@
+{
+ "id": "cemento_lastre",
+ "tile_m": 6.0,
+ "relief_m": 0.01,
+ "style": 1.3,
+ "source": "procedurale",
+ "size": 2048
+}

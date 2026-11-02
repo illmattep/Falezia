@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a184e9-3e8f-75f3-af93-fa706f2d22dc/output/model.glb?Expires=4946745600&Signature=PHLjslsxidv3Q8VSux-WFxW7KOwZsfTmyECp03XKEI2R-iSyYwWsWc2r94B3cqo3tfHXILZpF7g6wNkTffBUZ7y87wj-oOJWcvKlKYG-XfkVXGniyLrilQrXKXYON5vrHIXx3RQE5rTNu2jXcwqfMrXDZHcsfYgs7gxJJsZIEh2ya~BseErSoAYiWIRgnEKbWwyFCjrNZxAlRq0MOz6Efvl5jwkq61HKF2rqjt37zh3QgZTmbFF13cHH4rVkV3zoUXjEc1pl8PyzyufVjHKKloE4WLMBjSDV720OW243-Lh9zbC-QtSBmVp-9V~Sem-b5pxYEPhwas2JYBOvRQPdiA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "fontana_piazza",
+ "prompt": "Old Mediterranean stone fountain for a harbor piazza: octagonal basin, central carved pillar with a spout and a small upper bowl, weathered limestone, algae and water stains at the base. Real-world scale 3.2 x 3.2 x 2.6 m. Stylized game prop, Valorant-like art direction: clean readable silhouette, matte PBR with subtle hand-painted wear, no photorealism, no text, no logos. Single object, no ground plane, no background, no shadow, no baked lighting. ",
+ "preview_task_id": "01a184e8-422d-701f-a257-2f191ceca09a",
+ "texture_task_id": "01a184e9-3e8f-75f3-af93-fa706f2d22dc",
+ "bytes": 20511164
+}

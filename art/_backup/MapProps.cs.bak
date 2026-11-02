@@ -1,0 +1,200 @@
+using System.Collections.Generic;
+using System.IO;
+using GLTFast;
+using UnityEngine;
+
+/// <summary>
+/// I MODELLI DELLA MAPPA.
+///
+/// Legge `StreamingAssets/map/props.json` — generato da `tools/map-assets/make_placement.py`
+/// — e mette in scena i GLB (arredo urbano, porte, negozi, gusci delle caverne, cassa
+/// dell'obiettivo) alle coordinate del mondo.
+///
+/// Un import per modello, poi una istanza per posizione: i materiali e le mesh sono
+/// condivisi, quindi 500 oggetti costano molto meno di 500 import.
+///
+/// Se un GLB manca, quel gruppo si salta e il resto della mappa si carica lo stesso:
+/// la mappa non deve mai restare nera per un asset assente.
+/// </summary>
+public sealed class MapProps : MonoBehaviour
+{
+    [System.Serializable]
+    public sealed class Item
+    {
+        public string model;
+        public float x, y, z;
+        public float rot;
+        public float scale;
+    }
+
+    [System.Serializable]
+    public sealed class Data
+    {
+        public Item[] items;
+    }
+
+    private static readonly List<GameObject> _roots = new();
+    private static readonly Dictionary<string, GltfImport> Loaded = new();
+    private static Transform _placedRoot;
+
+    /// <summary>
+    /// APPOGGIA A TERRA. I modelli arrivano con pivot diversi: alcuni al piede, altri al centro
+    /// dell'ingombro. Senza questo, panche e casse restano sospese o interrate di mezzo metro.
+    /// Si misura l'ingombro reale e si sposta il figlio di quanto serve.
+    /// </summary>
+    private static void SitOnGround(GameObject go)
+    {
+        var renderers = go.GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0) return;
+
+        var b = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++) b.Encapsulate(renderers[i].bounds);
+
+        float drop = go.transform.position.y - b.min.y;
+        if (Mathf.Abs(drop) < 0.02f) return;
+
+        foreach (var r in renderers)
+            r.transform.position += Vector3.up * drop;
+    }
+
+    /// <summary>Carica (una volta) e mette in scena un modello. Usata dal piazzatore.</summary>
+    public static async System.Threading.Tasks.Task<GameObject> SpawnOne(Item it)
+    {
+        string path = Path.Combine(Application.streamingAssetsPath, it.model + ".glb");
+        if (!File.Exists(path)) return null;
+
+        if (!Loaded.TryGetValue(it.model, out var gltf))
+        {
+            gltf = new GltfImport();
+            if (!await gltf.Load(path)) return null;
+            Loaded[it.model] = gltf;
+        }
+
+        if (_placedRoot == null)
+        {
+            var holder = new GameObject("Modelli piazzati");
+            DontDestroyOnLoad(holder);
+            _placedRoot = holder.transform;
+        }
+
+        var go = new GameObject("piazzato");
+        go.transform.SetParent(_placedRoot, false);
+        go.transform.position = new Vector3(it.x, it.y, it.z);
+        go.transform.rotation = Quaternion.Euler(0f, it.rot, 0f);
+        go.transform.localScale = Vector3.one * (it.scale <= 0f ? 1f : it.scale);
+
+        var inst = new GameObjectInstantiator(gltf, go.transform);
+        await gltf.InstantiateMainSceneAsync(inst);
+        GltfMaterials.ToUrp(go);
+        return go;
+    }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    private static void Boot()
+    {
+        var go = new GameObject("MapProps");
+        DontDestroyOnLoad(go);
+        go.AddComponent<MapProps>();
+    }
+
+    private async void Start()
+    {
+        string basePath = Application.streamingAssetsPath;
+        string jsonPath = Path.Combine(basePath, "map", "props.json");
+
+        if (!File.Exists(jsonPath))
+        {
+            Debug.Log("MapProps: nessun props.json, la mappa resta com'è");
+            return;
+        }
+
+        Data data;
+        try
+        {
+            data = JsonUtility.FromJson<Data>(File.ReadAllText(jsonPath));
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning($"MapProps: props.json illeggibile ({e.Message})");
+            return;
+        }
+
+        if (data?.items == null || data.items.Length == 0) return;
+
+        // raggruppa per modello
+        var groups = new Dictionary<string, List<Item>>();
+        foreach (var it in data.items)
+        {
+            if (string.IsNullOrEmpty(it.model)) continue;
+            if (!groups.TryGetValue(it.model, out var list))
+                groups[it.model] = list = new List<Item>();
+            list.Add(it);
+        }
+
+        int placed = 0, missing = 0;
+        float start = Time.realtimeSinceStartup;
+
+        foreach (var kv in groups)
+        {
+            string path = Path.Combine(basePath, kv.Key + ".glb");   // il modello è già "map/..."
+            if (!File.Exists(path))
+            {
+                missing += kv.Value.Count;
+                continue;
+            }
+
+            var gltf = new GltfImport();
+            if (!await gltf.Load(path))
+            {
+                missing += kv.Value.Count;
+                Debug.LogWarning($"MapProps: import fallito per {kv.Key}");
+                continue;
+            }
+
+            var root = new GameObject(kv.Key.Replace('/', '_'));
+            root.transform.SetParent(transform, false);
+            _roots.Add(root);
+
+            foreach (var it in kv.Value)
+            {
+                // sui preset bassi i prop oltre la distanza del preset non si creano proprio
+                if (QualityPresets.PropDistance > 0f)
+                {
+                    float dx = it.x, dz = it.z;
+                    if (dx * dx + dz * dz > QualityPresets.PropDistance * QualityPresets.PropDistance)
+                    {
+                        missing++;
+                        continue;
+                    }
+                }
+
+                var go = new GameObject("i");
+                go.transform.SetParent(root.transform, false);
+                go.transform.position = new Vector3(it.x, it.y, it.z);
+                go.transform.rotation = Quaternion.Euler(0f, it.rot, 0f);
+                float s = it.scale <= 0f ? 1f : it.scale;
+                go.transform.localScale = new Vector3(s, s, s);
+
+                var instantiator = new GameObjectInstantiator(gltf, go.transform);
+                await gltf.InstantiateMainSceneAsync(instantiator);
+                GltfMaterials.ToUrp(go);
+                placed++;
+            }
+        }
+
+        // unisce le mesh statiche per modello: le draw call crollano, i materiali restano condivisi
+        int merged = 0;
+        foreach (var root in _roots)
+        {
+            if (root == null) continue;
+            foreach (Transform child in root.transform)
+            {
+                StaticBatchingUtility.Combine(child.gameObject);
+                merged++;
+            }
+        }
+
+        float ms = (Time.realtimeSinceStartup - start) * 1000f;
+        Debug.Log($"MapProps: {placed} oggetti in scena, {missing} saltati, {ms:F0} ms · {merged} gruppi batchati");
+    }
+}

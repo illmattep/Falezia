@@ -1,0 +1,28 @@
+{
+  "id": "longshot",
+  "class": "Fucile a otturatore",
+  "tris": 45788,
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 1.533
+    },
+    "fire_last": {
+      "length_s": 1.533
+    },
+    "reload": {
+      "length_s": 2.533
+    },
+    "reload_empty": {
+      "length_s": 3.0
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  }
+}

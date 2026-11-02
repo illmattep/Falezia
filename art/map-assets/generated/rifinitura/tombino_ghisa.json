@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a1851a-ccd7-70c2-b184-2888bae2c3c7/output/model.glb?Expires=4946832000&Signature=SgnhzQRlZgIHeecAECYgKP~JRTVNgQ1FJE5HlHALE4pBtPwtJ2c6RX670AFvHqFxBPUknC8dyZOeQjk5mCLagaiBreQMVtyvaIQPbj7oqa-5mXyNow9brC82SERtR9nNBYwvX81ohIoCmZM7t2rNOH8209LME~-4K2XPh9OenC9djbOEBqSrupm-g46b7nOF4N3UkmOcw2jq40R6KgwXShXrTQXXQMXtfe5MAEzEs5KQiszboKnBuEkpUwEWiWHfKmvis0Eek8r4mZOitDZJzbgHwGH8jcdz6Ddhsx5RzGX4aInPUAQLfbJwObPKfFYmuvE1jfsWR-cxVRsaDWXKmQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "tombino_ghisa",
+ "prompt": "Ornate cast-iron manhole cover, circular, radial ribs and a central boss, worn edges, rust in the recesses. Real-world scale 0.7 x 0.06 x 0.7 m. Stylized game prop, Valorant-like art direction: clean readable silhouette, matte PBR with subtle hand-painted wear, no photorealism, no text, no logos. Single object, no ground plane, no background, no shadow, no baked lighting. ",
+ "preview_task_id": "01a18519-cd8f-758f-9c6b-8a0c3d9f4fb6",
+ "texture_task_id": "01a1851a-ccd7-70c2-b184-2888bae2c3c7",
+ "bytes": 50622752
+}

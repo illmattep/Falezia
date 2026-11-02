@@ -67,6 +67,37 @@ sprint con l'arma in mano mai possibile.
 ---
 ---
 
+## Dispersione e cadenza: fermo, in movimento, in mira
+
+Il cono è in **gradi di semiapertura**. Non è un numero decorativo: la simulazione lo calcola a
+ogni tick (`Arsenal.SpreadAt`), il mirino sullo schermo è la **proiezione del cono vero**
+(`tan(cono) / tan(FOV/2)`), e ogni colpo campiona una direzione **dentro** quel cono con un seme
+deterministico: client e server possono ricalcolare la stessa traiettoria.
+
+| Arma | Fermo | In movimento | In mira | In mira e in movimento | Bloom per colpo | Tetto bloom | Richiusura |
+|---|---|---|---|---|---|---|---|
+| **Standard** | **0,50°** (22 cm a 25 m) | **2,60°** | **0,035°** (1,5 cm a 25 m) | 0,55° | +0,28° | 1,50° | 3,6°/s |
+| **Hush** | **0,42°** | **2,30°** | **0,025°** (1,1 cm a 25 m) | 0,48° | +0,24° | 1,30° | 3,4°/s |
+
+Modificatori: **accovacciato ×0,80** · **in aria ×1,80** (niente tiri al volo) · il bloom si somma
+al cono e rientra da solo.
+
+**Cadenza:** Standard **0,21 s = 288 RPM**, Hush **0,23 s = 264 RPM**. Semiautomatiche: un colpo
+per click, il client manda solo il fronte di salita.
+
+**Click in anticipo.** Se clicchi mentre l'arma è ancora in ciclo il colpo **non si perde**: resta
+in coda e parte appena la cadenza lo permette, ma solo entro **100 ms** (110 la Hush). Oltre quella
+finestra il click si scarta: niente colpi in ritardo di mezzo secondo e niente colpi in più.
+Tenere premuto non fa fuoco automatico — si contano i fronti del grilletto, non i tick.
+
+> Perché conta: il vantaggio di una pistola non è il danno, è **quanto in fretta il cono si
+> richiude**. La Standard è più veloce e più larga da fianco; la Hush è più lenta ma più precisa
+> in mira. Se un giorno i numeri non convincono, si cambiano in `game/sim/Weapons.cs` e i test
+> dicono subito cosa si è rotto.
+
+---
+---
+
 # IL COLTELLO
 
 ## Combat Knife · sempre nel loadout · gratis
@@ -99,7 +130,7 @@ Vernice consumata sugli spigoli, numero di serie inciso sul fusto. Sembra uno st
 |---|---|
 | **Danno** | **25** · testa ×4 = **100 → un colpo alla testa uccide** |
 | **Colpi** | **4 / 5 / 6** |
-| **Cadenza** | 0,20 s (300 RPM) |
+| **Cadenza** | 0,21 s (288 RPM) |
 | **Caricatore** | 17 / 51 |
 | **Ricarica** | 1,5 s / 2,0 s |
 | **ADS** | **0,20 s** — il secondo più rapido del gioco |
@@ -122,7 +153,7 @@ tutta la mappa.** È l'unica arma silenziosa del gioco, ora che il soppressore n
 |---|---|
 | **Danno** | **22** · testa ×4 = **88 → NON uccide con un colpo alla testa** |
 | **Colpi** | 5 / 6 / 7 |
-| **Cadenza** | 0,22 s |
+| **Cadenza** | 0,23 s (264 RPM) |
 | **Caricatore** | 15 / 45 |
 | **Ricarica** | 1,7 s / 2,2 s |
 | **ADS** | 0,24 s · in ADS 90% |
@@ -144,7 +175,7 @@ consumato**, guancette in gomma nera. Sembra un'arma vecchia con segni di offici
 |---|---|
 | **Danno** | **50** |
 | **Colpi** | **2 / 3 / 3** |
-| **Cadenza** | 0,25 s |
+| **Cadenza** | 0,28 s (216 RPM) |
 | **Caricatore** | 6 / 18 |
 | **Ricarica** | **3,0 s / 3,0 s** — con speedloader. **La più lenta del gioco**, e non c'è differenza fra tattica e a vuoto |
 | **ADS** | **0,16 s — il più rapido del gioco** |
@@ -167,7 +198,7 @@ da tiro, non militare** — ed è giusto che si veda che è fuori posto.
 |---|---|
 | **Danno** | **70** |
 | **Colpi** | **2 / 2 / 2** — uccide in due colpi **anche contro la piastra pesante** |
-| **Cadenza** | **0,55 s** — la più lenta fra le pistole |
+| **Cadenza** | **0,56 s** (108 RPM) — la più lenta fra le pistole |
 | **Caricatore** | 7 / 21 |
 | **Ricarica** | 2,1 s / 2,8 s |
 | **ADS** | 0,35 s · in ADS 84% |
@@ -189,7 +220,7 @@ progettato** — e infatti lo è.
 |---|---|
 | **Danno** | **18** · testa ×4 = 72 |
 | **Colpi** | 6 / 7 / 8 |
-| **Cadenza** | **1000 RPM (0,06 s)** |
+| **Cadenza** | **742 RPM (0,081 s)** |
 | **Caricatore** | 20 / 60 |
 | **Ricarica** | 1,8 s / 2,4 s |
 | **ADS** | 0,28 s · in ADS 90% |
@@ -216,7 +247,7 @@ caricatore curvo a banana. Vernice consumata sul selettore di fuoco e sull'impug
 |---|---|
 | **Danno** | **20** · testa ×4 = **80 → NON uccide con un colpo alla testa** |
 | **Colpi** | 5 / 6 / 7 |
-| **Cadenza** | 800 RPM (0,075 s) |
+| **Cadenza** | 626 RPM (0,096 s) |
 | **Caricatore** | 30 / 90 |
 | **Ricarica** | 2,2 s / 2,9 s |
 | **ADS** | 0,26 s |
@@ -239,7 +270,7 @@ blocco squadrato senza caricatore sporgente.
 |---|---|
 | **Danno** | **16** · testa ×4 = 64 |
 | **Colpi** | 7 / 8 / 9 |
-| **Cadenza** | **1150 RPM (0,052 s)** |
+| **Cadenza** | **837 RPM (0,072 s)** |
 | **Caricatore** | 30 / 90 |
 | **Ricarica** | 2,4 s / 3,1 s |
 | **ADS** | 0,24 s |
@@ -262,7 +293,7 @@ e deve sembrarlo: la silhouette è spigolosa e grezza.
 |---|---|
 | **Danno** | **17** · testa ×4 = 68 |
 | **Colpi** | 6 / 8 / 9 |
-| **Cadenza** | 900 RPM (0,067 s) |
+| **Cadenza** | 720 RPM (0,083 s) |
 | **Caricatore** | 20 / 60 |
 | **Ricarica** | **2,0 s / 2,6 s** — la più rapida delle primarie |
 | **ADS** | 0,24 s |
@@ -291,7 +322,7 @@ Silhouette lunga, sottile e senza caricatore.
 |---|---|
 | **Danno** | **130** a bruciapelo · 90 a 6 m · 45 a 12 m · 15 a 20 m |
 | **Colpi** | **1 / 1 / 2** |
-| **Cadenza** | **0,90 s** (pompata manuale) |
+| **Cadenza** | **0,91 s** (66 RPM, pompata manuale) |
 | **Caricatore** | 6 / 24 — **a tubo, cartuccia per cartuccia** |
 | **Ricarica** | 0,6 s per cartuccia, **parziale e interrompibile** |
 | **ADS** | 0,30 s |
@@ -314,7 +345,7 @@ a scatola estraibile** (non a tubo) e maniglione di trasporto. Più militare e p
 |---|---|
 | **Danno** | **100** a bruciapelo · 75 a 6 m · 40 a 12 m · 12 a 20 m |
 | **Colpi** | **2 / 2 / 2** — **non uccide mai con un colpo** |
-| **Cadenza** | **0,35 s** |
+| **Cadenza** | **0,45 s** (132 RPM) |
 | **Caricatore** | 7 / 21 |
 | **Ricarica** | **2,6 s / 3,4 s** — con caricatore, non cartuccia per cartuccia |
 | **ADS** | 0,32 s |
@@ -341,7 +372,7 @@ paramano. **È l'arma più vecchia dell'arsenale, e la più rispettata.**
 |---|---|
 | **Danno** | **30** · testa ×4 = **120 → un colpo alla testa uccide** |
 | **Colpi** | **4 / 4 / 5** — **l'unica AR che non perde un colpo contro la piastra leggera** |
-| **Cadenza** | 600 RPM (0,10 s) |
+| **Cadenza** | 649 RPM (0,093 s) |
 | **Caricatore** | 30 / 90 |
 | **Ricarica** | 2,6 s / 3,3 s |
 | **ADS** | 0,30 s · in ADS 55% |
@@ -364,7 +395,7 @@ l'arma più istituzionale: sembra emessa da un deposito.
 |---|---|
 | **Danno** | **25** · testa ×4 = **100 → un colpo alla testa uccide** |
 | **Colpi** | 4 / 5 / 6 |
-| **Cadenza** | 700 RPM (0,086 s) |
+| **Cadenza** | 735 RPM (0,082 s) |
 | **Caricatore** | 30 / 90 |
 | **Ricarica** | **2,3 s / 3,0 s** |
 | **ADS** | 0,28 s · in ADS 55% |
@@ -387,7 +418,7 @@ fucile d'assalto, è un fucile da tiro militare.
 |---|---|
 | **Danno** | **60** · testa ×4 = 240 |
 | **Colpi** | **2 / 2 / 3** |
-| **Cadenza** | **0,40 s** (semiauto forzato) |
+| **Cadenza** | **0,45 s** (132 RPM, semiauto forzato) |
 | **Caricatore** | 20 / 60 |
 | **Ricarica** | 2,8 s / 3,5 s |
 | **ADS** | **0,45 s — il più lento del gioco** |
@@ -415,7 +446,7 @@ alla guerra. **L'ottica è parte della silhouette**, e la distingue da tutte le 
 |---|---|
 | **Danno** | **75** |
 | **Colpi** | **2 / 2 / 2** — uccide in due colpi **anche contro la piastra pesante** |
-| **Cadenza** | **0,35 s** |
+| **Cadenza** | **0,42 s** (144 RPM) |
 | **Caricatore** | 10 / 30 |
 | **Ricarica** | 3,0 s / 3,8 s |
 | **ADS** | 0,40 s · in ADS **32%** |
@@ -439,7 +470,7 @@ sembrarlo: **non per eleganza, per massa.** Sembra un attrezzo da cantiere.
 | **Danno** | **150** · testa ×4 = 600 |
 | **Colpi** | **1 / 1 / 1** — uccide con un colpo al torso o più in alto, **sempre** |
 | **Colpo alle gambe** | **60 danni** → il bersaglio sopravvive e ti ha visto |
-| **Cadenza** | **1,40 s** (ciclo dell'otturatore) |
+| **Cadenza** | **1,25 s** (48 RPM, ciclo dell'otturatore) |
 | **Caricatore** | 5 / 20 |
 | **Ricarica** | 3,2 s / 4,0 s |
 | **ADS** | 0,50 s · in ADS **22%** |
@@ -450,6 +481,164 @@ sembrarlo: **non per eleganza, per massa.** Sembra un attrezzo da cantiere.
 
 **Ruolo:** il colpo che decide il round. Con 1,40 s di ciclo, **sbagliare è perdere**: il nemico ha
 tutto il tempo per aggirarti. **E la mappa ha un anello proprio per questo.**
+
+---
+---
+
+# L'arsenale nel codice
+
+Tutte e quindici le armi (più la mitragliatrice e il coltello) esistono in gioco, con modello,
+animazioni e numeri della scheda. Un solo posto decide i numeri: `game/sim/Weapons.cs`
+(`WeaponDef`, `Arsenal.All`). Il client non li ricopia: legge `Arsenal.Get(slot)`.
+
+| Arma | `Id` | Modello | Slot | Classe di posa |
+|---|---|---|---|---|
+| Standard | `standard` | art/weapons (originale) | 0 | pistola |
+| Hush | `hush` | art/weapons (originale) | 1 | pistola |
+| Chatter | `chatter` | `arsenal.py` | 2 | pistola |
+| Snub | `snub` | `arsenal.py` | 3 | pistola |
+| Hammer | `hammer` | `arsenal.py` | 4 | pistola |
+| Cadence | `cadence` | `arsenal.py` | 5 | SMG |
+| Scrap | `scrap` | `arsenal.py` | 6 | SMG |
+| Blitz | `blitz` | `arsenal.py` | 7 | SMG |
+| Choke | `choke` | `arsenal.py` | 8 | pompa |
+| Sweeper | `sweeper` | `arsenal.py` | 9 | pompa |
+| Anvil | `anvil` | `arsenal.py` | 10 | fucile |
+| Service | `service` | `arsenal.py` | 11 | fucile |
+| Vantage | `vantage` | `arsenal.py` | 12 | fucile |
+| Spotter | `spotter` | `arsenal.py` | 13 | cecchino |
+| Longshot | `longshot` | `arsenal.py` | 14 | cecchino |
+| **Heavy** *(fuori roster)* | `heavy` | `arsenal.py` | 15 | LMG |
+| **Combat Knife** | `melee` | `arsenal.py` | 16 | coltello |
+
+> **L'indice dello slot va in rete**: si aggiunge in fondo, non si rinumera.
+
+## Le sette clip di ogni arma
+
+Ogni GLB porta `idle`, `fire`, `fire_last`, `reload`, `reload_empty`, `draw`, `holster`, cotte a
+30 fps. Due dettagli che contano:
+
+- **La clip del colpo dura quanto il ciclo.** Il Blitz (0,052 s) ha un `fire` di 4 fotogrammi, il
+  Longshot (1,40 s) di 14. Così l'otturatore torna a posto prima del colpo dopo, invece di
+  sovrapporsi.
+- **La ricarica si adatta alla scheda.** La clip è cotta a una certa durata, ma è la simulazione a
+  decidere (`ReloadTactical`/`ReloadEmpty`): il viewmodel cambia la **velocità di riproduzione**
+  (`clip / durata`) invece di tagliare l'animazione a metà. È per questo che la Standard, con una
+  clip da 1,97 s e una ricarica da 1,5 s, finisce esattamente quando il caricatore è pieno.
+
+`fire_last` finisce con l'otturatore indietro e `reload_empty` riparte da lì: a caricatore vuoto
+l'arma **resta scarrellata** (il player va in pausa sull'ultimo fotogramma) finché non ricarichi.
+
+## I numeri, e da dove vengono
+
+| Cosa | Regola | Dove |
+|---|---|---|
+| **Cadenza** | `Cycle` in secondi fra due colpi (prima era `60 / RPM`: la divisione si leggeva male e sfuggiva al controllo) | `WeaponDef.Cycle` |
+| **Precisione** | centimetri a 25 m → gradi con `atan(cm / 2500)`; da fianco i numeri sono più larghi | `SpreadAds` · `SpreadStill` |
+| **Dispersione** | una formula sola per client, server e test | `Arsenal.SpreadAt` |
+| **Danno** | per **palla**; le pompe hanno `Pellets` (Choke 12 × 11 = 132, Sweeper 10 × 10 = 100) | `WeaponDef.Damage` · `Pellets` |
+| **Caduta** | da `FalloffStart` a `FalloffEnd`, con `FalloffMin` (0,12 per le pompe, 0,55 per le pistole) | `Arsenal.DamageAt` |
+| **Peso** | `MoveScale` toglie il 2–12% al passo; il coltello dà l'8% in più | `Simulation.StepPlayer` |
+| **Mira** | `AdsMoveScale` è il passo in mira: pistole 0,90–0,92, AR 0,55, Longshot 0,22 | idem |
+| **Rumore** | `NoiseMeters` 40 per la Hush, tutta la mappa per le altre | `WeaponDef.NoiseMeters` |
+
+**Automatiche e semiautomatiche.** Con `Automatic` il grilletto tenuto spara (Chatter, Cadence,
+Scrap, Blitz, Anvil, Service, Heavy); senza, conta solo il **fronte di salita** e tenere premuto
+non fa fuoco (Standard, Hush, Snub, Hammer, Choke, Sweeper, Vantage, Spotter, Longshot). Il click
+in anticipo resta in coda nella stessa finestra per tutte: metà ciclo, tappata a 0,7 s.
+
+**Il coltello** non consuma munizioni e non si ricarica: un colpo per click, 55 danni, 0,6 s.
+
+**Le pompe** sparano tutte le palle con lo stesso seme del colpo (`Arsenal.PelletDirection`): chi
+ricalcola il colpo ottiene le stesse dodici traiettorie, nello stesso ordine.
+
+## Modi di fuoco e ottiche
+
+**Nessun selettore: un'arma, un comportamento.** Non c'è un tasto per cambiare modo (la X non
+fa più niente). Ogni scheda dichiara come spara, e basta:
+
+| Arma | Comportamento | Come si usa |
+|---|---|---|
+| **Cadence** | **raffica da 3** | un click parte la raffica; **tenendo premuto le raffiche si susseguono** (0,115 s fra i colpi, 0,30 s di pausa fra una raffica e l'altra) |
+| Chatter, Scrap, Blitz, **Anvil, Service**, Heavy | **automatica** | tieni premuto e spara |
+| tutte le altre | **semiautomatica** | un colpo per click |
+
+**La raffica.** Un click arma tre colpi che escono alla cadenza dell'arma (Cadence: 0,096 s →
+0,17 s per la raffica). Tenendo premuto, finita una raffica parte la successiva dopo la pausa:
+non serve rilasciare e ripremere. Un click nuovo apre subito la raffica (salta la pausa), un click
+durante la raffica non aggiunge colpi, e se il caricatore si svuota a metà la raffica muore lì.
+Ricaricare annulla la raffica in corso.
+
+**Il grilletto è uno stato, non un fronte.** `InputCmd.Fire` dice "premuto", e la simulazione
+ricava da sola il click (`FireLatch`). Così automatiche e raffiche funzionano anche quando il
+client manda lo stato a 64 Hz, e un click più rapido di un frame non si perde.
+
+## La serie di colpi (dispersione)
+
+Il cono non cresce in modo lineare: **i primi colpi sono puliti, poi si apre di molto**, come in
+CS/Valorant. Ogni scheda dichiara quanti colpi restano precisi e quanto ci mette il cono ad
+arrivare al tetto:
+
+| Classe | Colpi puliti | Colpi per arrivare al tetto | Tetto |
+|---|---|---|---|
+| Fucili d'assalto | 3 | 7 | 2,4–3,6° |
+| SMG / PDW | 4 | 8 | 2,2–3,2° |
+| Mitragliatrice | 5 | 9 | 3,4° |
+| Pistole | 2 | 4 | 1,3–1,9° (rivoltelle 3–4,2°) |
+| Cecchini | 2 | 3 | 3,8–6,0° |
+| Pompe | 1 | 3 | 3,2–3,5° |
+
+Il cono in più è `SpreadPeak · (k / SpreadRamp)^1,55`, dove `k` è il numero di colpi oltre la
+finestra pulita; **0,34 s di silenzio azzerano la serie**. Quindi: tre colpi mirati, il quarto
+comincia a spostarsi, dall'ottavo in poi il fucile "si siede" e conviene lasciarlo raffreddare.
+La curva sta nella simulazione (`Arsenal.SeriesSpread`), quindi client, server e test vedono la
+stessa dispersione.
+
+**Le ottiche.** L'ingrandimento è un dato dell'arma e agisce sul campo visivo in mira:
+
+| Arma | Ottica | Ingrandimento | FOV in mira (da 60°) | Reticolo |
+|---|---|---|---|---|
+| Vantage | ottica 3× | 3× | 21,8° | croce |
+| Spotter | ottica 4× | 4× | 16,4° | croce |
+| Longshot | ottica 6× | 6× | 11,0° | croce + tacche di profondità |
+| Cadence, Blitz | punto rosso | 1,2× | 60° | puntino rosso e anello |
+| le altre | mire metalliche | 1× | 58–64° per classe | — |
+
+La maschera nera col buco **entra solo a mira quasi completa** (0,55 → 0,92 di `AdsT`): prima
+sarebbe un telo nero. Col cannocchiale in faccia **si nasconde anche l'arma** (col FOV a 11° il
+viewmodel coprirebbe il cerchio) e la **sensibilità del mouse si divide per lo zoom**: un pixel
+vale quanto il campo visivo che hai davanti. Il mirino normale si nasconde quando l'ottica è in faccia, altrimenti si
+vedrebbero due mirini sovrapposti. Il vuoto del reticolo si allarga col **cono vero** della
+dispersione: quello che vedi è quello che spari.
+
+## I modelli: come sono fatti
+
+`art/weapons/arsenal/arsenal.py` genera i quindici modelli mancanti con la grammatica della
+Standard: masse semplici, spigoli vivi, bevel 1,2 mm a 40°, materiali opachi. Palette per
+carattere — polimero nero (Standard, Service, Cadence, Vantage, Longshot), legno (Anvil, Choke,
+Spotter, Hammer), acciaio (Snub, Hammer), lamiera grigia (Scrap, Heavy), polimero grigio-verde
+(Blitz). Origine al centro dell'impugnatura, **+Y = canna**, socket `socket_muzzle`,
+`socket_eject`, `socket_aim`, `socket_hand_r`, `socket_hand_l`.
+
+Il foglio di controllo è `art/weapons/arsenal/sheet.py` (17 armi in profilo) e
+`art/weapons/arsenal/closeup.py` (primo piano di due o tre): servono a giudicare le silhouette
+senza aprire Godot, che su questa macchina non è installato.
+
+## Il viewmodel, visto fuori dal motore
+
+Anche la posa in prima persona si controlla senza Godot: `art/weapons/arsenal/viewmodel_preview.py`
+rimette il modello sotto una camera con **FOV 85 verticale**, applica la stessa posa di
+`WeaponView.cs` (hip e mira, scala per classe, `socket_aim`) e rende un'immagine per ogni arma.
+Le pose sono **copiate** dal C#: se cambiano là, si cambiano qui.
+
+Le regole che sono uscite da quelle prove:
+
+| Regola | Perché |
+|---|---|
+| **L'impugnatura in mira sta a una distanza fissa per classe** (pistola 22,5 cm, fucile 17) | Allineare il mirino a una distanza fissa incollava all'occhio le armi con l'ottica molto avanti: il Blitz in mira era un muro grigio. Ora X e Y vengono dal `socket_aim`, la Z dalla posa |
+| **Le armi lunghe stanno più avanti e più al centro** (x 14,5 cm, z 29 cm) | A 20 cm e 17,6 cm a destra il castello usciva dal bordo dello schermo |
+| **Il coltello si tiene di taglio** (22° di becco, −52° di imbardata) | Con la lama dritta davanti alla camera si vedeva solo la punta |
+| **Il coltello non "mira"** | Non ha mirino: in ADS si alza e si porta verso il centro, senza allineare niente |
 
 ---
 ---
@@ -562,3 +751,112 @@ Ogni arma si descrive in una riga, e **nessuna coppia si gioca uguale**.
    quando vuoi.
 3. **I due numeri più a rischio:** il **Longshot** ($2.400 e 1,40 s di ciclo) e il **Vantage**
    (ADS 0,45 s). Vanno tarati nei playtest per primi.
+
+
+---
+
+# I modelli, seconda generazione
+
+La prima generazione (`art/weapons/arsenal/arsenal.py`) era una catena di scatole: leggeva come
+un'arma, ma da vicino si vedevano gli spigoli, le giunzioni e le texture impacchettate. La seconda
+generazione (`art/weapons/arsenal2/`) riscrive il motore geometrico e i materiali.
+
+| Pezzo | Cosa fa |
+|---|---|
+| `fetch_mats.py` | **Dodici famiglie fotografiche** scaricate da ambientCG (**polymer, stipple, steel, stainless, wood, sheet, green, brass, cloth, rubber, leather, concrete**) più due sintetiche (`void`, `glass`). CC0: nessuna attribuzione obbligatoria. Basecolor 1024², normal 512², ORM 256² (R occlusione, G roughness, B metallo), 3,1 MB in tutto |
+| `texgen.py` | Il primo generatore, procedurale: resta la fonte di `void` e della logica di normal/ORM. Superato dalle foto per le altre famiglie |
+| `sights.py` | **La prova delle mire**: per ogni arma mette la camera dietro il calcio, ortogonale, centrata sul socket `eye`, con due bacchette rosse che segnano la linea. Se tacca e mirino non sono alla stessa quota si vede subito |
+| `gunlib.py` | Primitive con profili veri: `sweep` (sezione estrusa lungo la canna), `prism` (profilo laterale estruso in X), `prism_var` (spessore variabile: la lama si assottiglia sul filo), `tube` (tubo cavo: silenziatori, campane), `strip_profile` (impugnature e caricatori curvi), `stock_profile` (calcio con pettine e pancia a curve di Bézier), `rail` (Picatinny con passo vero di 10 mm), `guard_profile` (guardia del grilletto a U) |
+| `build.py` | Le 17 schede con le misure vere e le 7 clip. Un comando: `blender -b --factory-startup -P art/weapons/arsenal2/build.py -- standard` |
+| `review.py` | Tre viste di controllo fuori dal motore: `closeup`, `sheet`, `viewmodel` (con le pose esatte di `WeaponView.cs`) |
+
+**Le regole che rendono i modelli leggibili in prima persona**
+
+1. **Ogni pezzo nasce da un profilo, non da scatole accostate.** Il carrello è una sezione
+   ottagonale estrusa; l'impugnatura è un profilo che si allarga e si restringe; il calcio ha il
+   pettine e la pancia a curve. Le scatole si vedono subito come scatole.
+2. **I pezzi si innestano.** L'impugnatura entra *dentro* il castello (testa piatta, nessuna
+   fessura), la guardia parte dal fusto, il calcio si sovrappone alla culatta di 6 mm.
+3. **La mira è un'altra storia.** La tacca posteriore è una U con due spalle e il mirino un palo con
+   il punto: in ADS si legge *attraverso*, non si guarda un blocco. Tacca e mirino stanno alla
+   **stessa quota H** (il filo delle orecchie e la punta del mirino): se una delle due è più bassa,
+   in puntamento si vede il mirino galleggiare sopra o sotto l'intaglio. Per le armi lunghe
+   `H = rz1 + 22 mm`, per le pistole `zs1 + 12,5 mm`, per i revolver `top + 8,5 mm`.
+4. **I dettagli negativi usano `void`.** Assole M-LOK, feritoie, finestrini, anime delle canne,
+   fresate: un materiale nero, opaco, senza rilievo. Prima erano scatole scure che sporgevano e
+   sembravano finestre illuminate.
+5. **UV a scala fissa.** `cube_project` da 8,5 cm: la densità di texel è la stessa su ogni pezzo,
+   su ogni arma. Niente isole impacchettate, niente texture che si stira.
+6. **I pezzi mobili hanno l'origine sul perno.** Cane, grilletto, tamburo e otturatore ruotano
+   attorno al loro asse, non attorno all'origine dell'arma. Prima il cane ruotava di 24° attorno
+   all'impugnatura e finiva a 4 cm dal fusto.
+7. **Niente sporgenze sulla linea di mira.** Blocco gas, maniglione di trasporto, cresta del cane e
+   culatta dei revolver devono restare *sotto* H. Il maniglione della Heavy è passato sulla canna,
+   il tubo del gas è sceso di 6 mm, la culatta del tamburo di 11 mm: prima in ADS si vedeva un
+   cilindro (o un maniglione) al posto del mirino.
+8. **Il punto rosso è un TELAIO, non una scatola.** Due spalle da 2,8 mm, ponte da 4,2 mm,
+   vetro da 19 mm **trasparente** (alfa 0,16, `alphaMode: BLEND` nel GLB): prima il vetro era opaco
+   e in mira si guardava una biglia blu dentro un telaio da 6 mm. Sul Blitz il dot sale su un rialzo
+   di 16 mm, perché il caricatore orizzontale sta sopra il castello e tagliava la linea di mira.
+9. **L'occhio è un socket, non un numero.** Ogni arma ha `socket_eye` sulla linea di mira
+   (15,5 cm dietro la tacca, 7,5 cm dietro l'oculare del cannocchiale). In ADS è **quello** che il
+   viewmodel porta sull'asse della camera, non la mira: la mira di un fucile sta quasi alla volata,
+   e allineando quella l'arma finiva dietro l'obiettivo — si vedeva il fucile tagliato e le tacche
+   "in mezzo alle scatole".
+
+**Le sette clip** durano quanto la scheda: `idle` 36 fotogrammi di respiro, `fire` e `fire_last`
+(colpo secco, otturatore che resta indietro sull'ultimo), `reload` e `reload_empty` (caricatore che
+esce inclinato, arma che si abbassa di 14 mm e ruota di 5°, otturatore che si chiude a fine
+ricarica a vuoto), `draw` e `holster` (entra da +5,5 cm con 17° di becco).
+
+
+---
+
+# Cadenza e rinculo (seconda passata)
+
+**Cadenze.** Tutte le armi sono state rallentate del 20–40% e riallineate ai riferimenti di
+Valorant: pistole 240/220 RPM, automatica 620, rivoltelle 180/90, SMG 520 (raffica) / 600 / 700,
+pompe 55/110, fucili **540 (Anvil) e 610 (Service) — entrambi full-auto**, cecchini 110/120/40,
+mitragliatrice 660. Il ciclo (`WeaponDef.Cycle`, in secondi) è anche la durata della clip `fire`,
+che viene rigenerata a ogni build: le armi lente hanno animazioni lunghe quanto il loro ciclo
+(il tetto della clip è passato da 24 a 40 fotogrammi, altrimenti la pompa da 1,09 s veniva tagliata).
+
+**Rinculo alla Valorant.** La canna sale di molto nei primi colpi e sempre meno dopo
+(`RecoilUp = 0,34 + 0,0165 × danno`), con una deriva orizzontale a zig-zag (`0,06 + 0,0065 × danno`),
+ridotta del 28% in mira. La mira **rientra esattamente dove era** 0,10 s dopo l'ultimo colpo, e i
+colpi seguono la camera VERA (rinculo compreso): prima la traiettoria usava yaw/pitch senza il
+rinculo, quindi si sparava sempre al punto pre-rinculo mentre lo schermo saliva.
+
+## Aggiornamento 26 ottobre 2026 · cadenze +20%
+
+Su richiesta di design **tutte le cadenze sono state velocizzate del 20%**: pistole 288/264,
+automatica 742, rivoltelle 216/108, SMG 626/720/837, pompe 66/132, fucili 649/735/132,
+cecchini 144/48, mitragliatrice 791, coltello un fendente ogni 0,50 s. Le schede qui sopra e i
+test sono allineati a questi numeri: il riferimento Valorant resta il punto di partenza, non un
+vincolo. Le **ricariche non sono cambiate**: il tempo per ricaricare è la valvola che tiene in
+piedi il ritmo quando la cadenza sale.
+
+Con l'occasione è stato corretto un difetto che rendeva la cadenza **finta**. Il cooldown del colpo
+veniva azzerato a ogni sparo, quindi a 64 Hz la cadenza vera era sempre il multiplo di tick
+successivo: una SMG da 837 RPM ne faceva **640**, e il +20% sarebbe stato invisibile proprio sulle
+armi veloci (dove conta). Ora il resto che avanza sotto il tick viaggia nel colpo successivo
+(`Simulation.ApplyWeapon`, pavimento a −dt, nessun accumulo dopo una pausa) e un test misura la
+cadenza vera in un secondo di grilletto: *armi: a 64 Hz la cadenza vera è quella della scheda*.
+
+---
+
+## Le armi sono ISTANZE (26 ottobre 2026)
+
+Un'arma non è uno slot: è un oggetto con le **sue** munizioni, il segno di "comprata in questa fase
+di acquisto" e la tasca che l'ha pagata. Da lì vengono le regole:
+
+- **ricomprarla** ridà caricatore e riserva pieni, e la paghi;
+- la sostituita **comprata in questa fase si vende** (rimborso intero); quella **portata dal round
+  prima si lascia a terra**;
+- **G** la lancia ~1,2 m in avanti, **F** raccoglie quella più vicina (entro 2 m) con le sue munizioni;
+- morendo le armi cadono dove sei; a fine round il campo si pulisce, e chi è sopravvissuto tiene il
+  loadout con i caricatori pieni.
+
+Regole e soldi: `game/sim/Economy.cs` (`Shop`, `Economy`) e doc [04](04-economia-e-acquisti.md).
+Suoni: `docs/17-audio-armi.md`. Nel client: `DroppedWeapons` (volumi a terra, suono 3D della caduta,
+suggerimento di raccolta).

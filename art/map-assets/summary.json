@@ -1,0 +1,56 @@
+{
+ "map": {
+  "bounds_m": [
+   180,
+   200
+  ],
+  "built_m2": 21148,
+  "open_m2": 14852,
+  "lots": 358,
+  "facade_m_one_floor": 2528,
+  "facade_m_weighted": 7610
+ },
+ "zones": {
+  "VIA_STRETTA": {
+   "lots": 58,
+   "facade_m": 319.8
+  },
+  "PORTO": {
+   "lots": 52,
+   "facade_m": 451.5
+  },
+  "SCALINATA": {
+   "lots": 23,
+   "facade_m": 128.9
+  },
+  "MERCATO": {
+   "lots": 35,
+   "facade_m": 168.1
+  },
+  "GALLERIA": {
+   "lots": 25,
+   "facade_m": 202.8
+  },
+  "PIAZZA": {
+   "lots": 33,
+   "facade_m": 189.6
+  },
+  "MURA": {
+   "lots": 70,
+   "facade_m": 511.5
+  },
+  "GROTTA": {
+   "lots": 9,
+   "facade_m": 114.0
+  },
+  "LUNGOMARE": {
+   "lots": 53,
+   "facade_m": 314.9
+  }
+ },
+ "heights": {
+  "9.0": 124,
+  "6.2": 114,
+  "11.8": 120
+ }
+}

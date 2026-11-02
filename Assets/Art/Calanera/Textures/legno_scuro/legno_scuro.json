@@ -1,0 +1,8 @@
+{
+ "id": "legno_scuro",
+ "tile_m": 1.5,
+ "relief_m": 0.006,
+ "style": 1.2,
+ "source": "meshy legno_porta_01",
+ "size": 2048
+}

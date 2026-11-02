@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a184ed-d7d1-72f6-b18e-85ef030ba949/output/model.glb?Expires=4946745600&Signature=B7GZqkKvgqloo9sZJWpoOhOLUJmlPWRYKOC5gHqKCec8QQtIb4aHtL0VMet9sHFwZERRS2DqFgUmTxXR5jnWUdHPt1rBbbkBoPq2N5WKoAomeKzg-pMV6wbnYJ5XpgwkwzSG51Gt312iaG~LNWme1qVNMtHCV2-xn9JrNxqY3b0NSLf6VqWBvhAReSznJw7LxLc7mjxcaxrVmiafV17vdd4V47l2znlVtWxqeLvMfYFECKRNvXFKUMH9GFovKxjiuec-Cr68Wd2V4JsBaja2bEiOtj2H1vQGt2q57VQVN6JYzWhUFElzX~7yg7~crVZDpNokhwv6dq5owZlU0aNLDQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "barca_pesca",
+ "prompt": "Small wooden Mediterranean fishing dinghy, faded blue and white paint, two oars, coiled rope, a couple of cork floats and a folded net inside. Real-world scale 4.2 x 1.6 x 0.9 m. Stylized game prop, Valorant-like art direction: clean readable silhouette, matte PBR with subtle hand-painted wear, no photorealism, no text, no logos. Single object, no ground plane, no background, no shadow, no baked lighting. ",
+ "preview_task_id": "01a184ec-dc21-7610-847d-c53fc26febbf",
+ "texture_task_id": "01a184ed-d7d1-72f6-b18e-85ef030ba949",
+ "bytes": 54727992
+}

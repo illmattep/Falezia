@@ -120,7 +120,7 @@ lo cambia.*
 
 ## 7 · La mappa
 
-**Calanera**, 240 × 220 m. **Una croce con un anello**, non una croce: ogni spawn deve poter
+**Calanera**, 180 × 200 m (rivista a ottobre 2026: tre corsie per lato, vedi doc 02). **Una croce con un anello**, non una croce: ogni spawn deve poter
 raggiungere ogni estrazione con **almeno due rotte**, una delle quali non passa dal centro.
 
 | Ruolo | Zona |

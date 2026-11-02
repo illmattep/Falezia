@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Porto_LegnoVerniciato
+  m_Shader: {fileID: 4800000, guid: 77693cce02d0ce8aca887b6d39b90551, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _L0_Albedo:
+        m_Texture: {fileID: 2800000, guid: 0b7e4613606a34c6e9a1d83645eb1faa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L0_Mask:
+        m_Texture: {fileID: 2800000, guid: dd59ebcbad76cbdc99dcee6ce88cac1e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L0_Normal:
+        m_Texture: {fileID: 2800000, guid: 719b299a8499e3783ba0807346a31308, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L1_Albedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L1_Mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _L1_Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MacroTex:
+        m_Texture: {fileID: 2800000, guid: b68ada75e98ada40eb1e031a4ea39fa2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BlendDepth: 0.1
+    - _DamageAmount: 0.25
+    - _DamageBottom: 0.3
+    - _DamageBottomHeight: 1.4
+    - _DamageContrast: 4
+    - _DamageScale: 9
+    - _EdgeShadow: 0.3
+    - _GrimeAmount: 0.25
+    - _GrimeCavity: 1.5
+    - _GrimeFade: 0.45
+    - _GrimeHeight: 0.4
+    - _GrimeNoise: 1.2
+    - _GrimeSmoothness: 0.1
+    - _GroundY: 0
+    - _HeightFromUV3: 0
+    - _L0_Hex: 0
+    - _L0_NormalStrength: 1
+    - _L0_Occlusion: 1
+    - _L0_Smoothness: 1
+    - _L0_Tile: 1
+    - _L1_Hex: 0
+    - _L1_NormalStrength: 1
+    - _L1_Occlusion: 1
+    - _L1_Smoothness: 1
+    - _L1_Tile: 1.2
+    - _MacroScale: 14
+    - _MacroStrength: 0.22
+    - _UVSpace: 1
+    - _UseLayer1: 0
+    - _VertexPaint: 0
+    m_Colors:
+    - _GrimeColor: {r: 0.62, g: 0.6, b: 0.55, a: 1}
+    - _L0_Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _L1_Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _MacroTint: {r: 0.95, g: 0.9, b: 0.82, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

@@ -34,15 +34,23 @@ public partial class ClientMain : Node3D
 
     private float _yaw, _pitch;
     private Camera3D _cam;
+    private Atmosphere _atm;
+    private LatencyGovernor _governor;
     private Crosshair _crosshair;
     private Label _tl, _tr, _tc, _bl, _br, _hint;
 
     public override void _Ready()
     {
-        _world = WorldState.MakeTestWorld();
+        GraphicsSettings.ApplyGlobal();
+        _world = MapFiles.Load();
         BuildWorld();
         BuildHud();
         InputConfig.FpsDefaults();
+
+        _governor = new LatencyGovernor { Name = "BassaLatenza" };
+        AddChild(_governor);
+        GraphicsSettings.Changed += ApplyGraphics;
+        ApplyGraphics();
 
         var err = _peer.ConnectToHost(Constants.ServerHost, Constants.ServerPort);
         GD.Print(err == Error.Ok
@@ -54,40 +62,23 @@ public partial class ClientMain : Node3D
 
     private void BuildWorld()
     {
-        var mat = new StandardMaterial3D { AlbedoColor = new Color(0.54f, 0.55f, 0.58f), Roughness = 1f };
-        var matFloor = new StandardMaterial3D { AlbedoColor = new Color(0.30f, 0.31f, 0.34f), Roughness = 1f };
+        // la STESSA mappa del server: stesse scatole, stesso ordine, stessa simulazione
+        MapView.Build(this, _world);
+        _atm = Atmosphere.Create(this);
 
-        foreach (var b in _world.Boxes)
-        {
-            AddChild(new MeshInstance3D
-            {
-                Mesh = new BoxMesh { Size = new Vector3(b.Size.X, b.Size.Y, b.Size.Z) },
-                Position = new Vector3(b.Center.X, b.Center.Y, b.Center.Z),
-                MaterialOverride = b.Size.Y <= 1.01f ? matFloor : mat
-            });
-        }
-
-        AddChild(new DirectionalLight3D
-        {
-            RotationDegrees = new Vector3(-48f, -38f, 0f),
-            LightEnergy = 1.15f,
-            ShadowEnabled = true
-        });
-
-        AddChild(new WorldEnvironment
-        {
-            Environment = new Godot.Environment
-            {
-                BackgroundMode = Godot.Environment.BGMode.Color,
-                BackgroundColor = new Color(0.26f, 0.29f, 0.34f),
-                AmbientLightSource = Godot.Environment.AmbientSource.Color,
-                AmbientLightColor = new Color(0.55f, 0.58f, 0.66f),
-                AmbientLightEnergy = 1.0f
-            }
-        });
-
-        _cam = new Camera3D { Fov = 85f, Near = 0.05f, Far = 400f, Current = true };
+        _cam = new Camera3D { Fov = 85f, Near = 0.05f, Far = 440f, Current = true };
         AddChild(_cam);
+    }
+
+    private void ApplyGraphics()
+    {
+        GraphicsSettings.ApplyViewport(GetViewport());
+        GraphicsSettings.ApplyScene(_atm, _cam);
+    }
+
+    public override void _ExitTree()
+    {
+        GraphicsSettings.Changed -= ApplyGraphics;
     }
 
     // ==================================================================== HUD
@@ -128,7 +119,7 @@ public partial class ClientMain : Node3D
         _br = Hud("MUNIZIONI  — / —", 15, Ink, new Vector2(1f, 1f), new Vector2(-420f, -52f), new Vector2(-18f, -20f), HorizontalAlignment.Right);
         layer.AddChild(_br);
 
-        _hint = Hud("ESC libera il mouse · clicca per ricatturare", 11, Dim,
+        _hint = Hud("ESC libera il mouse · clicca per ricatturare · F10 impostazioni", 11, Dim,
             new Vector2(0.5f, 1f), new Vector2(-300f, -26f), new Vector2(300f, -6f), HorizontalAlignment.Center);
         layer.AddChild(_hint);
 
@@ -146,7 +137,7 @@ public partial class ClientMain : Node3D
             _yaw -= mm.Relative.X * 0.0025f;
             _pitch = Mathf.Clamp(_pitch - mm.Relative.Y * 0.0025f, -1.55f, 1.55f);
         }
-        else if (@event is InputEventMouseButton mb && mb.Pressed && !InputConfig.Captured)
+        else if (@event is InputEventMouseButton mb && mb.Pressed && !InputConfig.Captured && !SettingsPanel.IsOpen)
         {
             InputConfig.Capture();
         }
@@ -160,6 +151,10 @@ public partial class ClientMain : Node3D
             else if (k.Keycode == Key.F1)
             {
                 InputConfig.Capture();
+            }
+            else if (k.Keycode == Key.F10)
+            {
+                SettingsPanel.Open(this, _governor);
             }
         }
     }
@@ -235,6 +230,8 @@ public partial class ClientMain : Node3D
         {
             _myId = snap.YourId;
             _state = snap.State;
+            var me = _state.Get(_myId);
+            if (me != null) _yaw = MathF.Atan2(me.Pos.X, me.Pos.Z);   // si nasce guardando il centro
             GD.Print($"[client] id assegnato: {_myId}");
             return;
         }
@@ -301,10 +298,12 @@ public partial class ClientMain : Node3D
             if (kv.Key == _myId) continue;
             if (!_remoteMeshes.TryGetValue(kv.Key, out var mesh))
             {
+                // colore di squadra (doc 07): ciano Nord, arancio Sud. È informazione, quindi è saturo.
+                var team = MapFiles.IsNorth(kv.Key) ? new Color("#2E9BE6") : new Color("#E8632E");
                 mesh = new MeshInstance3D
                 {
                     Mesh = new CapsuleMesh { Radius = 0.32f, Height = 1.8f },
-                    MaterialOverride = new StandardMaterial3D { AlbedoColor = new Color(0.85f, 0.33f, 0.18f) }
+                    MaterialOverride = new StandardMaterial3D { AlbedoColor = team, Roughness = 0.7f }
                 };
                 AddChild(mesh);
                 _remoteMeshes[kv.Key] = mesh;
@@ -319,7 +318,7 @@ public partial class ClientMain : Node3D
 
         _tl.Text = _myId == 0
             ? "FALEZIA\nconnessione al server…"
-            : $"FALEZIA      id {_myId}      tick {_localTick}";
+            : $"FALEZIA · {_world.Name}      id {_myId} · {(MapFiles.IsNorth(_myId) ? "Nord, Porto Vecchio" : "Sud, Forte San Verano")}      tick {_localTick}";
 
         _tr.Text =
             $"fps  {Engine.GetFramesPerSecond(),4:F0}\nrtt  {_rttMs,4:F0} ms\n" +
@@ -333,8 +332,8 @@ public partial class ClientMain : Node3D
             float spread = Mathf.Clamp(hspeed * 1.1f, 0f, 14f) + (p.OnFloor ? 0f : 3f);
             _crosshair.SetSpread(spread);
             _hint.Text = InputConfig.Captured
-                ? "ESC mouse   ·   F1 ricattura"
-                : "mouse libero · clicca per ricatturare";
+                ? "ESC mouse   ·   F1 ricattura   ·   F10 impostazioni"
+                : "mouse libero · clicca per ricatturare · F10 impostazioni";
         }
     }
 }

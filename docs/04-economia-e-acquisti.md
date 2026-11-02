@@ -321,3 +321,50 @@ più transazioni di quante il tempo consenta, viene **respinto silenziosamente**
 
 **L'approvazione è un evento di rete validato**, non un flag locale. Altrimenti è la prima cosa
 che un cheat implementa.
+
+---
+
+# Cosa è implementato (26 ottobre 2026)
+
+Le regole delle armi sono in **`game/sim/Economy.cs`** (`Shop`), i soldi in **`Economy`** e in
+`MatchState`. Sono simulazione pura: le usano server, client offline e test. Una sola copia:
+se una regola cambia, cambia per tutti.
+
+## Le due tasche
+
+| Tasca | A inizio partita | Come si riempie | Cosa paga |
+|---|---|---|---|
+| **Fondo personale** (`PlayerState.Credits`) | **$1.000** | **+$200 per uccisione** | le spese **≤ $300** (utility, piastra leggera) |
+| **Cassa comune** (`MatchState.TeamFundsNorth/South`) | **$5.000 per squadra** | **premi di round**: +$3.000 vittoria, +$1.900/2.400/2.900 sconfitta | le **armi** (> $300) |
+
+L'ordine di pagamento è tollerante: se la tasca preferita non basta si attinge all'altra. La cassa
+è **condivisa**: due compagni che comprano nello stesso round spendono dallo stesso mucchio, e il
+premio di round entra **una volta per squadra**, non una per giocatore.
+
+## Le regole delle armi (stile Valorant)
+
+| Situazione | Cosa succede |
+|---|---|
+| Compri un'arma dello slot che hai già **vuoto** | paghi, l'arma è tua |
+| **Ricompri la stessa arma** | non è un doppione: **caricatore e riserva pieni**, e la paghi |
+| Sostituisci un'arma comprata **in questa fase di acquisto** | **la VENDI**: rimborso intero, nella tasca da cui erano usciti i soldi |
+| Sostituisci un'arma che ti portavi **dal round prima** | **non si vende**: finisce **a terra**, e chi passa la raccoglie |
+| La pistola gratis (Standard) | sparisce e basta: nessuno la vuole |
+| **G** | lasci andare l'arma in mano: parte **leggermente in avanti** (~1,2 m), cade, rimbalza e si posa con un tonfo di ferro |
+| **F** | raccogli l'arma a terra più vicina (2 m), **con le sue munizioni** |
+| Muori | le tue armi cadono dove sei (la Standard no) |
+| Fine round | chi è **vivo** tiene le armi e ritrova i caricatori pieni; chi è **morto** riparte dalla Standard |
+| Fine round (campo) | le armi a terra vengono **rimosse**: non passano il round |
+
+Ogni arma è un'**istanza**: munizioni, "comprata in questa fase", "pagata dalla cassa" viaggiano con
+l'oggetto quando lo lasci a terra e quando lo raccogli. È per questo che ricomprare ridà i proiettili
+e che un'arma trovata a terra può essere venduta solo se era stata comprata nella fase in corso.
+
+## Cosa manca ancora (dichiarato)
+
+| Cosa | Nota |
+|---|---|
+| **Approvazione di squadra** | Oggi la spesa oltre $300 passa senza il click di un compagno né i 5 s di silenzio-assenso: ogni transazione è **loggata e pubblica** (server + HUD), ma il flusso di voto non c'è |
+| **Rendiconto live in HUD** | L'HUD mostra la cassa, non ancora la lista delle spese del round |
+| **Consumabili e piastre** | Non esistono: la soglia dei $300 oggi non ha nulla da comprare sotto |
+| **Vendita a mano dal negozio** | La regola c'è (`Shop.Sell`), il pulsante no: oggi si vende solo sostituendo |

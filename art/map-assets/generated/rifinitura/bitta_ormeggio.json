@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a184f0-3f6d-741a-b578-10dbd11bae06/output/model.glb?Expires=4946745600&Signature=kZuV9RU~LV3~kI-XewVO8mOggPLkG2KAp1SdDj4SMHjiyG~DwEQjh33a9BenNH~Ajf87INf4-v~s5jRP6WZwL8QTBSy9nP45LBR2UX~0M0Sdy4ZPtMAhQ5kQvAAgusoA7tDEuFMZcKOqdNNftDQsAXljn0JHnvX2T8STjesKvQMZ3HMff5QxdtFMBO22cJI1Th2uSSRF0DHv-Ce577M6jHOEbJy9HUES5MALFtuFbwswFp7RyHvWGKvriCBWaOaI0btcwl~lXVwxRrvL14OAwY2PZcXQ1oQ4ktbbGSLLOb7~tq9i7RP-dKDyedJAf0fBVXXT7lvQ9PA8aU~xaLpUnw__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "bitta_ormeggio",
+ "prompt": "Cast-iron harbor mooring bollard, fluted octagonal base, mushroom-shaped top, thick rust and salt crust, worn edges. Real-world scale 0.35 x 1.0 x 0.35 m. Stylized game prop, Valorant-like art direction: clean readable silhouette, matte PBR with subtle hand-painted wear, no photorealism, no text, no logos. Single object, no ground plane, no background, no shadow, no baked lighting. ",
+ "preview_task_id": "01a184ef-8110-71ff-9f79-3f9a36d07168",
+ "texture_task_id": "01a184f0-3f6d-741a-b578-10dbd11bae06",
+ "bytes": 16996496
+}

@@ -1,0 +1,78 @@
+{
+  "id": "spotter",
+  "class": "Cecchino semiautomatico",
+  "source": "meshy",
+  "tris": 7998,
+  "tris_tp": 1500,
+  "size_mm": [
+    1225.0,
+    377.7,
+    91.7
+  ],
+  "size_mm_doc12": [
+    1225,
+    250,
+    62
+  ],
+  "material": "spotter_mat",
+  "parts": [
+    "body",
+    "mag"
+  ],
+  "sockets": {
+    "socket_muzzle": [
+      0.0,
+      0.0215,
+      -0.9212
+    ],
+    "socket_aim": [
+      0.0,
+      0.0923,
+      -0.0391
+    ],
+    "socket_eject": [
+      0.0367,
+      0.0666,
+      -0.1679
+    ],
+    "socket_hand_r": [
+      0.0,
+      -0.03,
+      -0.052
+    ],
+    "socket_hand_l": [
+      -0.0413,
+      -0.0493,
+      -0.5671
+    ],
+    "socket_eye": [
+      0.0,
+      0.0923,
+      0.1209
+    ]
+  },
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.533
+    },
+    "fire_last": {
+      "length_s": 0.533
+    },
+    "reload": {
+      "length_s": 2.267
+    },
+    "reload_empty": {
+      "length_s": 2.667
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  },
+  "origin": "allineata ad arsenal2: socket_hand_r nello stesso punto"
+}

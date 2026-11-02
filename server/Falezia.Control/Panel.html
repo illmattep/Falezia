@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FALEZIA · control plane</title>
+<style>
+  :root{
+    --bg:#0b0e13; --panel:#12171f; --panel2:#161d27; --line:#212b38;
+    --txt:#e8ecf1; --dim:#8a97a8; --accent:#ff4655; --ok:#35d07f; --warn:#f0b429; --bad:#ff5c5c;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  a{color:inherit}
+  header{display:flex;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(11,14,19,.94);backdrop-filter:blur(6px);z-index:10}
+  .brand{font-weight:800;letter-spacing:.14em;font-size:13px}
+  .brand i{color:var(--accent);font-style:normal}
+  .pill{display:inline-flex;align-items:center;gap:7px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--dim)}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--dim)}
+  .dot.ok{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+  .dot.bad{background:var(--bad)}
+  main{display:grid;grid-template-columns:minmax(420px,1fr) minmax(420px,1.1fr);gap:16px;padding:16px 20px 40px;align-items:start}
+  @media(max-width:1080px){main{grid-template-columns:1fr}}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:16px}
+  section > h2{margin:0;padding:11px 14px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .body{padding:14px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--dim);margin-bottom:5px}
+  input[type=text],input[type=number],select{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:6px;padding:8px 9px;font:inherit}
+  input:focus,select:focus{outline:1px solid #3a4a5f}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .switch{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;cursor:pointer;user-select:none}
+  .switch input{accent-color:var(--accent);width:16px;height:16px}
+  .switch b{font-size:12px;letter-spacing:.04em}
+  button{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:6px;padding:8px 12px;font:inherit;font-size:12.5px;cursor:pointer;transition:.12s}
+  button:hover{border-color:#37475c;background:#1b2432}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  button.primary:hover{filter:brightness(1.08)}
+  button.ghost{background:transparent}
+  button.small{padding:5px 9px;font-size:11.5px}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);font-weight:600}
+  tr:last-child td{border-bottom:none}
+  .mono{font-family:var(--mono);font-size:12px}
+  .badge{font-size:10.5px;padding:2px 7px;border-radius:4px;border:1px solid var(--line);text-transform:uppercase;letter-spacing:.07em}
+  .badge.ready{color:var(--ok);border-color:#1f5138;background:#0f2a1d}
+  .badge.starting{color:var(--warn);border-color:#4a3a12;background:#241c07}
+  .badge.dead,.badge.stopped{color:var(--bad);border-color:#4d2222;background:#2a1212}
+  .empty{color:var(--dim);font-size:12.5px;padding:10px 2px}
+  .kpi{display:flex;gap:22px;flex-wrap:wrap}
+  .kpi div span{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim)}
+  .kpi div b{font-size:20px;font-weight:700}
+  #logs{height:calc(100vh - 250px);min-height:320px;overflow:auto;padding:8px 0;font-family:var(--mono);font-size:12px;background:#0a0d12}
+  .ln{display:flex;gap:8px;padding:2px 12px;white-space:pre-wrap;word-break:break-word;border-left:2px solid transparent}
+  .ln:hover{background:#11161e}
+  .ln .t{color:#5b6879;flex:0 0 auto}
+  .ln .s{flex:0 0 auto;color:#7f8ea3;min-width:52px}
+  .ln .m{flex:1 1 auto}
+  .ln.warn{border-left-color:var(--warn)} .ln.warn .m{color:#f3d08a}
+  .ln.error{border-left-color:var(--bad)} .ln.error .m{color:#ffa8a8}
+  .ln.debug .m{color:#6f7d90}
+  .ln.client .s{color:#6ea8ff}
+  #toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#1b2432;border:1px solid var(--line);padding:10px 16px;border-radius:8px;opacity:0;pointer-events:none;transition:.2s;max-width:80vw}
+  #toast.show{opacity:1}
+  #toast.bad{border-color:#5a2626;background:#2a1414}
+  .hint{font-size:11.5px;color:var(--dim);margin-top:8px;line-height:1.5}
+  .auth{position:fixed;inset:0;background:rgba(5,7,10,.92);display:none;align-items:center;justify-content:center;z-index:50}
+  .auth.show{display:flex}
+  .auth .box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;width:min(420px,92vw)}
+  .auth h3{margin:0 0 6px;font-size:15px}
+  .auth p{margin:0 0 14px;color:var(--dim);font-size:12.5px}
+  .sep{height:1px;background:var(--line);margin:14px 0}
+  .tag{font-size:10.5px;padding:1px 6px;border-radius:3px;background:#1d2735;color:var(--dim)}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">FALEZIA <i>/</i> CONTROL PLANE</div>
+  <span class="pill" id="conn"><span class="dot" id="connDot"></span><span id="connTxt">connessione…</span></span>
+  <span class="pill" id="limitPill">limite —</span>
+  <span class="pill" id="uptimePill">uptime —</span>
+  <span style="flex:1"></span>
+  <button class="small ghost" id="refresh">Aggiorna</button>
+</header>
+
+<main>
+  <div>
+    <section>
+      <h2>Impostazioni <span class="tag" id="cfgPath"></span></h2>
+      <div class="body">
+        <div class="row" style="margin-bottom:14px">
+          <label class="switch"><input type="checkbox" id="hardLimit"><b>Limite rigido istanze</b></label>
+          <div style="flex:1;min-width:110px">
+            <label for="hardMax">Istanze massime</label>
+            <input type="number" id="hardMax" min="1" max="64" step="1">
+          </div>
+        </div>
+        <div class="grid3">
+          <div><label for="maxPlayers">Giocatori per partita</label><input type="number" id="maxPlayers" min="2" max="64"></div>
+          <div><label for="minStart">In coda per partire</label><input type="number" id="minStart" min="1" max="64"></div>
+          <div><label for="queueWait">Attesa massima (s)</label><input type="number" id="queueWait" min="1" max="3600"></div>
+        </div>
+        <div class="sep"></div>
+        <div class="grid2">
+          <div><label for="map">Mappa</label><input type="text" id="map"></div>
+          <div><label for="bots">Bot per squadra</label><input type="number" id="bots" min="0" max="10"></div>
+          <div><label for="logLevel">Logging</label>
+            <select id="logLevel">
+              <option value="debug">debug · tutto</option>
+              <option value="info">info · predefinito</option>
+              <option value="warn">warn · solo problemi</option>
+              <option value="error">error · solo errori</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid2" style="margin-top:12px">
+          <div><label for="publicHost">Host pubblico (VPS)</label><input type="text" id="publicHost" placeholder="vuoto = dedotto"></div>
+          <div><label for="matchmaking">Matchmaking</label>
+            <select id="matchmaking"><option value="true">acceso</option><option value="false">spento</option></select>
+          </div>
+        </div>
+        <div class="row" style="margin-top:14px">
+          <button class="primary" id="save">Salva impostazioni</button>
+          <span class="hint" style="margin:0">Le modifiche valgono da subito, anche per le partite già aperte.</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Istanze di gioco
+        <span class="row" style="gap:6px">
+          <button class="small" id="startInst">Avvia partita</button>
+          <button class="small ghost" id="stopAll">Ferma tutto</button>
+        </span>
+      </h2>
+      <div class="body" style="padding:0">
+        <table id="instTable">
+          <thead><tr><th>ID</th><th>UDP</th><th>Stato</th><th>Giocatori</th><th>Mappa</th><th>Su da</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="empty" id="instEmpty" style="padding:14px">Nessuna partita aperta.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Coda <span class="tag" id="queueCount">0</span></h2>
+      <div class="body" style="padding:0">
+        <table id="queueTable">
+          <thead><tr><th>Ticket</th><th>Nome</th><th>Stato</th><th>Destinazione</th><th>Attesa</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="empty" id="queueEmpty" style="padding:14px">Nessuno in coda.</div>
+        <div class="body" style="border-top:1px solid var(--line)">
+          <div class="row">
+            <input type="text" id="qname" placeholder="nome di prova" style="flex:1;min-width:140px">
+            <button class="small" id="qadd">Metti in coda</button>
+          </div>
+          <div class="hint">Serve a provare la coda senza client: da qui vedi se il limite rigido blocca e come si assegnano i posti.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div>
+    <section style="position:sticky;top:64px">
+      <h2>Log in tempo reale
+        <span class="row" style="gap:6px">
+          <select id="srcFilter" style="width:auto;padding:4px 8px;font-size:11.5px"><option value="">tutte</option></select>
+          <select id="lvlFilter" style="width:auto;padding:4px 8px;font-size:11.5px">
+            <option value="">ogni livello</option><option value="info">info</option><option value="warn">warn</option><option value="error">error</option><option value="debug">debug</option>
+          </select>
+          <button class="small" id="pause">Pausa</button>
+          <button class="small ghost" id="clearLog">Pulisci</button>
+        </span>
+      </h2>
+      <div id="logs"></div>
+    </section>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<div class="auth" id="auth">
+  <div class="box">
+    <h3>Token di amministrazione</h3>
+    <p>Il pannello lo stampa all'avvio, oppure è in <span class="mono">control.json</span>.</p>
+    <input type="text" id="tokenInput" placeholder="incolla il token" style="margin-bottom:12px">
+    <button class="primary" id="tokenOk" style="width:100%">Entra</button>
+  </div>
+</div>
+
+<script>
+("use strict");
+const $ = (s) => document.querySelector(s);
+const params = new URLSearchParams(location.search);
+let TOKEN = params.get("token") || localStorage.getItem("falezia.token") || "";
+if (TOKEN) localStorage.setItem("falezia.token", TOKEN);
+
+let state = null;
+let paused = false;
+let sourceFilter = "";
+let levelFilter = "";
+let lastSeq = 0;
+let logBusy = false;
+
+function toast(msg, bad) {
+  const t = $("#toast");
+  t.textContent = msg;
+  t.className = "show" + (bad ? " bad" : "");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { t.className = ""; }, 3200);
+}
+
+async function api(path, opts = {}) {
+  const method = (opts.method || "GET").toUpperCase();
+  // HttpListener esige un Content-Length anche quando il corpo è vuoto: 411 altrimenti.
+  const body = opts.body !== undefined ? opts.body : (method === "POST" ? "{}" : undefined);
+  const res = await fetch(path, {
+    ...opts,
+    method,
+    body,
+    headers: { "Content-Type": "application/json", "X-Admin-Token": TOKEN, ...(opts.headers || {}) }
+  });
+  const text = await res.text();
+  let data = null;
+  try { data = text ? JSON.parse(text) : null; } catch (_) { data = null; }
+  if (res.status === 401) { $("#auth").classList.add("show"); throw new Error("token di amministrazione mancante o errato"); }
+  if (!res.ok) throw new Error((data && data.error) || text || res.statusText);
+  return data;
+}
+
+// ------------------------------------------------------------------ stato
+
+async function poll() {
+  try {
+    state = await api("/api/admin/state");
+    setConn(true);
+    render();
+  } catch (e) {
+    setConn(false, e.message);
+  }
+}
+
+function setConn(ok, msg) {
+  $("#connDot").className = "dot " + (ok ? "ok" : "bad");
+  $("#connTxt").textContent = ok ? "connesso" : (msg || "disconnesso");
+}
+
+function fmtUptime(s) {
+  if (s == null) return "—";
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+  return h > 0 ? `${h}h ${m}m` : m > 0 ? `${m}m ${sec}s` : `${sec}s`;
+}
+
+function fmtAge(iso) {
+  if (!iso) return "—";
+  const d = (Date.now() - new Date(iso).getTime()) / 1000;
+  return d < 60 ? `${Math.max(0, Math.round(d))}s` : `${Math.round(d / 60)}m`;
+}
+
+function render() {
+  const c = state.config;
+  $("#hardLimit").checked = c.hardLimitEnabled;
+  $("#hardMax").value = c.hardLimitMaxInstances;
+  $("#maxPlayers").value = c.maxPlayersPerInstance;
+  $("#minStart").value = c.minPlayersToStart;
+  $("#queueWait").value = c.queueWaitSeconds;
+  $("#map").value = c.map;
+  $("#bots").value = c.botsPerTeam;
+  $("#logLevel").value = c.logLevel;
+  $("#publicHost").value = c.publicHost || "";
+  $("#matchmaking").value = String(c.matchmakingEnabled);
+  $("#cfgPath").textContent = c.configFile || "";
+
+  const hl = state.hardLimit;
+  $("#limitPill").textContent = hl.enabled
+    ? `limite ON · ${hl.used}/${hl.max} istanze`
+    : `limite OFF · ${hl.used} istanze`;
+  $("#uptimePill").textContent = "uptime " + fmtUptime(state.uptimeSeconds);
+  $("#queueCount").textContent = state.queue;
+
+  const tb = $("#instTable tbody");
+  tb.innerHTML = "";
+  $("#instEmpty").style.display = state.instances.length ? "none" : "block";
+  for (const i of state.instances) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="mono">${i.id}</td>
+      <td class="mono">${i.port}</td>
+      <td><span class="badge ${i.state}">${i.state}</span></td>
+      <td class="mono">${i.players}/${i.maxPlayers}</td>
+      <td>${i.map}</td>
+      <td class="mono">${fmtAge(i.startedAt)}</td>
+      <td class="row" style="gap:5px;justify-content:flex-end">
+        <button class="small" data-client="${i.id}">Client</button>
+        <button class="small ghost" data-stop="${i.id}">Ferma</button>
+      </td>`;
+    tb.appendChild(tr);
+  }
+
+  const qt = $("#queueTable tbody");
+  qt.innerHTML = "";
+  const tickets = state.tickets || [];
+  $("#queueEmpty").style.display = tickets.length ? "none" : "block";
+  for (const t of tickets) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="mono">${t.id}</td>
+      <td>${t.name}</td>
+      <td><span class="badge ${t.state === "allocated" ? "ready" : t.state === "expired" || t.state === "cancelled" ? "dead" : "starting"}">${t.state}</span></td>
+      <td class="mono">${t.host ? t.host + ":" + t.port : (t.note || "—")}</td>
+      <td class="mono">${fmtAge(t.createdAt)}</td>`;
+    qt.appendChild(tr);
+  }
+
+  if (c.clientCommand === "") { /* niente */ }
+}
+
+// ------------------------------------------------------------------ log
+
+function addLine(line) {
+  const box = $("#logs");
+  if (sourceFilter && line.source !== sourceFilter) return;
+  if (levelFilter && line.level !== levelFilter) return;
+
+  const el = document.createElement("div");
+  el.className = "ln " + (line.level || "info") + (line.source.startsWith("client") ? " client" : "");
+  const time = (line.at || "").slice(11, 19);
+  el.innerHTML = `<span class="t">${time}</span><span class="s">${line.source}</span><span class="m"></span>`;
+  el.querySelector(".m").textContent = line.text;
+  box.appendChild(el);
+
+  if (box.childElementCount > 2500) box.removeChild(box.firstChild);
+  if (!paused) box.scrollTop = box.scrollHeight;
+}
+
+function addSource(source) {
+  const sel = $("#srcFilter");
+  if ([...sel.options].some(o => o.value === source)) return;
+  const o = document.createElement("option");
+  o.value = source; o.textContent = source;
+  sel.appendChild(o);
+}
+
+async function pollLogs() {
+  if (logBusy || !TOKEN) return;
+  logBusy = true;
+  try {
+    const data = await api("/api/admin/logs?after=" + lastSeq + "&limit=500");
+    if (data && data.lines && data.lines.length) {
+      for (const line of data.lines) { addSource(line.source); addLine(line); }
+      lastSeq = data.last || lastSeq;
+    } else if (data && data.last) {
+      lastSeq = data.last;
+    }
+  } catch (_) { }
+  finally { logBusy = false; }
+}
+
+// ------------------------------------------------------------------ azioni
+
+$("#save").onclick = async () => {
+  try {
+    await api("/api/admin/settings", {
+      method: "POST",
+      body: JSON.stringify({
+        hardLimitEnabled: $("#hardLimit").checked,
+        hardLimitMaxInstances: Number($("#hardMax").value),
+        maxPlayersPerInstance: Number($("#maxPlayers").value),
+        minPlayersToStart: Number($("#minStart").value),
+        queueWaitSeconds: Number($("#queueWait").value),
+        map: $("#map").value,
+        botsPerTeam: Number($("#bots").value),
+        logLevel: $("#logLevel").value,
+        publicHost: $("#publicHost").value,
+        matchmakingEnabled: $("#matchmaking").value === "true"
+      })
+    });
+    toast("Impostazioni salvate");
+    poll();
+  } catch (e) { toast(e.message, true); }
+};
+
+$("#startInst").onclick = async () => {
+  try {
+    const r = await api("/api/admin/instances", { method: "POST" });
+    toast(`Partita ${r.instance.id} avviata su UDP ${r.instance.port}`);
+    poll();
+  } catch (e) { toast(e.message, true); }
+};
+
+$("#stopAll").onclick = async () => {
+  if (!confirm("Fermare tutte le partite aperte?")) return;
+  try { await api("/api/admin/instances/stop-all", { method: "POST" }); toast("Istanze fermate"); poll(); }
+  catch (e) { toast(e.message, true); }
+};
+
+$("#instTable").onclick = async (ev) => {
+  const stopId = ev.target.getAttribute("data-stop");
+  const clientId = ev.target.getAttribute("data-client");
+  try {
+    if (stopId) { await api(`/api/admin/instances/${stopId}/stop`, { method: "POST" }); toast("Istanza fermata"); poll(); }
+    if (clientId) { await api(`/api/admin/instances/${clientId}/client`, { method: "POST" }); toast("Client avviato"); }
+  } catch (e) { toast(e.message, true); }
+};
+
+$("#qadd").onclick = async () => {
+  try {
+    const r = await api("/api/queue", { method: "POST", body: JSON.stringify({ name: $("#qname").value || "test" }) });
+    toast("In coda: ticket " + r.ticket);
+    poll();
+  } catch (e) { toast(e.message, true); }
+};
+
+$("#pause").onclick = () => {
+  paused = !paused;
+  $("#pause").textContent = paused ? "Riprendi" : "Pausa";
+  if (!paused) $("#logs").scrollTop = $("#logs").scrollHeight;
+};
+$("#clearLog").onclick = () => { $("#logs").innerHTML = ""; };
+$("#srcFilter").onchange = (e) => { sourceFilter = e.target.value; };
+$("#lvlFilter").onchange = (e) => { levelFilter = e.target.value; };
+$("#refresh").onclick = () => poll();
+
+$("#tokenOk").onclick = () => {
+  TOKEN = $("#tokenInput").value.trim();
+  localStorage.setItem("falezia.token", TOKEN);
+  location.search = "?token=" + encodeURIComponent(TOKEN);
+};
+
+// ------------------------------------------------------------------ avvio
+
+if (!TOKEN) $("#auth").classList.add("show");
+pollLogs();
+setInterval(() => { if (!document.hidden) pollLogs(); }, 800);
+poll();
+setInterval(() => { if (!document.hidden) poll(); }, 2000);
+</script>
+</body>
+</html>

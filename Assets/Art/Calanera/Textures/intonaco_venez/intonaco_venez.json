@@ -1,0 +1,8 @@
+{
+ "id": "intonaco_venez",
+ "tile_m": 4.0,
+ "relief_m": 0.003,
+ "style": 1.5,
+ "source": "meshy wall_venez_01",
+ "size": 2048
+}

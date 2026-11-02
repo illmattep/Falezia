@@ -1,0 +1,28 @@
+{
+  "id": "choke",
+  "class": "Pompa",
+  "tris": 27468,
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 1.133
+    },
+    "fire_last": {
+      "length_s": 1.133
+    },
+    "reload": {
+      "length_s": 2.6
+    },
+    "reload_empty": {
+      "length_s": 3.1
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  }
+}

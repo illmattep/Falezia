@@ -1,0 +1,8 @@
+{
+ "id": "lamiera_blu",
+ "tile_m": 1.2,
+ "relief_m": 0.035,
+ "style": 1.0,
+ "source": "meshy lamiera_01",
+ "size": 2048
+}

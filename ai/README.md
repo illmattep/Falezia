@@ -11,6 +11,7 @@
 | 4 | **[CODE.md](CODE.md)** | Architettura, convenzioni, ricette, come si testa |
 | 5 | **[DATA.json](DATA.json)** | Gli stessi numeri, in forma macchina |
 | 6 | **[GLOSSARY.md](GLOSSARY.md)** | Il vocabolario. Usa **questi** termini, non sinonimi |
+| 7 | **[BLENDER_MCP.md](BLENDER_MCP.md)** | **Prima di toccare Blender.** Come sei collegato (MCP → addon, porta 9876), gli strumenti, cosa era rotto e non va rifatto |
 
 ---
 
@@ -44,7 +45,7 @@
 2. Cerca in docs/ il sistema toccato
 3. Controlla STATE.md        → esiste già? è incompleto?
 4. Implementa piccolo, in un file che ha già un posto nella struttura
-5. ./run.sh test             → 26 test devono restare verdi
+5. ./run.sh test             → 193 test devono restare verdi
 6. ./run.sh build            → 0 errori, 0 avvisi
 7. Aggiorna STATE.md e DATA.json se hai cambiato qualcosa di osservabile
 ```

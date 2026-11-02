@@ -1,0 +1,28 @@
+{
+  "id": "service",
+  "class": "Fucile d'assalto",
+  "tris": 38012,
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.167
+    },
+    "fire_last": {
+      "length_s": 0.167
+    },
+    "reload": {
+      "length_s": 1.933
+    },
+    "reload_empty": {
+      "length_s": 2.333
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  }
+}

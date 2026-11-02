@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a1851f-259b-7787-82b0-5d3b1da8b2ad/output/model.glb?Expires=4946832000&Signature=OsyRG5eiI4Lwik7Kz82vIPBu3iVzMZDFAWQVN7R7Nqyn2frC2zlTZ795usOLzsQxILYmNMq9gCRugoYmXE3s0DFCtfSAMgQEdJLD7nay3CfyvdVSdpI-7GjGK3zpOWFYL8SwhfrHziEgXvINyRS5gLbssYLMtpnrqHrBU~VsgAlLQELydIJI5y96Dfl98fHp8Efg8MRYzaLAT5TO4T0cb5l7dWL~CBD5pK-F1P1KjFMOw4pvvHOZkvA8HZSvN2rgyzPDLNWoUUmN9RqtcsS02jRRj0WW0OozrR~-qQ24YpSPE0UCvIxBB8fvFh5owF2d9XS5MKNmI6h-OpMxzEZ92g__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "portale_pietra",
+ "prompt": "Carved limestone portal for a Mediterranean palazzo: arched door frame with a keystone, moulded jambs and a small cornice, weathered edges. Real-world scale 2.4 x 3.2 x 0.45 m. Stylized game prop, Valorant-like art direction: clean readable silhouette, matte PBR with subtle hand-painted wear, no photorealism, no text, no logos. Single object, no ground plane, no background, no shadow, no baked lighting. ",
+ "preview_task_id": "01a1851e-78df-72cd-933c-6efdb50fd7cd",
+ "texture_task_id": "01a1851f-259b-7787-82b0-5d3b1da8b2ad",
+ "bytes": 23252076
+}

@@ -9,13 +9,18 @@
 | Termine | Cosa è |
 |---|---|
 | **FALEZIA** | Il nome del gioco. **Con la Z**, maiuscolo. Dal latino *falesia*; a Porto Vecchio c'è l'insegna antica che lo scrive così |
-| **Calanera** | La mappa: città costiera italiana immaginaria, 240 × 220 m |
+| **Calanera** | La mappa: città costiera italiana immaginaria, 180 × 200 m, tre corsie per lato |
 | **Porto Vecchio** | Spawn Nord |
 | **Forte San Verano** | Spawn Sud |
 | **Piazza Vecchia** | La zona centrale, dove sta la cassa |
 | **Grotta del Levante** | Estrazione **Est**. Chiusa, un ingresso, fianco marino |
 | **Galleria Vecchia** | Estrazione **Ovest**. Lunga, ingressi multipli |
-| **Via Stretta · Scalinata Lunga · Lungomare · Mura** | L'anello: le quattro rotte che aggirano il centro |
+| **Via Stretta · Scalinata Lunga · Lungomare · Mura** | Le corsie laterali (Nord: Via Stretta, Scalinata; Sud: Mura, Lungomare). Insieme fanno l'anello |
+| **Largo** | La piazzetta della corsia centrale, con la gradinata. Da qui partono i passaggi verso le corsie laterali |
+| **Arco · Varco della Dogana** | Le strozzature coperte delle corsie |
+| **Mercato coperto** | La sala a pilastri fra la piazza e ciascuna estrazione: la rotazione del difensore |
+| **Molo · Piazzale** | Gli spazi aperti davanti a Grotta e Galleria, alla fine delle corsie laterali |
+| **Corsia** | Uno dei tre percorsi che partono da ogni spawn (schema Valorant) |
 
 ## Oggetti e stato
 
@@ -64,7 +69,7 @@
 | **Tell** | Il segnale audiovisivo obbligatorio di ogni trappola letale |
 | **Impilarsi** | La squadra si dispone su un ingresso prima di entrare |
 | **Specchio** | Ricognizione sotto la porta |
-| **Anello** | Le quattro rotte che aggirano il centro: senza, il retake è impossibile |
+| **Anello** | Il giro formato dalle corsie laterali delle due squadre: senza, il retake è impossibile |
 
 ## Termini tecnici
 

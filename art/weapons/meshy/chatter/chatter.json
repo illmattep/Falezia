@@ -1,0 +1,79 @@
+{
+  "id": "chatter",
+  "class": "Pistola automatica",
+  "source": "meshy",
+  "tris": 7995,
+  "tris_tp": 1498,
+  "size_mm": [
+    210.0,
+    171.6,
+    28.6
+  ],
+  "size_mm_doc12": [
+    210,
+    195,
+    35
+  ],
+  "material": "chatter_mat",
+  "parts": [
+    "body",
+    "slide",
+    "mag"
+  ],
+  "sockets": {
+    "socket_muzzle": [
+      0.0,
+      0.0031,
+      -0.1548
+    ],
+    "socket_aim": [
+      0.0,
+      0.0197,
+      0.0272
+    ],
+    "socket_eject": [
+      0.0115,
+      0.0119,
+      -0.0412
+    ],
+    "socket_hand_r": [
+      0.0,
+      -0.03,
+      0.014
+    ],
+    "socket_hand_l": [
+      -0.0129,
+      -0.0653,
+      0.0184
+    ],
+    "socket_eye": [
+      0.0,
+      0.0197,
+      0.1872
+    ]
+  },
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.167
+    },
+    "fire_last": {
+      "length_s": 0.167
+    },
+    "reload": {
+      "length_s": 1.6
+    },
+    "reload_empty": {
+      "length_s": 2.1
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  },
+  "origin": "allineata ad arsenal2: socket_hand_r nello stesso punto"
+}

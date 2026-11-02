@@ -1,0 +1,28 @@
+{
+  "id": "blitz",
+  "class": "PDW",
+  "tris": 31800,
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.167
+    },
+    "fire_last": {
+      "length_s": 0.167
+    },
+    "reload": {
+      "length_s": 1.8
+    },
+    "reload_empty": {
+      "length_s": 2.2
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "hammer",
+  "class": "Magnum",
+  "tris": 11256,
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.7
+    },
+    "fire_last": {
+      "length_s": 0.7
+    },
+    "reload": {
+      "length_s": 2.333
+    },
+    "reload_empty": {
+      "length_s": 2.8
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  }
+}

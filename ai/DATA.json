@@ -10,7 +10,8 @@
     "dt_s": 0.015625,
     "first_person": true,
     "vehicles": false,
-    "destruction": false
+    "destruction": false,
+    "weapon_cadence_note": "Cadenze +20% il 26 ottobre 2026 (interval_s e rpm qui sono quelli veri della simulazione, game/sim/Weapons.cs). Il cooldown porta avanti il resto sotto il tick di 64 Hz."
   },
 
   "match": {
@@ -73,6 +74,10 @@
     "jump_mps": 6.0,
     "jump_cooldown_s": 0.15,
     "air_control_max_wish_mps": 0.3,
+    "step_height_m": 0.35,
+    "stairs_up_mps": 2.6,
+    "stairs_down_mps": 3.8,
+    "stairs_speed_implemented": false,
     "bunny_hop": false,
     "air_strafe": false
   },
@@ -83,12 +88,7 @@
     "open_normal_s": 1.5,
     "open_kick_s": 0.3,
     "close_s": 1.0,
-    "noise_m": {
-      "slow": 8,
-      "normal": 15,
-      "kick": 35,
-      "close": 12
-    },
+    "noise_m": {"slow": 8, "normal": 15, "kick": 35, "close": 12},
     "breaching": false,
     "wedge": false,
     "barricade": false
@@ -104,59 +104,59 @@
     "approval_window_s": 5,
     "anti_spiral_floor": 1000,
     "anti_spiral_grant": 1500,
-    "objective_bonus": {
-      "open_crate": 150,
-      "grab_core": 200,
-      "extraction": 300
-    },
+    "objective_bonus": {"open_crate": 150, "grab_core": 200, "extraction": 300},
     "sell_only_same_buy_phase": true,
-    "equipment_persists_if_alive": true
+    "equipment_persists_if_alive": true,
+    "personal_kill_reward": 200,
+    "team_funds_start": 5000,
+    "free_threshold": 300,
+    "team_pays_weapons": true,
+    "note_implemented": "26 ott 2026: fondo personale e cassa di squadra implementati in game/sim/Economy.cs. Le armi sono istanze: ricompera = munizioni piene; la sostituita comprata in questa fase si vende, quella portata dal round prima si lascia a terra (G drop, F raccolta)."
   },
 
   "map": {
     "name": "Calanera",
-    "size_m": [240, 220],
-    "spawn_distance_from_center_m": 120,
-    "extraction_distance_from_center_m": 95,
-    "spawn_to_center_walk_s": 28.6,
-    "center_to_extraction_walk_s": 22.6,
-    "zones": {
-      "spawn_north": "Porto Vecchio",
-      "spawn_south": "Forte San Verano",
-      "center": "Piazza Vecchia",
-      "extract_east": "Grotta del Levante",
-      "extract_west": "Galleria Vecchia",
-      "ring": ["Via Stretta", "Scalinata Lunga", "Lungomare", "Mura"]
-    },
+    "size_m": [180, 200],
+    "layout": "three lanes per side (Valorant-style): west lane, mid lane, east lane; the side lanes form the ring",
+    "spawn_distance_from_center_m": 91,
+    "extraction_distance_from_center_m": {"grotta": 77, "galleria": 72},
+    "spawn_to_center_walk_s": 22.7,
+    "center_to_extraction_walk_s": 20.0,
+    "zones": {"spawn_north": "Porto Vecchio", "spawn_south": "Forte San Verano", "center": "Piazza Vecchia", "extract_east": "Grotta del Levante", "extract_west": "Galleria Vecchia", "ring": ["Via Stretta", "Scalinata Lunga", "Lungomare", "Mura"]},
     "rotationally_symmetric": true,
-    "static_geometry": true
+    "static_geometry": true,
+    "graybox": {"file": "game/maps/calanera.json", "generator": "tools/mapgen/calanera.py", "footprint_m": [180, 200], "collision_boxes": 671, "levels_m": {"largo_platform": 1.53, "piazza_loggia": 3.3, "molo_terrace": 3.4}, "sun": "from west, perpendicular to the N-S axis", "routes_in_map_file": true, "measured_walk_s": {"spawn_to_crate": 22.7, "crate_to_grotta": 20.2, "crate_to_galleria": 19.6, "spawn_to_extraction_side_lane": [34.6, 36.0], "grotta_galleria_without_center": 59.4}}
+  },
+
+  "graphics": {
+    "renderer": "forward_plus",
+    "fallback": "gl_compatibility",
+    "presets": {"pro": {"aa": "none", "shadows": "off", "ssao": false, "bloom": false, "view_m": 150}, "low": {"aa": "fxaa", "shadows": "off", "ssao": false, "bloom": false, "view_m": 150}, "high": {"aa": "fxaa", "shadows": "4096 / 100 m", "ssao": true, "bloom": true, "view_m": 400}},
+    "low_latency": "auto fps cap: refresh-3 with vsync, 94% of GPU throughput without; NVIDIA Reflex not available in Godot",
+    "settings_file": "user://settings.cfg"
   },
 
   "weapons": [
-    { "name": "Standard", "class": "pistol", "damage": 25, "shots": [4, 5, 6], "interval_s": 0.20, "mag": 17, "price": 0,    "ads_s": 0.20, "note": "base, sempre disponibile" },
-    { "name": "Hush",     "class": "pistol", "damage": 22, "shots": [5, 6, 7], "interval_s": 0.22, "mag": 15, "price": 400,  "ads_s": 0.24, "note": "silenziata; non uccide di testa (88)" },
-    { "name": "Snub",     "class": "pistol", "damage": 50, "shots": [2, 3, 3], "interval_s": 0.25, "mag": 6,  "price": 500,  "ads_s": 0.16, "note": "ADS piu rapido del gioco; ricarica 3 s" },
-    { "name": "Hammer",   "class": "pistol", "damage": 70, "shots": [2, 2, 2], "interval_s": 0.55, "mag": 7,  "price": 700,  "ads_s": 0.35, "note": "2 colpi sempre, anche contro piastra pesante" },
-    { "name": "Chatter",  "class": "auto_pistol", "damage": 18, "shots": [6, 7, 8], "interval_s": 0.06, "mag": 20, "price": 600, "ads_s": 0.28 },
-
-    { "name": "Cadence",  "class": "smg", "damage": 20, "shots": [5, 6, 7], "interval_s": 0.075, "mag": 30, "price": 900,  "ads_s": 0.26, "note": "controllabile" },
-    { "name": "Blitz",    "class": "smg", "damage": 16, "shots": [7, 8, 9], "interval_s": 0.052, "mag": 30, "price": 1000, "ads_s": 0.24, "note": "1150 rpm, solo corta distanza" },
-    { "name": "Scrap",    "class": "smg", "damage": 17, "shots": [6, 8, 9], "interval_s": 0.067, "mag": 20, "price": 600,  "ads_s": 0.24, "note": "arma da ECO" },
-
-    { "name": "Choke",    "class": "shotgun", "damage": 130, "shots": [1, 1, 2], "interval_s": 0.90, "mag": 6, "price": 1100, "ads_s": 0.30, "note": "pompa; ricarica 0.6 s per cartuccia" },
-    { "name": "Sweeper",  "class": "shotgun", "damage": 100, "shots": [1, 2, 2], "interval_s": 0.35, "mag": 7, "price": 1400, "ads_s": 0.32, "note": "semiauto, non uccide mai con 1 colpo" },
-
-    { "name": "Anvil",    "class": "rifle", "damage": 30, "shots": [4, 4, 5], "interval_s": 0.100, "mag": 30, "price": 1400, "ads_s": 0.30, "note": "unica AR che non perde colpi contro piastra leggera" },
-    { "name": "Service",  "class": "rifle", "damage": 25, "shots": [4, 5, 6], "interval_s": 0.086, "mag": 30, "price": 1400, "ads_s": 0.28, "note": "la standard" },
-    { "name": "Vantage",  "class": "rifle_semi", "damage": 60, "shots": [2, 2, 3], "interval_s": 0.40, "mag": 20, "price": 1800, "ads_s": 0.45, "note": "ADS piu lento del gioco" },
-
-    { "name": "Spotter",  "class": "sniper_semi", "damage": 75, "shots": [2, 2, 2], "interval_s": 0.35, "mag": 10, "price": 1800, "ads_s": 0.40, "note": "2 colpi anche contro piastra pesante" },
-    { "name": "Longshot", "class": "sniper_bolt", "damage": 150, "shots": [1, 1, 1], "interval_s": 1.40, "mag": 5, "price": 2400, "ads_s": 0.50, "note": "oneshot torso+; gambe 60 danni" }
+    { "name": "Standard","class": "pistol",     "damage": 25, "shots": [4, 5, 6],"interval_s": 0.20833,"mag": 17,"price": 0,   "ads_s": 0.2, "note": "base, sempre disponibile",                                                  "rpm": 288.0 },
+    { "name": "Hush",    "class": "pistol",     "damage": 22, "shots": [5, 6, 7],"interval_s": 0.2275, "mag": 15,"price": 400, "ads_s": 0.24,"note": "silenziata; non uccide di testa (88)",                                      "rpm": 263.7 },
+    { "name": "Snub",    "class": "pistol",     "damage": 50, "shots": [2, 3, 3],"interval_s": 0.2775, "mag": 6, "price": 500, "ads_s": 0.16,"note": "ADS piu rapido del gioco; ricarica 3 s",                                    "rpm": 216.2 },
+    { "name": "Hammer",  "class": "pistol",     "damage": 70, "shots": [2, 2, 2],"interval_s": 0.55583,"mag": 7, "price": 700, "ads_s": 0.35,"note": "2 colpi sempre, anche contro piastra pesante",                              "rpm": 107.9 },
+    { "name": "Chatter", "class": "auto_pistol","damage": 18, "shots": [6, 7, 8],"interval_s": 0.08083,"mag": 20,"price": 600, "ads_s": 0.28,"rpm": 742.3 },
+    { "name": "Cadence", "class": "smg",        "damage": 20, "shots": [5, 6, 7],"interval_s": 0.09583,"mag": 30,"price": 900, "ads_s": 0.26,"note": "controllabile",                                                             "rpm": 626.1 },
+    { "name": "Blitz",   "class": "smg",        "damage": 16, "shots": [7, 8, 9],"interval_s": 0.07167,"mag": 30,"price": 1000,"ads_s": 0.24,"note": "1150 rpm, solo corta distanza",                                             "rpm": 837.2 },
+    { "name": "Scrap",   "class": "smg",        "damage": 17, "shots": [6, 8, 9],"interval_s": 0.08333,"mag": 20,"price": 600, "ads_s": 0.24,"note": "arma da ECO",                                                               "rpm": 720.0 },
+    { "name": "Choke",   "class": "shotgun",    "damage": 130,"shots": [1, 1, 2],"interval_s": 0.90833,"mag": 6, "price": 1100,"ads_s": 0.3, "note": "pompa; ricarica 0.6 s per cartuccia",                                       "rpm": 66.1 },
+    { "name": "Sweeper", "class": "shotgun",    "damage": 100,"shots": [1, 2, 2],"interval_s": 0.45417,"mag": 7, "price": 1400,"ads_s": 0.32,"note": "semiauto, non uccide mai con 1 colpo",                                      "rpm": 132.1 },
+    { "name": "Anvil",   "class": "rifle",      "damage": 30, "shots": [4, 4, 5],"interval_s": 0.0925, "mag": 30,"price": 1400,"ads_s": 0.3, "note": "unica AR che non perde colpi contro piastra leggera",                       "rpm": 648.6 },
+    { "name": "Service", "class": "rifle",      "damage": 25, "shots": [4, 5, 6],"interval_s": 0.08167,"mag": 30,"price": 1400,"ads_s": 0.28,"note": "la standard",                                                               "rpm": 734.7 },
+    { "name": "Vantage", "class": "rifle_semi", "damage": 60, "shots": [2, 2, 3],"interval_s": 0.45417,"mag": 20,"price": 1800,"ads_s": 0.45,"note": "ADS piu lento del gioco",                                                   "rpm": 132.1 },
+    { "name": "Spotter", "class": "sniper_semi","damage": 75, "shots": [2, 2, 2],"interval_s": 0.41667,"mag": 10,"price": 1800,"ads_s": 0.4, "note": "2 colpi anche contro piastra pesante",                                      "rpm": 144.0 },
+    { "name": "Longshot","class": "sniper_bolt","damage": 150,"shots": [1, 1, 1],"interval_s": 1.25,   "mag": 5, "price": 2400,"ads_s": 0.5, "note": "oneshot torso+; gambe 60 danni",                                            "rpm": 48.0 },
+    { "name": "Heavy",   "class": "lmg",        "damage": 26, "shots": [4, 5, 6],"interval_s": 0.07583,"mag": 60,"price": 2000,"ads_s": 0.42,"note": "mitragliatrice leggera FUORI dal roster del doc 11: tamburo, bipod, nastro","rpm": 791.2 }
   ],
-
   "knife": {
     "damage": 55,
-    "interval_s": 0.6,
+    "interval_s": 0.5,
     "quick_melee_damage": 45,
     "quick_melee_s": 0.7,
     "backstab_lethal": true,
@@ -164,13 +164,12 @@
   },
 
   "specializations": [
-    { "name": "Decifratore", "effect": "crate 7.5s (5s with kit)", "malus": null },
-    { "name": "Rianimatore", "effect": "revive 10s bare (5s with medkit)", "malus": null },
-    { "name": "Portatore",   "effect": "core carry 4.8 m/s, no stamina drain", "malus": null },
-    { "name": "Ingegnere",   "effect": "robot place 1.5s, opens 10s, repairable", "malus": null },
-    { "name": "Ricognitore", "effect": "sensors +40% range, ping 4s, silent endoscope", "malus": null }
+    { "name": "Decifratore","effect": "crate 7.5s (5s with kit)",                     "malus": null },
+    { "name": "Rianimatore","effect": "revive 10s bare (5s with medkit)",             "malus": null },
+    { "name": "Portatore",  "effect": "core carry 4.8 m/s, no stamina drain",         "malus": null },
+    { "name": "Ingegnere",  "effect": "robot place 1.5s, opens 10s, repairable",      "malus": null },
+    { "name": "Ricognitore","effect": "sensors +40% range, ping 4s, silent endoscope","malus": null }
   ],
-
   "loadout": {
     "max_presets": 5,
     "chosen_during_loading": true,
@@ -185,9 +184,9 @@
   },
 
   "performance_targets": {
-    "low":  { "gpu": "GTX 970",     "resolution": "1080p", "fps": 60,  "max_draw_calls": 900,  "max_triangles": 1200000, "visibility_m": 150 },
-    "high": { "gpu": "GTX 1070 Ti", "resolution": "1080p", "fps": 120, "max_draw_calls": 1500, "max_triangles": 2000000, "visibility_m": 400 },
-    "dev_graybox": { "max_draw_calls": 200, "max_triangles": 300000, "textures": false }
+    "low":          { "gpu": "GTX 970", "resolution": "1080p", "fps": 60, "max_draw_calls": 900, "max_triangles": 1200000, "visibility_m": 150 },
+    "high":         { "gpu": "GTX 1070 Ti", "resolution": "1080p", "fps": 120, "max_draw_calls": 1500, "max_triangles": 2000000, "visibility_m": 400 },
+    "dev_graybox":  { "max_draw_calls": 200, "max_triangles": 300000, "textures": false }
   },
 
   "forbidden": [
@@ -204,5 +203,21 @@
     "loot_boxes_purchasable",
     "live_sensor_marker",
     "non_optics_attachments"
-  ]
+  ],
+  "audio": {
+    "engine": "Unity AudioSource 3D (spatialBlend 1) + AudioLowPassFilter",
+    "min_distance_m": 3,
+    "world_span_m": 260,
+    "mechanic_distance_m": 16,
+    "drop_distance_m": 26,
+    "voices": 20,
+    "doppler": 0,
+    "lowpass_near_hz": 19000,
+    "lowpass_far_hz": 900,
+    "occlusion": {"volume": 0.55, "cutoff_factor": 0.3, "ray": "Trace.Ray sulle scatole del mondo"},
+    "curves": {"far": "sparo: 1.0 · 0.70@10m · 0.42@30m · 0.25@65m · 0.10@155m · 0.05@260m", "tight": "silenziate, meccanica, cadute: 1.0 → 0 al limite dichiarato"},
+    "distances_from": "WeaponDef.NoiseMeters (doc 11): Hush 40 m, coltello 6 m, il resto = world_span",
+    "own_weapon": "2D (in mano)",
+    "missing": ["passi", "atterraggi", "impatto su materiale", "riverbero per zona", "voci"]
+  }
 }

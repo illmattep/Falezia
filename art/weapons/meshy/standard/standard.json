@@ -1,0 +1,79 @@
+{
+  "id": "standard",
+  "class": "Pistola",
+  "source": "meshy",
+  "tris": 7950,
+  "tris_tp": 1484,
+  "size_mm": [
+    197.0,
+    143.6,
+    29.5
+  ],
+  "size_mm_doc12": [
+    197,
+    138,
+    33
+  ],
+  "material": "standard_mat",
+  "parts": [
+    "body",
+    "slide",
+    "mag"
+  ],
+  "sockets": {
+    "socket_muzzle": [
+      0.0,
+      0.0093,
+      -0.1464
+    ],
+    "socket_aim": [
+      0.0,
+      0.0264,
+      0.0347
+    ],
+    "socket_eject": [
+      0.0118,
+      0.0145,
+      -0.0564
+    ],
+    "socket_hand_r": [
+      0.0,
+      -0.03,
+      0.014
+    ],
+    "socket_hand_l": [
+      -0.0133,
+      -0.0662,
+      -0.0015
+    ],
+    "socket_eye": [
+      0.0,
+      0.0264,
+      0.1947
+    ]
+  },
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.3
+    },
+    "fire_last": {
+      "length_s": 0.3
+    },
+    "reload": {
+      "length_s": 1.5
+    },
+    "reload_empty": {
+      "length_s": 2.0
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  },
+  "origin": "allineata ad arsenal2: socket_hand_r nello stesso punto"
+}

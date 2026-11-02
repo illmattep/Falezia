@@ -20,3 +20,52 @@ Thumbs.db
 
 # Runtime / log
 *.log
+
+# Python
+__pycache__/
+
+# Unity
+Library/
+Temp/
+Logs/
+UserSettings/
+Builds/
+/build/
+/dist/
+*.slnx
+*.csproj
+*.user
+# ...ma i progetti .NET scritti a mano restano versionati
+!shared/**/*.csproj
+!server/**/*.csproj
+!tests/**/*.csproj
+# copie degli asset dentro il client Unity (le rigenera tools/unity/sync-assets.sh)
+/Assets/StreamingAssets/weapons/
+# suoni delle armi: rigenerati da ./run.sh sound (numpy, stesso seme = stessi file)
+/Assets/StreamingAssets/audio/
+
+# cache delle texture scaricate da ambientCG (tools/map/make_map_pbr.py)
+tools/map/.cache/
+
+# player Linux compilato (`./run.sh build` lo mette in build/linux, ma una build "one-off"
+# nella radice lascia questi file: non vanno versionati, sono ~2,5 GB)
+/Falezia.x86_64
+/Falezia_Data/
+/Falezia_BackUpThisFolder_ButDontShipItWithYourGame/
+/MonoBleedingEdge/
+/UnityPlayer.so
+/libdecor*.so*
+/UnityCrashHandler*
+
+# copia generata del core dentro il client (tools/unity/sync-core.sh la rifà a ogni build)
+/Assets/Scripts/Sim/
+/Assets/Scripts/Net/
+
+# copie generate degli asset: si rigenerano con ./run.sh map e tools/unity/sync-assets.sh
+/Assets/StreamingAssets/map/
+/Assets/StreamingAssets/maps/
+/Assets/StreamingAssets/characters/
+/Assets/Resources/MapTex/
+
+# sonde/temporanei del harness
+.dsh_probe.txt

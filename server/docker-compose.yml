@@ -1,0 +1,21 @@
+# docker compose up -d --build
+services:
+  falezia:
+    build:
+      context: ..
+      dockerfile: server/Falezia.Server/Dockerfile
+    image: falezia/server:latest
+    container_name: falezia-server
+    restart: unless-stopped
+    ports:
+      - "27015:27015/udp"
+    environment:
+      FALEZIA_PORT: "27015"
+      FALEZIA_MAX: "10"
+      FALEZIA_MAP: "calanera.json"
+    # il server non ha stato su disco: niente volumi
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true

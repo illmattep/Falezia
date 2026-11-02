@@ -1,0 +1,28 @@
+{
+  "id": "standard",
+  "class": "Pistola",
+  "tris": 14632,
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.3
+    },
+    "fire_last": {
+      "length_s": 0.3
+    },
+    "reload": {
+      "length_s": 1.5
+    },
+    "reload_empty": {
+      "length_s": 2.0
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  }
+}

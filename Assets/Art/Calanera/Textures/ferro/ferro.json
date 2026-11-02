@@ -1,0 +1,8 @@
+{
+ "id": "ferro",
+ "tile_m": 1.0,
+ "relief_m": 0.002,
+ "style": 1.0,
+ "source": "meshy ferro_battuto_01",
+ "size": 2048
+}

@@ -54,7 +54,7 @@ public partial class ServerMain : Node
         Engine.MaxFps = 128;
         ParseArgs();
 
-        _world = WorldState.MakeTestWorld();
+        _world = MapFiles.Load();
         _state = new SimState();
 
         var err = _peer.Bind(_port, "*", 65536);
@@ -71,7 +71,7 @@ public partial class ServerMain : Node
         Log("BOOT", "==================================================");
         Log("BOOT", $" FALEZIA — server dedicato M0");
         Log("BOOT", $" porta UDP {_port} · tick {Constants.TickRate} Hz · snapshot {Constants.TickRate / Constants.SnapshotEvery} Hz");
-        Log("BOOT", $" mondo: {_world.Boxes.Count} volumi statici");
+        Log("BOOT", $" mappa: {_world.Name} · {_world.Boxes.Count} volumi statici");
         Log("BOOT", $" pid {System.Environment.ProcessId} · {RuntimeInformation()}");
         Log("BOOT", "==================================================");
         Log("BOOT", " comandi: status · players · kick <id> · help · quit");
@@ -170,8 +170,8 @@ public partial class ServerMain : Node
             {
                 slot = new ClientSlot { Id = _nextId++, Ip = ip, Port = port };
                 _clients[key] = slot;
-                Simulation.Spawn(_state, slot.Id, new Vec3(0f, 0.2f, slot.Id * 2f));
-                Log("NET", $"JOIN  {ip}:{port}  ->  id {slot.Id}  ({_clients.Count} connessi)");
+                Simulation.Spawn(_state, slot.Id, MapFiles.SpawnFor(_world, slot.Id));
+                Log("NET", $"JOIN  {ip}:{port}  ->  id {slot.Id} · {(MapFiles.IsNorth(slot.Id) ? "Nord" : "Sud")}  ({_clients.Count} connessi)");
             }
             else if (cmd.Tick < slot.Ack - 32)
             {

@@ -1,0 +1,1345 @@
+{
+ "meta": {
+  "map": "Calanera",
+  "generated_for": "Meshy",
+  "units": "metri",
+  "up_axis": "Y",
+  "pivot": "base center",
+  "note": "Un asset per file. Nessuna luce cotta. Materiali PBR separati (albedo, normal, ORM)."
+ },
+ "pipeline": {
+  "target_engine": "Unity 6 / URP",
+  "format": "glb",
+  "texture_px": {
+   "prop": 1024,
+   "facade": 2048,
+   "cave": 2048
+  },
+  "lod": "3 stadi per prop > 3000 vertici e per ogni modulo caverna; impostor oltre 120 m",
+  "naming": "map/<categoria>/<id>_v<n>.glb",
+  "prompt_prefix": "Game-ready low poly asset, PBR, neutral studio lighting, no shadow baked, single object, real-world scale in meters:",
+  "prompt_suffix": "Clean topology, no text unless specified, export as GLB, Y up."
+ },
+ "assets": [
+  {
+   "id": "facade_plaster_plain",
+   "category": "facade",
+   "name": "Modulo facciata — intonaco liscio",
+   "size_m": [
+    3.0,
+    3.0,
+    0.2
+   ],
+   "variants": 3,
+   "instances_est": 180,
+   "tris_max": 900,
+   "meshy_prompt": "Plain weathered Mediterranean plaster wall panel, 3 m wide by 3 m tall, subtle cracks and stains, warm ochre tone, flat back, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "facade_stone_plain",
+   "category": "facade",
+   "name": "Modulo facciata — pietra a vista",
+   "size_m": [
+    3.0,
+    3.0,
+    0.2
+   ],
+   "variants": 2,
+   "instances_est": 120,
+   "tris_max": 1200,
+   "meshy_prompt": "Rough limestone masonry wall panel 3x3 m, irregular stone courses, aged mortar, Ligurian coastal town, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "facade_window_shuttered",
+   "category": "facade",
+   "name": "Finestra con persiane",
+   "size_m": [
+    3.0,
+    3.0,
+    0.22
+   ],
+   "variants": 4,
+   "instances_est": 520,
+   "tris_max": 1100,
+   "meshy_prompt": "Italian window with open wooden shutters, 1.0 x 1.4 m recessed opening in 3x3 m plaster wall panel, stone sill, green or brown shutters, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "facade_window_balcony",
+   "category": "facade",
+   "name": "Finestra con balconcino in ferro",
+   "size_m": [
+    3.0,
+    3.0,
+    0.55
+   ],
+   "variants": 3,
+   "instances_est": 260,
+   "tris_max": 1600,
+   "meshy_prompt": "Italian window with small wrought iron balcony, 1.6 m wide, 0.5 m deep, 3x3 m plaster wall panel, laundry optional, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "facade_arch_door",
+   "category": "facade",
+   "name": "Portone ad arco",
+   "size_m": [
+    3.0,
+    3.0,
+    0.3
+   ],
+   "variants": 3,
+   "instances_est": 180,
+   "tris_max": 1400,
+   "meshy_prompt": "Arched wooden double door, 1.6 m wide 2.6 m tall, recessed 0.25 m in plaster wall, stone arch surround, weathered, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "facade_shop_front",
+   "category": "facade",
+   "name": "Fronte negozio con tenda",
+   "size_m": [
+    3.0,
+    3.0,
+    0.45
+   ],
+   "variants": 4,
+   "instances_est": 140,
+   "tris_max": 1800,
+   "meshy_prompt": "Small Italian shop front with metal roller or glass door, striped awning, chalkboard sign, 3 m wide, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "facade_garage_shutter",
+   "category": "facade",
+   "name": "Basculante garage",
+   "size_m": [
+    3.0,
+    3.0,
+    0.15
+   ],
+   "variants": 2,
+   "instances_est": 60,
+   "tris_max": 700,
+   "meshy_prompt": "Corrugated metal garage shutter, 2.4 m wide, rusty, in plaster wall panel 3x3 m, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "facade_corner_pilaster",
+   "category": "facade",
+   "name": "Pilastro d'angolo",
+   "size_m": [
+    0.6,
+    3.0,
+    0.6
+   ],
+   "variants": 2,
+   "instances_est": 90,
+   "tris_max": 600,
+   "meshy_prompt": "Corner quoin pilaster of a Mediterranean building, weathered plaster and stone edges, 3 m tall, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "facade_cornice",
+   "category": "facade",
+   "name": "Cornice di gronda",
+   "size_m": [
+    3.0,
+    0.35,
+    0.45
+   ],
+   "variants": 3,
+   "instances_est": 300,
+   "tris_max": 500,
+   "meshy_prompt": "Plaster cornice moulding segment, 3 m long, projecting 0.35 m, for Mediterranean facade, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "facade_downpipe",
+   "category": "facade",
+   "name": "Pluviale",
+   "size_m": [
+    0.12,
+    6.0,
+    0.12
+   ],
+   "variants": 2,
+   "instances_est": 120,
+   "tris_max": 350,
+   "meshy_prompt": "Vertical zinc downpipe with brackets, 6 m tall, weathered, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "facade_parapet",
+   "category": "facade",
+   "name": "Parapetto di terrazza",
+   "size_m": [
+    3.0,
+    1.0,
+    0.25
+   ],
+   "variants": 3,
+   "instances_est": 90,
+   "tris_max": 700,
+   "meshy_prompt": "Mediterranean roof terrace parapet, 3 m long, 1 m tall, plaster with stone coping, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "roof_tile_edge",
+   "category": "roof",
+   "name": "Filo di coppi",
+   "size_m": [
+    3.0,
+    0.3,
+    0.6
+   ],
+   "variants": 2,
+   "instances_est": 300,
+   "tris_max": 500,
+   "meshy_prompt": "Terracotta roof tile edge segment, 3 m long, traditional Italian coppi, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "roof_chimney",
+   "category": "roof",
+   "name": "Comignolo",
+   "size_m": [
+    0.62,
+    1.37,
+    0.62
+   ],
+   "variants": 3,
+   "instances_est": 180,
+   "tris_max": 600,
+   "meshy_prompt": "Small Italian rooftop chimney with cap, 0.6 x 0.6 m, 1.4 m tall, plaster and terracotta, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "roof_stairhead",
+   "category": "roof",
+   "name": "Corpo scala / abbaino",
+   "size_m": [
+    2.6,
+    2.6,
+    2.3
+   ],
+   "variants": 2,
+   "instances_est": 90,
+   "tris_max": 900,
+   "meshy_prompt": "Rooftop stair head with small tiled roof, 2.6 x 2.3 m, 2.6 m tall, Mediterranean, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "roof_water_tank",
+   "category": "roof",
+   "name": "Serbatoio dell'acqua",
+   "size_m": [
+    1.5,
+    1.55,
+    1.5
+   ],
+   "variants": 2,
+   "instances_est": 40,
+   "tris_max": 600,
+   "meshy_prompt": "Rooftop galvanised water tank on steel legs, 1.5 m cube, weathered, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "roof_antenna",
+   "category": "roof",
+   "name": "Antenna TV",
+   "size_m": [
+    0.1,
+    2.6,
+    0.6
+   ],
+   "variants": 3,
+   "instances_est": 120,
+   "tris_max": 300,
+   "meshy_prompt": "Thin rooftop TV antenna with mast, 2.6 m tall, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "roof_dish",
+   "category": "roof",
+   "name": "Parabola",
+   "size_m": [
+    0.8,
+    0.9,
+    0.4
+   ],
+   "variants": 2,
+   "instances_est": 40,
+   "tris_max": 400,
+   "meshy_prompt": "Small satellite dish on rooftop mount, 0.8 m, weathered white, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_curb",
+   "category": "street",
+   "name": "Cordolo marciapiede",
+   "size_m": [
+    1.0,
+    0.16,
+    0.3
+   ],
+   "variants": 2,
+   "instances_est": 400,
+   "tris_max": 200,
+   "meshy_prompt": "Stone kerb segment 1 m long, 0.16 m tall, weathered granite, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_manhole",
+   "category": "street",
+   "name": "Tombino",
+   "size_m": [
+    0.6,
+    0.04,
+    0.6
+   ],
+   "variants": 3,
+   "instances_est": 60,
+   "tris_max": 250,
+   "meshy_prompt": "Cast iron round manhole cover, 0.6 m, worn, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_drain",
+   "category": "street",
+   "name": "Griglia di scolo",
+   "size_m": [
+    0.5,
+    0.05,
+    0.35
+   ],
+   "variants": 2,
+   "instances_est": 50,
+   "tris_max": 200,
+   "meshy_prompt": "Cast iron rectangular drainage grate, 0.5 m, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_lamp_wall",
+   "category": "street",
+   "name": "Lampada a muro",
+   "size_m": [
+    0.35,
+    0.6,
+    0.5
+   ],
+   "variants": 4,
+   "instances_est": 90,
+   "tris_max": 500,
+   "meshy_prompt": "Old wrought iron wall lamp with small frosted globe, 0.5 m projection, Mediterranean, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "street_lamp_post",
+   "category": "street",
+   "name": "Lampione su palo",
+   "size_m": [
+    0.3,
+    4.2,
+    0.8
+   ],
+   "variants": 2,
+   "instances_est": 30,
+   "tris_max": 700,
+   "meshy_prompt": "Cast iron street lamp post 4.2 m with lantern head, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_bollard",
+   "category": "street",
+   "name": "Paracarri",
+   "size_m": [
+    0.22,
+    0.9,
+    0.22
+   ],
+   "variants": 3,
+   "instances_est": 70,
+   "tris_max": 300,
+   "meshy_prompt": "Stone bollard 0.9 m tall, worn edges, Italian town, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_bench",
+   "category": "street",
+   "name": "Panchina",
+   "size_m": [
+    1.8,
+    0.85,
+    0.6
+   ],
+   "variants": 3,
+   "instances_est": 35,
+   "tris_max": 700,
+   "meshy_prompt": "Wooden slat bench with cast iron arms, 1.8 m, weathered paint, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_planter",
+   "category": "street",
+   "name": "Fioriera",
+   "size_m": [
+    1.0,
+    0.55,
+    0.45
+   ],
+   "variants": 3,
+   "instances_est": 45,
+   "tris_max": 500,
+   "meshy_prompt": "Terracotta planter box 1 m with small Mediterranean plants, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_bin",
+   "category": "street",
+   "name": "Cestino",
+   "size_m": [
+    0.45,
+    0.9,
+    0.45
+   ],
+   "variants": 2,
+   "instances_est": 40,
+   "tris_max": 400,
+   "meshy_prompt": "Street litter bin on post, 0.45 m diameter, dark green painted metal, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "street_fountain",
+   "category": "street",
+   "name": "Fontanella",
+   "size_m": [
+    0.5,
+    1.1,
+    0.4
+   ],
+   "variants": 1,
+   "instances_est": 4,
+   "tris_max": 600,
+   "meshy_prompt": "Small Italian public drinking fountain, cast iron, 1.1 m, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_kiosk",
+   "category": "street",
+   "name": "Edicola",
+   "size_m": [
+    2.4,
+    2.6,
+    1.6
+   ],
+   "variants": 1,
+   "instances_est": 3,
+   "tris_max": 2000,
+   "meshy_prompt": "Newspaper kiosk, 2.4 x 1.6 m, 2.6 m tall, painted metal and canvas, closed shutters, Italian, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "street_cabinet",
+   "category": "street",
+   "name": "Cabina elettrica",
+   "size_m": [
+    0.9,
+    1.4,
+    0.5
+   ],
+   "variants": 2,
+   "instances_est": 15,
+   "tris_max": 500,
+   "meshy_prompt": "Utility electrical cabinet 1.4 m, weathered grey, tags and stickers, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_bike",
+   "category": "street",
+   "name": "Bicicletta parcheggiata",
+   "size_m": [
+    0.6,
+    1.05,
+    1.8
+   ],
+   "variants": 3,
+   "instances_est": 30,
+   "tris_max": 1200,
+   "meshy_prompt": "Old city bicycle leaning, 1.8 m long, low poly game-ready, one object",
+   "notes": ""
+  },
+  {
+   "id": "street_scooter",
+   "category": "street",
+   "name": "Motorino parcheggiato",
+   "size_m": [
+    0.7,
+    1.1,
+    1.7
+   ],
+   "variants": 3,
+   "instances_est": 25,
+   "tris_max": 1800,
+   "meshy_prompt": "Vintage Italian scooter parked, 1.7 m long, low poly game-ready",
+   "notes": ""
+  },
+  {
+   "id": "street_sign",
+   "category": "street",
+   "name": "Cartello stradale",
+   "size_m": [
+    0.6,
+    2.2,
+    0.08
+   ],
+   "variants": 4,
+   "instances_est": 30,
+   "tris_max": 300,
+   "meshy_prompt": "Italian street sign on pole, 2.2 m, reflective plate, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_nameplate",
+   "category": "street",
+   "name": "Targa via",
+   "size_m": [
+    0.5,
+    0.25,
+    0.04
+   ],
+   "variants": 3,
+   "instances_est": 40,
+   "tris_max": 150,
+   "meshy_prompt": "Italian ceramic street name plate, 0.5 x 0.25 m, enamel, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_cables",
+   "category": "street",
+   "name": "Fascio di cavi aerei",
+   "size_m": [
+    0.15,
+    0.15,
+    6.0
+   ],
+   "variants": 3,
+   "instances_est": 60,
+   "tris_max": 400,
+   "meshy_prompt": "Bundle of sagging overhead utility cables, 6 m span, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "street_puddle",
+   "category": "street",
+   "name": "Pozzanghera (decal)",
+   "size_m": [
+    1.6,
+    0.02,
+    1.2
+   ],
+   "variants": 3,
+   "instances_est": 50,
+   "tris_max": 40,
+   "meshy_prompt": "Flat puddle decal with soft edge, 1.6 m, game-ready, alpha blended",
+   "notes": ""
+  },
+  {
+   "id": "market_stall",
+   "category": "market",
+   "name": "Banco del mercato",
+   "size_m": [
+    2.4,
+    0.9,
+    1.2
+   ],
+   "variants": 3,
+   "instances_est": 18,
+   "tris_max": 1500,
+   "meshy_prompt": "Italian market stall table with wooden frame, 2.4 m, closed canvas awning, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "market_awning",
+   "category": "market",
+   "name": "Tenda parasole",
+   "size_m": [
+    3.0,
+    2.2,
+    2.0
+   ],
+   "variants": 3,
+   "instances_est": 18,
+   "tris_max": 900,
+   "meshy_prompt": "Canvas market awning on thin steel poles, 3 x 2 m, striped faded colours, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "market_crate",
+   "category": "market",
+   "name": "Cassetta di legno",
+   "size_m": [
+    0.5,
+    0.28,
+    0.35
+   ],
+   "variants": 4,
+   "instances_est": 60,
+   "tris_max": 250,
+   "meshy_prompt": "Wooden produce crate, 0.5 m, stacked look, weathered, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "market_produce",
+   "category": "market",
+   "name": "Cassetta con prodotti",
+   "size_m": [
+    0.5,
+    0.22,
+    0.35
+   ],
+   "variants": 6,
+   "instances_est": 48,
+   "tris_max": 400,
+   "meshy_prompt": "Produce crate filled with tomatoes, lemons, aubergines or fish, 0.5 m, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "market_barrel",
+   "category": "market",
+   "name": "Barile",
+   "size_m": [
+    0.55,
+    0.85,
+    0.55
+   ],
+   "variants": 2,
+   "instances_est": 20,
+   "tris_max": 500,
+   "meshy_prompt": "Wooden barrel 0.85 m tall, metal hoops, weathered, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "market_scale",
+   "category": "market",
+   "name": "Bilancia a piatti",
+   "size_m": [
+    0.45,
+    0.5,
+    0.3
+   ],
+   "variants": 1,
+   "instances_est": 10,
+   "tris_max": 600,
+   "meshy_prompt": "Old balance scale with brass pans, 0.5 m, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "market_icebox",
+   "category": "market",
+   "name": "Cassetta frigorifera",
+   "size_m": [
+    0.8,
+    0.5,
+    0.5
+   ],
+   "variants": 2,
+   "instances_est": 12,
+   "tris_max": 400,
+   "meshy_prompt": "White insulated fish box, 0.8 m, worn, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "market_bulbs",
+   "category": "market",
+   "name": "Filo di lampadine",
+   "size_m": [
+    0.1,
+    0.15,
+    4.0
+   ],
+   "variants": 1,
+   "instances_est": 10,
+   "tris_max": 300,
+   "meshy_prompt": "String of hanging bare bulbs, 4 m span, warm glow, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "market_board",
+   "category": "market",
+   "name": "Lavagnetta",
+   "size_m": [
+    0.6,
+    0.9,
+    0.06
+   ],
+   "variants": 3,
+   "instances_est": 14,
+   "tris_max": 250,
+   "meshy_prompt": "Chalkboard A-frame sign, 0.9 m, hand-written look, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "harbour_bollard",
+   "category": "harbour",
+   "name": "Bitta d'ormeggio",
+   "size_m": [
+    0.4,
+    0.55,
+    0.4
+   ],
+   "variants": 2,
+   "instances_est": 20,
+   "tris_max": 400,
+   "meshy_prompt": "Cast iron mooring bollard, 0.55 m, rusted, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "harbour_fender",
+   "category": "harbour",
+   "name": "Parabordo",
+   "size_m": [
+    0.3,
+    0.7,
+    0.3
+   ],
+   "variants": 2,
+   "instances_est": 25,
+   "tris_max": 300,
+   "meshy_prompt": "Tyre fender hanging from rope, 0.7 m, weathered rubber, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "harbour_rope",
+   "category": "harbour",
+   "name": "Cima avvolta",
+   "size_m": [
+    0.6,
+    0.25,
+    0.6
+   ],
+   "variants": 2,
+   "instances_est": 20,
+   "tris_max": 350,
+   "meshy_prompt": "Coiled mooring rope on ground, 0.6 m, salted and worn, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "harbour_nets",
+   "category": "harbour",
+   "name": "Rete da pesca",
+   "size_m": [
+    1.8,
+    0.5,
+    1.2
+   ],
+   "variants": 2,
+   "instances_est": 15,
+   "tris_max": 900,
+   "meshy_prompt": "Pile of fishing nets and floats, 1.8 m, green and orange, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "harbour_buoy",
+   "category": "harbour",
+   "name": "Boa",
+   "size_m": [
+    0.4,
+    0.6,
+    0.4
+   ],
+   "variants": 3,
+   "instances_est": 18,
+   "tris_max": 350,
+   "meshy_prompt": "Small fishing buoy, 0.4 m, faded paint, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "harbour_boat_small",
+   "category": "harbour",
+   "name": "Barca a remi",
+   "size_m": [
+    1.4,
+    0.55,
+    3.6
+   ],
+   "variants": 2,
+   "instances_est": 6,
+   "tris_max": 1800,
+   "meshy_prompt": "Small wooden rowing boat, 3.6 m long, peeling paint, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "harbour_pallet",
+   "category": "harbour",
+   "name": "Pallet",
+   "size_m": [
+    1.2,
+    0.15,
+    0.8
+   ],
+   "variants": 2,
+   "instances_est": 30,
+   "tris_max": 200,
+   "meshy_prompt": "Wooden pallet 1.2 x 0.8 m, weathered, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "harbour_container",
+   "category": "harbour",
+   "name": "Container",
+   "size_m": [
+    6.0,
+    2.6,
+    2.4
+   ],
+   "variants": 3,
+   "instances_est": 8,
+   "tris_max": 900,
+   "meshy_prompt": "Shipping container 6 m, faded paint, rust, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "harbour_crane_hook",
+   "category": "harbour",
+   "name": "Gancio della gru",
+   "size_m": [
+    0.4,
+    1.2,
+    0.4
+   ],
+   "variants": 1,
+   "instances_est": 1,
+   "tris_max": 500,
+   "meshy_prompt": "Heavy crane hook block with cable, 1.2 m, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "nature_pine",
+   "category": "nature",
+   "name": "Pino marittimo",
+   "size_m": [
+    5.0,
+    9.0,
+    5.0
+   ],
+   "variants": 3,
+   "instances_est": 40,
+   "tris_max": 2500,
+   "meshy_prompt": "Mediterranean stone pine, umbrella canopy, 9 m tall, low poly game-ready, 3 LODs",
+   "notes": ""
+  },
+  {
+   "id": "nature_olive",
+   "category": "nature",
+   "name": "Olivo",
+   "size_m": [
+    3.0,
+    4.5,
+    3.0
+   ],
+   "variants": 2,
+   "instances_est": 20,
+   "tris_max": 1800,
+   "meshy_prompt": "Old olive tree, gnarled trunk, 4.5 m, low poly game-ready",
+   "notes": ""
+  },
+  {
+   "id": "nature_shrub",
+   "category": "nature",
+   "name": "Macchia mediterranea",
+   "size_m": [
+    1.2,
+    0.9,
+    1.2
+   ],
+   "variants": 4,
+   "instances_est": 80,
+   "tris_max": 700,
+   "meshy_prompt": "Mediterranean scrub bush, 1.2 m, dry green, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "nature_agave",
+   "category": "nature",
+   "name": "Agave",
+   "size_m": [
+    1.0,
+    0.8,
+    1.0
+   ],
+   "variants": 2,
+   "instances_est": 20,
+   "tris_max": 800,
+   "meshy_prompt": "Agave plant, 1 m spread, blue-green, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "nature_pot",
+   "category": "nature",
+   "name": "Vaso con pianta",
+   "size_m": [
+    0.45,
+    0.7,
+    0.45
+   ],
+   "variants": 4,
+   "instances_est": 60,
+   "tris_max": 450,
+   "meshy_prompt": "Terracotta pot with geranium or basil, 0.7 m, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "nature_ivy",
+   "category": "nature",
+   "name": "Edera a parete (card)",
+   "size_m": [
+    2.0,
+    2.0,
+    0.05
+   ],
+   "variants": 3,
+   "instances_est": 60,
+   "tris_max": 120,
+   "meshy_prompt": "Ivy growing on wall, 2x2 m alpha card, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "nature_grass",
+   "category": "nature",
+   "name": "Ciuffo d'erba (card)",
+   "size_m": [
+    0.5,
+    0.3,
+    0.5
+   ],
+   "variants": 3,
+   "instances_est": 150,
+   "tris_max": 40,
+   "meshy_prompt": "Dry grass tuft, 0.5 m, alpha card, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "nature_rock",
+   "category": "nature",
+   "name": "Roccia",
+   "size_m": [
+    1.6,
+    1.0,
+    1.4
+   ],
+   "variants": 4,
+   "instances_est": 60,
+   "tris_max": 900,
+   "meshy_prompt": "Weathered coastal limestone boulder, 1.6 m, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "cave_vault_straight",
+   "category": "cave",
+   "name": "Volta dritta 6 m",
+   "size_m": [
+    3.0,
+    3.0,
+    6.0
+   ],
+   "variants": 1,
+   "instances_est": 22,
+   "tris_max": 3000,
+   "meshy_prompt": "Cave tunnel segment, 6 m long, 3 m wide, 3 m high, smooth eroded limestone vault, no sharp box edges, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "cave_vault_curve",
+   "category": "cave",
+   "name": "Volta curva 15/30/45 gradi",
+   "size_m": [
+    3.0,
+    3.0,
+    6.0
+   ],
+   "variants": 3,
+   "instances_est": 12,
+   "tris_max": 3500,
+   "meshy_prompt": "Curved cave tunnel segment, sweeping bend, 3 m wide, 3 m high, eroded limestone, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "cave_portal",
+   "category": "cave",
+   "name": "Portale d'ingresso",
+   "size_m": [
+    4.0,
+    3.6,
+    0.8
+   ],
+   "variants": 2,
+   "instances_est": 7,
+   "tris_max": 2000,
+   "meshy_prompt": "Natural rock arch entrance to a cave, 3 m opening, 3.6 m tall, irregular stone, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "cave_wall_panel",
+   "category": "cave",
+   "name": "Parete di camera (pannello)",
+   "size_m": [
+    8.0,
+    6.0,
+    1.5
+   ],
+   "variants": 3,
+   "instances_est": 18,
+   "tris_max": 4500,
+   "meshy_prompt": "Large concave cave wall panel, 8 m wide 6 m tall, layered limestone, irregular relief, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "cave_ceiling_panel",
+   "category": "cave",
+   "name": "Soffitto di camera (pannello)",
+   "size_m": [
+    8.0,
+    8.0,
+    2.0
+   ],
+   "variants": 2,
+   "instances_est": 12,
+   "tris_max": 4000,
+   "meshy_prompt": "Cave ceiling panel, 8x8 m, rough rock with stalactite stubs, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "cave_floor_patch",
+   "category": "cave",
+   "name": "Pavimento di caverna",
+   "size_m": [
+    6.0,
+    0.25,
+    6.0
+   ],
+   "variants": 3,
+   "instances_est": 24,
+   "tris_max": 1500,
+   "meshy_prompt": "Cave floor patch 6x6 m, damp gravel, small stones, puddle option, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "cave_boulder",
+   "category": "cave",
+   "name": "Masso",
+   "size_m": [
+    2.2,
+    1.6,
+    2.0
+   ],
+   "variants": 3,
+   "instances_est": 24,
+   "tris_max": 1200,
+   "meshy_prompt": "Large angular cave boulder, 2 m, damp limestone, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "cave_stalactites",
+   "category": "cave",
+   "name": "Colata di stalattiti",
+   "size_m": [
+    1.5,
+    2.2,
+    1.5
+   ],
+   "variants": 2,
+   "instances_est": 14,
+   "tris_max": 1600,
+   "meshy_prompt": "Cluster of stalactites hanging from cave ceiling, 1.5 m, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "cave_stalagmite",
+   "category": "cave",
+   "name": "Stalagmite",
+   "size_m": [
+    0.8,
+    1.8,
+    0.8
+   ],
+   "variants": 3,
+   "instances_est": 16,
+   "tris_max": 1200,
+   "meshy_prompt": "Cave stalagmite, 1.8 m tall, wet limestone, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "cave_rubble",
+   "category": "cave",
+   "name": "Detrito",
+   "size_m": [
+    2.0,
+    0.6,
+    1.6
+   ],
+   "variants": 2,
+   "instances_est": 20,
+   "tris_max": 800,
+   "meshy_prompt": "Pile of broken rock and rubble, 2 m, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "cave_beam",
+   "category": "cave",
+   "name": "Puntello di legno",
+   "size_m": [
+    0.2,
+    2.6,
+    0.2
+   ],
+   "variants": 2,
+   "instances_est": 10,
+   "tris_max": 350,
+   "meshy_prompt": "Rough wooden mine support beam, 2.6 m, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "cave_floodlight",
+   "category": "cave",
+   "name": "Faro da cantiere",
+   "size_m": [
+    0.4,
+    0.5,
+    0.5
+   ],
+   "variants": 2,
+   "instances_est": 8,
+   "tris_max": 500,
+   "meshy_prompt": "Portable work floodlight on tripod, 0.5 m head, game-ready low poly",
+   "notes": ""
+  },
+  {
+   "id": "galleria_lining",
+   "category": "cave",
+   "name": "Rivestimento galleria 6 m",
+   "size_m": [
+    12.0,
+    6.0,
+    6.0
+   ],
+   "variants": 1,
+   "instances_est": 10,
+   "tris_max": 4000,
+   "meshy_prompt": "Old concrete tunnel lining segment, 6 m long, 12 m span, stained, with cable trays, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "galleria_niche",
+   "category": "cave",
+   "name": "Nicchia di manutenzione",
+   "size_m": [
+    4.0,
+    3.0,
+    1.2
+   ],
+   "variants": 1,
+   "instances_est": 2,
+   "tris_max": 1500,
+   "meshy_prompt": "Concrete maintenance niche in tunnel wall, 4 m wide, 3 m tall, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "galleria_lamp",
+   "category": "cave",
+   "name": "Lampada di galleria",
+   "size_m": [
+    0.3,
+    0.3,
+    0.6
+   ],
+   "variants": 2,
+   "instances_est": 16,
+   "tris_max": 300,
+   "meshy_prompt": "Caged industrial tunnel lamp, 0.6 m, dusty, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "galleria_vent",
+   "category": "cave",
+   "name": "Griglia di ventilazione",
+   "size_m": [
+    1.2,
+    1.2,
+    0.15
+   ],
+   "variants": 1,
+   "instances_est": 4,
+   "tris_max": 400,
+   "meshy_prompt": "Rusted ventilation grille panel, 1.2 m square, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "objective_chest",
+   "category": "objective",
+   "name": "Cassa (obiettivo)",
+   "size_m": [
+    1.2,
+    1.0,
+    0.8
+   ],
+   "variants": 1,
+   "instances_est": 1,
+   "tris_max": 2500,
+   "meshy_prompt": "Heavy metal objective chest, 1.2 m wide, riveted, industrial, with open lid state, game-ready, two states",
+   "notes": ""
+  },
+  {
+   "id": "objective_core",
+   "category": "objective",
+   "name": "Nucleo",
+   "size_m": [
+    0.5,
+    0.35,
+    0.4
+   ],
+   "variants": 1,
+   "instances_est": 1,
+   "tris_max": 1800,
+   "meshy_prompt": "Reinforced briefcase containing a glowing core, 0.5 m, sci-fi industrial, game-ready, emissive part",
+   "notes": ""
+  },
+  {
+   "id": "objective_beacon",
+   "category": "objective",
+   "name": "Faro di estrazione",
+   "size_m": [
+    0.8,
+    2.5,
+    0.8
+   ],
+   "variants": 1,
+   "instances_est": 2,
+   "tris_max": 1500,
+   "meshy_prompt": "Extraction beacon device, 2.5 m tall, tripod base, smoke emitter on top, emissive, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "objective_pad",
+   "category": "objective",
+   "name": "Piastra di estrazione",
+   "size_m": [
+    4.0,
+    0.05,
+    4.0
+   ],
+   "variants": 1,
+   "instances_est": 2,
+   "tris_max": 300,
+   "meshy_prompt": "Painted extraction pad decal, 4x4 m, worn industrial markings, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "objective_kit",
+   "category": "objective",
+   "name": "Kit decodifica",
+   "size_m": [
+    0.6,
+    0.3,
+    0.4
+   ],
+   "variants": 1,
+   "instances_est": 1,
+   "tris_max": 1200,
+   "meshy_prompt": "Electronic decoding kit case open with tools, 0.6 m, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "objective_robot",
+   "category": "objective",
+   "name": "Robot deployabile",
+   "size_m": [
+    0.7,
+    0.5,
+    0.9
+   ],
+   "variants": 1,
+   "instances_est": 1,
+   "tris_max": 2500,
+   "meshy_prompt": "Small tracked bomb-disposal style robot with arm, 0.9 m, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "objective_siren",
+   "category": "objective",
+   "name": "Sirena",
+   "size_m": [
+    0.25,
+    0.25,
+    0.25
+   ],
+   "variants": 1,
+   "instances_est": 2,
+   "tris_max": 400,
+   "meshy_prompt": "Industrial warning siren, 0.25 m, red, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "sign_shop_a",
+   "category": "signage",
+   "name": "Insegna negozio (insegna)",
+   "size_m": [
+    1.6,
+    0.4,
+    0.06
+   ],
+   "variants": 4,
+   "instances_est": 30,
+   "tris_max": 250,
+   "meshy_prompt": "Italian shop sign board, 1.6 m, weathered painted text, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "sign_poster",
+   "category": "signage",
+   "name": "Manifesto (decal)",
+   "size_m": [
+    0.4,
+    0.6,
+    0.01
+   ],
+   "variants": 5,
+   "instances_est": 50,
+   "tris_max": 60,
+   "meshy_prompt": "Torn concert poster decal, 0.4x0.6 m, weathered, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "sign_graffiti",
+   "category": "signage",
+   "name": "Graffiti (decal)",
+   "size_m": [
+    2.0,
+    1.0,
+    0.01
+   ],
+   "variants": 4,
+   "instances_est": 30,
+   "tris_max": 60,
+   "meshy_prompt": "Faded graffiti tag decal, 2 m, game-ready",
+   "notes": ""
+  },
+  {
+   "id": "sign_stencil",
+   "category": "signage",
+   "name": "Numeri civici e stencil",
+   "size_m": [
+    0.3,
+    0.3,
+    0.01
+   ],
+   "variants": 5,
+   "instances_est": 60,
+   "tris_max": 40,
+   "meshy_prompt": "Painted house number stencil decal, game-ready",
+   "notes": ""
+  }
+ ]
+}

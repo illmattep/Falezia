@@ -1,0 +1,8 @@
+{
+ "id": "intonaco_liscio",
+ "tile_m": 5.0,
+ "relief_m": 0.004,
+ "style": 1.5,
+ "source": "procedurale",
+ "size": 2048
+}

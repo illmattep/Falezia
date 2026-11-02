@@ -1,0 +1,78 @@
+{
+  "id": "scrap",
+  "class": "SMG economica",
+  "source": "meshy",
+  "tris": 7998,
+  "tris_tp": 1500,
+  "size_mm": [
+    550.0,
+    292.0,
+    58.2
+  ],
+  "size_mm_doc12": [
+    550,
+    240,
+    52
+  ],
+  "material": "scrap_mat",
+  "parts": [
+    "body",
+    "mag"
+  ],
+  "sockets": {
+    "socket_muzzle": [
+      0.0,
+      0.018,
+      -0.3605
+    ],
+    "socket_aim": [
+      0.0,
+      0.0642,
+      -0.0138
+    ],
+    "socket_eject": [
+      0.0233,
+      0.0411,
+      -0.1149
+    ],
+    "socket_hand_r": [
+      0.0,
+      -0.034,
+      -0.034
+    ],
+    "socket_hand_l": [
+      -0.0262,
+      -0.0398,
+      -0.1322
+    ],
+    "socket_eye": [
+      0.0,
+      0.0642,
+      0.1462
+    ]
+  },
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.167
+    },
+    "fire_last": {
+      "length_s": 0.167
+    },
+    "reload": {
+      "length_s": 1.733
+    },
+    "reload_empty": {
+      "length_s": 2.1
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  },
+  "origin": "allineata ad arsenal2: socket_hand_r nello stesso punto"
+}

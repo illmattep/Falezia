@@ -1,0 +1,77 @@
+{
+  "id": "snub",
+  "class": "Rivoltella",
+  "source": "meshy",
+  "tris": 7994,
+  "tris_tp": 1496,
+  "size_mm": [
+    165.0,
+    109.2,
+    34.8
+  ],
+  "size_mm_doc12": [
+    165,
+    125,
+    38
+  ],
+  "material": "snub_mat",
+  "parts": [
+    "body"
+  ],
+  "sockets": {
+    "socket_muzzle": [
+      0.0,
+      0.025,
+      -0.0841
+    ],
+    "socket_aim": [
+      0.0,
+      0.0414,
+      0.0243
+    ],
+    "socket_eject": [
+      0.0139,
+      0.018,
+      -0.0017
+    ],
+    "socket_hand_r": [
+      0.0,
+      -0.021,
+      0.046
+    ],
+    "socket_hand_l": [
+      -0.0157,
+      -0.0427,
+      0.0373
+    ],
+    "socket_eye": [
+      0.0,
+      0.0414,
+      0.1843
+    ]
+  },
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.367
+    },
+    "fire_last": {
+      "length_s": 0.367
+    },
+    "reload": {
+      "length_s": 1.933
+    },
+    "reload_empty": {
+      "length_s": 2.333
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  },
+  "origin": "allineata ad arsenal2: socket_hand_r nello stesso punto"
+}

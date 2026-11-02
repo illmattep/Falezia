@@ -1,0 +1,78 @@
+{
+  "id": "longshot",
+  "class": "Fucile a otturatore",
+  "source": "meshy",
+  "tris": 7994,
+  "tris_tp": 1494,
+  "size_mm": [
+    1400.0,
+    298.9,
+    125.9
+  ],
+  "size_mm_doc12": [
+    1400,
+    260,
+    70
+  ],
+  "material": "longshot_mat",
+  "parts": [
+    "body",
+    "mag"
+  ],
+  "sockets": {
+    "socket_muzzle": [
+      0.0,
+      0.0142,
+      -1.0862
+    ],
+    "socket_aim": [
+      0.0,
+      0.0914,
+      -0.0634
+    ],
+    "socket_eject": [
+      0.0504,
+      0.0362,
+      -0.1664
+    ],
+    "socket_hand_r": [
+      0.0,
+      -0.03,
+      -0.056
+    ],
+    "socket_hand_l": [
+      -0.0567,
+      -0.0226,
+      -0.6079
+    ],
+    "socket_eye": [
+      0.0,
+      0.0914,
+      0.0966
+    ]
+  },
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 1.533
+    },
+    "fire_last": {
+      "length_s": 1.533
+    },
+    "reload": {
+      "length_s": 2.533
+    },
+    "reload_empty": {
+      "length_s": 3.0
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  },
+  "origin": "allineata ad arsenal2: socket_hand_r nello stesso punto"
+}

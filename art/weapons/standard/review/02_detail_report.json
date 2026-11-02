@@ -1,0 +1,137 @@
+{
+  "bbox_mm": {
+    "min": [
+      -16.8,
+      -26.89,
+      -70.0
+    ],
+    "max": [
+      16.2,
+      170.0,
+      68.0
+    ],
+    "size": [
+      33.0,
+      196.89,
+      138.0
+    ]
+  },
+  "delta_mm": [
+    -0.0,
+    -0.11,
+    -0.0
+  ],
+  "tris_total": 7324,
+  "objects": [
+    {
+      "name": "body",
+      "tris": 3180,
+      "bbox_mm": [
+        -16.8,
+        -26.9,
+        -62.0,
+        16.2,
+        143.0,
+        33.5
+      ],
+      "materials": [
+        "polymer_black",
+        "polymer_grip",
+        "steel_phosphate",
+        "steel_plain",
+        "marking_light"
+      ]
+    },
+    {
+      "name": "slide",
+      "tris": 3064,
+      "bbox_mm": [
+        -13.0,
+        -19.4,
+        33.5,
+        13.0,
+        170.0,
+        68.0
+      ],
+      "materials": [
+        "steel_phosphate",
+        "steel_plain",
+        "sight_white",
+        "marking_light",
+        "barrel"
+      ]
+    },
+    {
+      "name": "trigger",
+      "tris": 232,
+      "bbox_mm": [
+        -5.0,
+        23.7,
+        -10.4,
+        5.0,
+        31.2,
+        16.5
+      ],
+      "materials": [
+        "trigger_steel"
+      ]
+    },
+    {
+      "name": "hammer",
+      "tris": 140,
+      "bbox_mm": [
+        -4.0,
+        -23.5,
+        33.0,
+        4.0,
+        -16.5,
+        50.1
+      ],
+      "materials": [
+        "steel_plain"
+      ]
+    },
+    {
+      "name": "mag",
+      "tris": 708,
+      "bbox_mm": [
+        -13.4,
+        -26.5,
+        -70.0,
+        13.4,
+        20.0,
+        18.0
+      ],
+      "materials": [
+        "polymer_black"
+      ]
+    }
+  ],
+  "sockets": {
+    "socket_muzzle": [
+      0,
+      170,
+      46.5
+    ],
+    "socket_eject": [
+      12.7,
+      118,
+      55
+    ],
+    "socket_hand_r": [
+      -4,
+      -4,
+      -28
+    ],
+    "socket_hand_l": [
+      -17,
+      6,
+      -30
+    ],
+    "socket_aim": [
+      0,
+      -13,
+      64.5
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+ "id": "sampietrini",
+ "tile_m": 2.0,
+ "relief_m": 0.03,
+ "style": 1.5,
+ "source": "polyhaven cobblestone_floor_08",
+ "size": 2048
+}

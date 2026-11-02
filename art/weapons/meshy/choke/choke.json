@@ -1,0 +1,78 @@
+{
+  "id": "choke",
+  "class": "Pompa",
+  "source": "meshy",
+  "tris": 7997,
+  "tris_tp": 1496,
+  "size_mm": [
+    1150.0,
+    247.5,
+    63.1
+  ],
+  "size_mm_doc12": [
+    1150,
+    190,
+    55
+  ],
+  "material": "choke_mat",
+  "parts": [
+    "body",
+    "pump"
+  ],
+  "sockets": {
+    "socket_muzzle": [
+      0.0,
+      0.0304,
+      -0.8541
+    ],
+    "socket_aim": [
+      0.0,
+      0.0425,
+      -0.1589
+    ],
+    "socket_eject": [
+      0.0252,
+      0.0062,
+      -0.2194
+    ],
+    "socket_hand_r": [
+      0.0,
+      -0.024,
+      -0.038
+    ],
+    "socket_hand_l": [
+      -0.0284,
+      -0.0119,
+      -0.4007
+    ],
+    "socket_eye": [
+      0.0,
+      0.0425,
+      0.0011
+    ]
+  },
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 1.133
+    },
+    "fire_last": {
+      "length_s": 1.133
+    },
+    "reload": {
+      "length_s": 2.6
+    },
+    "reload_empty": {
+      "length_s": 3.1
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  },
+  "origin": "allineata ad arsenal2: socket_hand_r nello stesso punto"
+}

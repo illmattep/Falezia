@@ -13,7 +13,7 @@ config_version=5
 config/name="Falezia"
 config/description="Tattico 5v5 — M0"
 run/main_scene="res://client/main_menu.tscn"
-config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
+config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 
 [display]
 
@@ -31,4 +31,8 @@ common/physics_ticks_per_second=64
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
+; ombre definite: atlante grande, filtro morbido di qualità, niente banding nel cielo
+lights_and_shadows/directional_shadow/size=8192
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=4
+lights_and_shadows/directional_shadow/16_bits=true
+anti_aliasing/quality/use_debanding=true

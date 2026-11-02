@@ -1,0 +1,78 @@
+{
+  "id": "sweeper",
+  "class": "Pompa semiautomatico",
+  "source": "meshy",
+  "tris": 7971,
+  "tris_tp": 1484,
+  "size_mm": [
+    950.0,
+    349.4,
+    74.0
+  ],
+  "size_mm_doc12": [
+    950,
+    250,
+    62
+  ],
+  "material": "sweeper_mat",
+  "parts": [
+    "body",
+    "mag"
+  ],
+  "sockets": {
+    "socket_muzzle": [
+      0.0,
+      0.0619,
+      -0.6883
+    ],
+    "socket_aim": [
+      0.0,
+      0.1218,
+      -0.049
+    ],
+    "socket_eject": [
+      0.0296,
+      0.0669,
+      -0.1888
+    ],
+    "socket_hand_r": [
+      0.0,
+      -0.028,
+      -0.034
+    ],
+    "socket_hand_l": [
+      -0.0333,
+      0.017,
+      -0.4136
+    ],
+    "socket_eye": [
+      0.0,
+      0.1218,
+      0.111
+    ]
+  },
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.567
+    },
+    "fire_last": {
+      "length_s": 0.567
+    },
+    "reload": {
+      "length_s": 2.4
+    },
+    "reload_empty": {
+      "length_s": 2.867
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  },
+  "origin": "allineata ad arsenal2: socket_hand_r nello stesso punto"
+}

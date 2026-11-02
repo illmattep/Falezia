@@ -41,6 +41,7 @@ Chi estrae vince il round. **Primo a 5 estrazioni.**
 | Movimento | passo **4,2** · sprint **6,5** · crouch **2,2** · ADS **55%** |
 | Stamina | 10 s di sprint, 8 s di recupero |
 | Gravità / salto | 18 m/s² · 6,0 m/s (**~1 m**) |
+| Gradino | **35 cm** camminando (alzata reale 17 cm) |
 | Tick | **64 Hz**, snapshot **32 Hz** |
 | Acquisto libero | **≤ $300**, senza approvazione |
 
@@ -76,7 +77,7 @@ Slot consumabili: **3** totali (1 dal loadout, gratis ogni round; 2 comprati).
 | AR | Anvil ($1.400, 30 dmg) · Service ($1.400) · Vantage ($1.800, semiauto) |
 | Cecchini | Spotter ($1.800) · Longshot ($2.400, **oneshot**) |
 
-## Mappa — Calanera, 240 × 220 m
+## Mappa — Calanera, 180 × 200 m
 
 | Ruolo | Zona |
 |---|---|
@@ -85,9 +86,12 @@ Slot consumabili: **3** totali (1 dal loadout, gratis ogni round; 2 comprati).
 | Centro (cassa) | **Piazza Vecchia** |
 | Estrazione Est | **Grotta del Levante** — chiusa, un ingresso, fianco marino |
 | Estrazione Ovest | **Galleria Vecchia** — lunga, ingressi multipli |
-| Anello | Via Stretta · Scalinata Lunga · Lungomare · Mura |
+| Corsie laterali (= anello) | Via Stretta · Scalinata Lunga (Nord) · Lungomare · Mura (Sud) |
+| Corsia centrale | Salita · Largo · Arco · Via del Mercato → Piazza |
 
-Spawn a **±120 m** dal centro, estrazioni a **±95 m**. Passo: 28,6 s spawn→centro; 22,6 s centro→estrazione.
+Spawn a **±91 m** dal centro, estrazioni a **77 / 72 m**. Passo: 22,7 s spawn→cassa; ~20 s cassa→estrazione.
+Schema Valorant: tre corsie per lato (Via Stretta · centrale · Scalinata), strozzature corte, piazzette.
+Graybox: `game/maps/calanera.json`, generato e verificato da `tools/mapgen/calanera.py` (`./run.sh map`).
 
 ## Porte
 

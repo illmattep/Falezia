@@ -1,0 +1,38 @@
+standard  OK   vm 7950 tri · tp 1484 tri · 197×143×29 mm
+    nota   larghezza 29 mm contro 33 del doc 12 (-11%)
+hush      OK   vm 7916 tri · tp 1488 tri · 250×119×38 mm
+    nota   altezza 119 mm contro 145 del doc 12 (-18%)
+    nota   larghezza 38 mm contro 47 del doc 12 (-20%)
+snub      OK   vm 7994 tri · tp 1496 tri · 165×109×35 mm
+    nota   altezza 109 mm contro 125 del doc 12 (-13%)
+    nota   larghezza 35 mm contro 38 del doc 12 (-9%)
+hammer    OK   vm 7997 tri · tp 1500 tri · 270×137×34 mm
+    nota   altezza 137 mm contro 165 del doc 12 (-17%)
+    nota   larghezza 34 mm contro 45 del doc 12 (-25%)
+chatter   OK   vm 7995 tri · tp 1498 tri · 210×171×28 mm
+    nota   altezza 171 mm contro 195 del doc 12 (-12%)
+    nota   larghezza 28 mm contro 35 del doc 12 (-19%)
+blitz     OK   vm 7978 tri · tp 1486 tri · 500×214×44 mm
+    nota   larghezza 44 mm contro 58 del doc 12 (-23%)
+cadence   OK   vm 7982 tri · tp 1486 tri · 679×301×82 mm
+    nota   altezza 301 mm contro 260 del doc 12 (+16%)
+    nota   larghezza 82 mm contro 60 del doc 12 (+36%)
+scrap     OK   vm 7998 tri · tp 1500 tri · 550×292×58 mm
+    nota   altezza 292 mm contro 240 del doc 12 (+22%)
+    nota   larghezza 58 mm contro 52 del doc 12 (+12%)
+choke     OK   vm 7997 tri · tp 1496 tri · 1150×247×63 mm
+    nota   altezza 247 mm contro 190 del doc 12 (+30%)
+    nota   larghezza 63 mm contro 55 del doc 12 (+14%)
+sweeper   OK   vm 7971 tri · tp 1484 tri · 950×349×74 mm
+    nota   altezza 349 mm contro 250 del doc 12 (+39%)
+    nota   larghezza 74 mm contro 62 del doc 12 (+19%)
+anvil     OK   vm 7998 tri · tp 1496 tri · 879×261×73 mm
+    nota   larghezza 73 mm contro 58 del doc 12 (+27%)
+service   OK   vm 7999 tri · tp 1496 tri · 850×248×70 mm
+    nota   larghezza 70 mm contro 60 del doc 12 (+17%)
+spotter   OK   vm 7998 tri · tp 1500 tri · 1225×377×91 mm
+    nota   altezza 377 mm contro 250 del doc 12 (+51%)
+    nota   larghezza 91 mm contro 62 del doc 12 (+47%)
+longshot  OK   vm 7994 tri · tp 1494 tri · 1399×298×126 mm
+    nota   altezza 298 mm contro 260 del doc 12 (+15%)
+    nota   larghezza 126 mm contro 70 del doc 12 (+79%)

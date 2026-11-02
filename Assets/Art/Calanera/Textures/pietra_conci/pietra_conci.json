@@ -1,0 +1,8 @@
+{
+ "id": "pietra_conci",
+ "tile_m": 3.2,
+ "relief_m": 0.025,
+ "style": 1.5,
+ "source": "procedurale (palette da meshy wall_stone_01)",
+ "size": 2048
+}

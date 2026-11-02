@@ -1,0 +1,8 @@
+{
+ "id": "coppi",
+ "tile_m": 1.6,
+ "relief_m": 0.04,
+ "style": 1.3,
+ "source": "meshy roof_coppi_02",
+ "size": 2048
+}

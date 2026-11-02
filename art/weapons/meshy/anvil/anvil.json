@@ -1,0 +1,78 @@
+{
+  "id": "anvil",
+  "class": "Fucile d'assalto 7,62",
+  "source": "meshy",
+  "tris": 7998,
+  "tris_tp": 1496,
+  "size_mm": [
+    880.0,
+    261.4,
+    73.9
+  ],
+  "size_mm_doc12": [
+    880,
+    250,
+    58
+  ],
+  "material": "anvil_mat",
+  "parts": [
+    "body",
+    "mag"
+  ],
+  "sockets": {
+    "socket_muzzle": [
+      0.0,
+      0.0323,
+      -0.6392
+    ],
+    "socket_aim": [
+      0.0,
+      0.0832,
+      -0.2546
+    ],
+    "socket_eject": [
+      0.0296,
+      0.0369,
+      -0.1294
+    ],
+    "socket_hand_r": [
+      0.0,
+      -0.028,
+      -0.046
+    ],
+    "socket_hand_l": [
+      -0.0333,
+      0.0137,
+      -0.3612
+    ],
+    "socket_eye": [
+      0.0,
+      0.0832,
+      -0.0946
+    ]
+  },
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.167
+    },
+    "fire_last": {
+      "length_s": 0.167
+    },
+    "reload": {
+      "length_s": 2.033
+    },
+    "reload_empty": {
+      "length_s": 2.467
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  },
+  "origin": "allineata ad arsenal2: socket_hand_r nello stesso punto"
+}

@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a184fd-8650-76df-b474-8d0489f3c686/output/model.glb?Expires=4946832000&Signature=bQ1Tz43dMc4O9mC5VLtdu6qDmJk5HhnxwMLHRavA9ssMbVQCU7GBw8sPdDOofWmMCrZtTmZu7GM4quGhvD-7vIqKf74bMhDLC9EFtzEc2dT2Seu4-gYFweQvP1rF7SmvQ8MpnWyLNOWdbIndYNSbBS9z8RScvB-VmZrNVbf3BEWvyzNZAt5DtrFQ7m3OsB~~DTZSmgf2RZ~C3ZZc2ZWe9ByaufZsLg7qVuOKfrfrTcQRHhH-FPa3gFo98A2HQ7SOMV2yS4EWCvMmLScH9ctiGHix7k3Rq6hY4rIKkScKgA7-7SJnU2Z-EF0ou3bODz8Q0UPw5fbhKqFEADajVNcCYQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "barile_legno",
+ "prompt": "Oak wine barrel with three iron hoops, weathered staves, small chalk mark, damp base. Real-world scale 0.7 x 0.9 x 0.7 m. Stylized game prop, Valorant-like art direction: clean readable silhouette, matte PBR with subtle hand-painted wear, no photorealism, no text, no logos. Single object, no ground plane, no background, no shadow, no baked lighting. ",
+ "preview_task_id": "01a184fc-7526-73ba-9d8a-3df629440771",
+ "texture_task_id": "01a184fd-8650-76df-b474-8d0489f3c686",
+ "bytes": 25783168
+}

@@ -1,0 +1,8 @@
+{
+ "id": "mattone",
+ "tile_m": 1.2,
+ "relief_m": 0.015,
+ "style": 1.6,
+ "source": "procedurale",
+ "size": 2048
+}

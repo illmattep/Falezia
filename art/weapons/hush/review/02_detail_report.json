@@ -1,0 +1,172 @@
+{
+  "bbox_mm": {
+    "min": [
+      -23.53,
+      -27.7,
+      -78.6
+    ],
+    "max": [
+      23.03,
+      223.0,
+      66.4
+    ],
+    "size": [
+      46.56,
+      250.7,
+      145.0
+    ]
+  },
+  "delta_mm": [
+    -0.44,
+    0.7,
+    -0.0
+  ],
+  "tris_total": 7870,
+  "objects": [
+    {
+      "name": "body",
+      "tris": 3672,
+      "bbox_mm": [
+        -23.5,
+        -27.7,
+        -70.0,
+        23.0,
+        104.0,
+        33.5
+      ],
+      "materials": [
+        "steel_phosphate",
+        "steel_plain",
+        "tape",
+        "marking_light"
+      ]
+    },
+    {
+      "name": "slide",
+      "tris": 1686,
+      "bbox_mm": [
+        -15.3,
+        -22.4,
+        33.5,
+        12.8,
+        103.0,
+        66.4
+      ],
+      "materials": [
+        "steel_phosphate",
+        "steel_plain",
+        "sight_black",
+        "sight_white"
+      ]
+    },
+    {
+      "name": "trigger",
+      "tris": 232,
+      "bbox_mm": [
+        -5.0,
+        23.7,
+        -10.4,
+        5.0,
+        31.2,
+        16.5
+      ],
+      "materials": [
+        "trigger_steel"
+      ]
+    },
+    {
+      "name": "hammer",
+      "tris": 140,
+      "bbox_mm": [
+        -4.0,
+        -23.5,
+        33.0,
+        4.0,
+        -16.5,
+        50.1
+      ],
+      "materials": [
+        "steel_plain"
+      ]
+    },
+    {
+      "name": "mag",
+      "tris": 708,
+      "bbox_mm": [
+        -13.4,
+        -26.1,
+        -78.6,
+        13.4,
+        20.0,
+        18.0
+      ],
+      "materials": [
+        "steel_phosphate"
+      ]
+    },
+    {
+      "name": "suppressor",
+      "tris": 1260,
+      "bbox_mm": [
+        -19.0,
+        118.0,
+        27.5,
+        19.0,
+        223.0,
+        66.2
+      ],
+      "materials": [
+        "suppressor",
+        "sight_black",
+        "sight_white"
+      ]
+    },
+    {
+      "name": "barrel",
+      "tris": 172,
+      "bbox_mm": [
+        -7.5,
+        6.0,
+        39.0,
+        7.5,
+        118.0,
+        54.0
+      ],
+      "materials": [
+        "steel_plain"
+      ]
+    }
+  ],
+  "sockets": {
+    "socket_muzzle": [
+      0,
+      223,
+      46.5
+    ],
+    "socket_eject": [
+      12.5,
+      70,
+      52
+    ],
+    "socket_hand_r": [
+      -4,
+      -4,
+      -30
+    ],
+    "socket_hand_l": [
+      -17,
+      6,
+      -32
+    ],
+    "socket_aim": [
+      0,
+      -16,
+      64.5
+    ],
+    "socket_supp": [
+      0,
+      170,
+      46.5
+    ]
+  }
+}

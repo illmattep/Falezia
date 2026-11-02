@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a184fb-9a29-75b9-9149-1bb97ebc00fd/output/model.glb?Expires=4946832000&Signature=T11g6AVR47ecpuOFVrXtDiHRg0RZZr4LLmiYX3JaeJpDAlYOHprBN4pNTb1FZEGycJNwgBQkq5CGaWvhFTJTEVOlfm3Na90ByNTiNMBLvN4uYgH~LpqHPUKcBtQ7jC~M08NbpHjmNTfYLwPWwFDs3VRUGBoNTEvrVLOREcD5gMKL4HC2UZiNieIuBNpZoWVMDJixS1jrzTZX1EVoLNxx4Iz9Z1xCUh2NgKTAp2~E5E9NFx0LQJGMoJW2wjTsEibUUjIeEPe~V4Z6prM0B~k73YJVeega6WLpDsOen3IRfY05FyulO4UjneZ6ibXUbpFGRvIzjpa8VZ87E0YasZ9brA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "boa_pesca",
+ "prompt": "Weathered fishing buoy, orange and white bands, rope ring and a short frayed rope, salt stains and chips. Real-world scale 0.4 x 0.9 x 0.4 m. Stylized game prop, Valorant-like art direction: clean readable silhouette, matte PBR with subtle hand-painted wear, no photorealism, no text, no logos. Single object, no ground plane, no background, no shadow, no baked lighting. ",
+ "preview_task_id": "01a184fa-d82b-7054-b929-55adb6eafb70",
+ "texture_task_id": "01a184fb-9a29-75b9-9149-1bb97ebc00fd",
+ "bytes": 9839412
+}

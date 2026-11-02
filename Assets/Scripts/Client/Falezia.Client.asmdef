@@ -1,0 +1,31 @@
+{
+    "name": "Falezia.Client",
+    "rootNamespace": "",
+    "references": [
+        "Falezia.Sim",
+        "Falezia.Net",
+        "GUID:a42927d1d4a3b4cda9b076a7adecb9cc",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.cloud.gltfast",
+            "expression": "6.0.0",
+            "define": "FALEZIA_GLTF"
+        },
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "17.0.0",
+            "define": "FALEZIA_URP"
+        }
+    ],
+    "noEngineReferences": false
+}

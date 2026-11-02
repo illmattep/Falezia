@@ -1,0 +1,33 @@
+[Unit]
+Description=Falezia control plane (pannello, matchmaking, istanze)
+Documentation=https://github.com/ (repo interno)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=falezia
+Group=falezia
+WorkingDirectory=/opt/falezia/control
+ExecStart=/opt/falezia/control/Falezia.Control --bind=0.0.0.0 --data=/var/lib/falezia
+EnvironmentFile=-/etc/falezia/control.env
+Restart=always
+RestartSec=2
+TimeoutStopSec=20
+KillMode=mixed
+
+# le istanze di gioco devono poter partire: sono figlie di questo servizio
+LimitNOFILE=16384
+
+# irrigidimento: il processo scrive solo nella sua cartella dati
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/falezia
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,8 @@
+{
+ "id": "lastre",
+ "tile_m": 5.0,
+ "relief_m": 0.012,
+ "style": 1.3,
+ "source": "meshy lastrico_piazza_01",
+ "size": 2048
+}

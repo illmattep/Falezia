@@ -1,0 +1,233 @@
+using System.Collections.Generic;
+using Falezia.Sim;
+using UnityEngine;
+using Vec3 = System.Numerics.Vector3;
+
+/// <summary>
+/// IL PUNTO DI PARTENZA (Unity). Mette in scena ciò che serve per giocare:
+/// mappa dai volumi della simulazione, sole con ombre, giocatore in prima persona,
+/// HUD e negozio. La simulazione è la STESSA del progetto Godot: `Falezia.Sim` è
+/// C# puro, non sa niente del motore.
+///
+/// Uso: nuova scena vuota → GameObject vuoto → componente GameRoot → Play.
+/// </summary>
+public class GameRoot : MonoBehaviour
+{
+    public static WorldState World;
+    public static SimState Sim;
+    public const int PlayerId = 1;
+
+    [Header("Mondo")]
+    public string mapFile = "calanera.json";
+    public bool useTestWorld = false;
+
+    [Header("Rete")]
+    public bool online = false;
+    public string host = "127.0.0.1";
+    public int port = 27015;
+
+    [Header("Luce")]
+    public Color sunColor = new(1.00f, 0.91f, 0.78f);
+    public float sunIntensity = 1.12f;
+
+    public static PlayerRig Player;
+
+    private NetClient _net;
+
+    /// <summary>
+    /// Collega questo client a un server già in esecuzione. La usa il menu (e prima
+    /// <c>-faleziaOnline</c>): il giocatore esiste già, quindi la rete gli viene agganciata
+    /// dopo. Se il server non risponde si resta in locale, senza bloccare niente.
+    /// </summary>
+    public void ConnectOnline(string serverHost, int serverPort)
+    {
+        if (_net == null) _net = gameObject.AddComponent<NetClient>();
+        host = serverHost;
+        port = serverPort;
+        online = true;
+        _net.Connect(serverHost, serverPort);
+        if (Player != null) Player.AttachNetwork(_net);
+    }
+
+    private void Awake()
+    {
+        Application.targetFrameRate = 0;
+
+        GameSettings.Load();
+        GameSettings.Apply();
+        QualitySettings.shadows = ShadowQuality.All;
+        QualitySettings.shadowResolution = ShadowResolution.VeryHigh;
+        QualitySettings.shadowDistance = 90f;
+        QualitySettings.shadowCascades = 4;
+        QualitySettings.shadowCascade4Split = new Vector3(0.08f, 0.22f, 0.48f);
+        QualitySettings.antiAliasing = 4;
+
+        World = useTestWorld ? WorldState.MakeTestWorld() : UnityMapFiles.Load(mapFile);
+        Sim = new SimState();
+
+        var start = World.SpawnsNorth.Count > 0 ? World.SpawnsNorth[0] : World.FallbackFeet;
+        Simulation.Spawn(Sim, PlayerId, start);
+        FaceMapCenter(Sim.Get(PlayerId), start);
+
+        var mapRoot = MapBuilder.Build(World, transform);
+        MapBands.Build(World, mapRoot);
+        BuildLight();
+        BuildGround();
+
+        ApplyCommandLine();
+
+        if (online) ConnectOnline(host, port);
+        NetClient net = _net;
+
+        // il corpo degli operatori si carica in sottofondo: al primo avversario è già pronto
+        OperatorView.Preload();
+
+        var go = new GameObject("Giocatore");
+        Player = go.AddComponent<PlayerRig>();
+        Player.Init(Sim.Get(PlayerId), World, net);
+
+        // controllo qualità degli operatori: tre manichini davanti alla camera, uno screenshot
+        if (System.Array.IndexOf(System.Environment.GetCommandLineArgs(), "-faleziaOperatorProbe") >= 0)
+            gameObject.AddComponent<OperatorProbe>();
+
+        // giocando online si passa dalla coda: "in coda → match trovato → brief"
+        if (online && Player != null) gameObject.AddComponent<MatchFlow>().Init(Player);
+
+        if (PhotoMode.Directory() != null)
+        {
+            var photo = go.AddComponent<PhotoMode>();
+            photo.Begin(Player);
+        }
+        else if (PhotoMode.CheckRequested)
+        {
+            var photo = go.AddComponent<PhotoMode>();
+            photo.BeginCheck(Player);
+        }
+    }
+
+    /// <summary>
+    /// `-faleziaOnline 127.0.0.1:27015` avvia il client già collegato al server dedicato,
+    /// senza toccare la scena. Utile per le prove e per i lanci da script.
+    /// </summary>
+    private void ApplyCommandLine()
+    {
+        var args = System.Environment.GetCommandLineArgs();
+        for (int i = 0; i < args.Length - 1; i++)
+        {
+            if (args[i] != "-faleziaOnline") continue;
+            online = true;
+            var parts = args[i + 1].Split(':');
+            host = parts[0];
+            if (parts.Length > 1 && int.TryParse(parts[1], out var p)) port = p;
+        }
+    }
+
+    /// <summary>
+    /// Guarda verso il centro della mappa invece che verso il muro alle spalle.
+    /// Convenzione della simulazione: yaw 0 → avanti = -Z, quindi yaw = atan2(-dx, -dz).
+    /// </summary>
+    private static void FaceMapCenter(PlayerState p, Vec3 from)
+    {
+        var center = MapCenter();
+        var d = new Vec3(center.X - from.X, 0f, center.Z - from.Z);
+        if (d.LengthSquared() < 0.01f) return;
+        p.Yaw = (float)System.Math.Atan2(-d.X, -d.Z);
+    }
+
+    private static Vec3 MapCenter()
+    {
+        var sum = new Vec3(0f, 0f, 0f);
+        int n = 0;
+        foreach (var s in World.SpawnsNorth) { sum += s; n++; }
+        foreach (var s in World.SpawnsSouth) { sum += s; n++; }
+        return n == 0 ? new Vec3(0f, 0f, 0f) : sum / n;
+    }
+
+    private void BuildLight()
+    {
+        var sun = new GameObject("Sole").AddComponent<Light>();
+        sun.type = LightType.Directional;
+        sun.color = sunColor;
+        sun.intensity = sunIntensity;
+        sun.shadows = LightShadows.Soft;
+        sun.shadowStrength = 1.0f;
+        sun.shadowBias = 0.045f;
+        sun.shadowNormalBias = 0.35f;
+        // sole da OVEST, più basso: ombre lunghe, la città legge in profondità
+        sun.transform.rotation = Quaternion.Euler(34f, 90f, 0f);
+        RenderSettings.sun = sun;
+
+        BuildSky();
+        RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
+        RenderSettings.ambientIntensity = 0.72f;   // più contrasto: le facciate in ombra si staccano
+        RenderSettings.fog = true;
+        RenderSettings.fogMode = FogMode.Linear;
+        RenderSettings.fogColor = new Color(0.78f, 0.80f, 0.80f);
+        RenderSettings.fogStartDistance = 70f;
+        RenderSettings.fogEndDistance = 330f;
+
+        BuildPostProcessing();
+    }
+
+    /// <summary>Cielo: panorama 4096×2048 della mappa (lo stesso file del client Godot).</summary>
+    private void BuildSky()
+    {
+        // cielo procedurale con nuvole in movimento: nessuna texture, si anima da solo
+        var shader = Shader.Find("Skybox/Falezia Nuvole");
+        if (shader != null)
+        {
+            var mat = new Material(shader) { name = "Cielo Nuvole" };
+            var sun = RenderSettings.sun;
+            Vector3 toSun = sun != null ? -sun.transform.forward : new Vector3(0.55f, 0.42f, 0.2f);
+            mat.SetVector("_SunDir", toSun.normalized);
+            mat.SetColor("_SunColor", sunColor);
+            mat.SetColor("_Horizon", new Color(0.80f, 0.82f, 0.82f));
+            mat.SetColor("_Zenith", new Color(0.15f, 0.33f, 0.62f));
+            mat.SetFloat("_Cover", 0.50f);
+            mat.SetFloat("_Speed", 0.010f);
+            mat.SetFloat("_Scale", 2.4f);
+            RenderSettings.skybox = mat;
+            RenderSettings.ambientSkyColor = new Color(0.55f, 0.68f, 0.86f);
+            return;
+        }
+
+        var sky = Resources.Load<Material>("Sky/Cielo");
+        if (sky == null)
+        {
+            Debug.LogWarning("GameRoot: nessun cielo disponibile");
+            return;
+        }
+        RenderSettings.skybox = sky;
+    }
+
+    /// <summary>Volume globale con il profilo (tonemap ACES, bloom, vignetta).</summary>
+    private void BuildPostProcessing()
+    {
+        var profile = Resources.Load<UnityEngine.Rendering.VolumeProfile>("Falezia-Volume");
+        if (profile == null)
+        {
+            Debug.LogWarning("GameRoot: profilo volume assente (Assets/Resources/Falezia-Volume)");
+            return;
+        }
+        Debug.Log("GameRoot: volume attivo, componenti = " + profile.components.Count);
+
+        var go = new GameObject("Post");
+        go.transform.SetParent(transform, false);
+        var volume = go.AddComponent<UnityEngine.Rendering.Volume>();
+        volume.isGlobal = true;
+        volume.priority = 10f;
+        volume.sharedProfile = profile;
+    }
+
+    /// <summary>Pavimento d'appoggio: la mappa ha il suo, ma sotto il vuoto serve un fondo.</summary>
+    private void BuildGround()
+    {
+        var ground = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        ground.name = "Mare";
+        ground.transform.SetParent(transform, false);
+        ground.transform.position = new Vector3(0f, -1.05f, 0f);
+        ground.transform.localScale = new Vector3(60f, 1f, 60f);
+        ground.GetComponent<Renderer>().sharedMaterial = Fx.Make(new Color(0.31f, 0.40f, 0.45f), 0.75f);
+        Destroy(ground.GetComponent<Collider>());
+    }
+}

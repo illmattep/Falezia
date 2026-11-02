@@ -1,0 +1,8 @@
+{
+ "id": "intonaco_grezzo",
+ "tile_m": 3.0,
+ "relief_m": 0.004,
+ "style": 1.3,
+ "source": "meshy wall_grezzo_01",
+ "size": 2048
+}

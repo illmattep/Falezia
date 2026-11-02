@@ -6,6 +6,7 @@ public partial class MainMenu : Control
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Visible;
+        GraphicsSettings.ApplyGlobal();
         BuildUi();
     }
 
@@ -53,9 +54,9 @@ public partial class MainMenu : Control
 
         col.AddChild(new Control { CustomMinimumSize = new Vector2(0, 28) });
 
-        col.AddChild(MenuButton("GIOCA  (online)", "collega al server dedicato", () => Go("res://client/client.tscn"), true));
-        col.AddChild(MenuButton("STANZA DEBUG", "tutti gli aspetti tecnici e gli scenari", () => Go("res://client/debug_room.tscn"), true));
-        col.AddChild(MenuButton("IMPOSTAZIONI", "IN COSTRUZIONE", null, false));
+        col.AddChild(MenuButton("GIOCA  (online)", "collega al server dedicato · mappa Calanera", () => Go("res://client/client.tscn"), true));
+        col.AddChild(MenuButton("STANZA DEBUG", "Calanera in graybox, teleport, cronometro, scenari", () => Go("res://client/debug_room.tscn"), true));
+        col.AddChild(MenuButton("IMPOSTAZIONI", "grafica, schermo, latenza · anche in partita con F10", () => SettingsPanel.Open(this), true));
         col.AddChild(MenuButton("ARSENALE", "IN COSTRUZIONE — 15 armi già progettate", null, false));
         col.AddChild(MenuButton("ESCI", "", () => GetTree().Quit(), true));
 

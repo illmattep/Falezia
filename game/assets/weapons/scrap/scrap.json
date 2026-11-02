@@ -1,0 +1,28 @@
+{
+  "id": "scrap",
+  "class": "SMG economica",
+  "tris": 28256,
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.167
+    },
+    "fire_last": {
+      "length_s": 0.167
+    },
+    "reload": {
+      "length_s": 1.733
+    },
+    "reload_empty": {
+      "length_s": 2.1
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  }
+}

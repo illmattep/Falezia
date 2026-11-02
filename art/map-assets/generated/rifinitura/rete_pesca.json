@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a18504-fced-7366-9255-fbfc98857dba/output/model.glb?Expires=4946832000&Signature=eJy~uEbb5eyhYb0-mU5-4cIJBrRRGErQmMwq9a1WvNoDymeZkpmy5JITuv-HLo-aEzI3nBbyrRV1GMnBe0WpMbyXMZyPdCFkdLAF9WJKmuvveFPiD5YcQAIck0R8ez2f-9w2rF2pPyEq-iopYH98SanTI-U8DVJ3KmVyKzYgSCxznCM2N0MT4VRuj3i~hadAU2pD5CMBpW2RBiLc6YXDYTYiv69hIdUhg9ggs9hd6uTTVAskELn6~a43PNR4f99brNooaaUQNceP3qUTe~yw2jCvGstvsl3zpczjZgZoz2nmIWKd~TNeRZZoarznpl0xOA8KLRcmAKNm0rK5jNhGHA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "rete_pesca",
+ "prompt": "Pile of fishing nets on the ground, tangled green and orange netting, cork floats and two faded buoys caught inside, coiled salt-stained rope on top. Real-world scale 2.0 x 0.6 x 1.4 m. Stylized game prop, Valorant-like art direction: clean readable silhouette, matte PBR with subtle hand-painted wear, no photorealism, no text, no logos. Single object, no ground plane, no background, no shadow, no baked lighting. ",
+ "preview_task_id": "01a18502-440c-7179-a784-08fa62c58c2e",
+ "texture_task_id": "01a18504-fced-7366-9255-fbfc98857dba",
+ "bytes": 209833620
+}

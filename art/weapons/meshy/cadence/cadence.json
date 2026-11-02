@@ -1,0 +1,78 @@
+{
+  "id": "cadence",
+  "class": "SMG",
+  "source": "meshy",
+  "tris": 7982,
+  "tris_tp": 1486,
+  "size_mm": [
+    680.0,
+    301.5,
+    82.2
+  ],
+  "size_mm_doc12": [
+    680,
+    260,
+    60
+  ],
+  "material": "cadence_mat",
+  "parts": [
+    "body",
+    "mag"
+  ],
+  "sockets": {
+    "socket_muzzle": [
+      0.0,
+      0.0169,
+      -0.4661
+    ],
+    "socket_aim": [
+      0.0,
+      0.0562,
+      -0.0514
+    ],
+    "socket_eject": [
+      0.0329,
+      0.0205,
+      -0.1265
+    ],
+    "socket_hand_r": [
+      0.0,
+      -0.026,
+      -0.03
+    ],
+    "socket_hand_l": [
+      -0.037,
+      -0.051,
+      -0.3338
+    ],
+    "socket_eye": [
+      0.0,
+      0.0562,
+      0.1086
+    ]
+  },
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.167
+    },
+    "fire_last": {
+      "length_s": 0.167
+    },
+    "reload": {
+      "length_s": 1.867
+    },
+    "reload_empty": {
+      "length_s": 2.267
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  },
+  "origin": "allineata ad arsenal2: socket_hand_r nello stesso punto"
+}

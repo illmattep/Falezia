@@ -1,0 +1,8 @@
+{
+ "id": "legno_verniciato",
+ "tile_m": 1.0,
+ "relief_m": 0.006,
+ "style": 1.2,
+ "source": "meshy legno_persiana_01 (neutro, da tingere)",
+ "size": 2048
+}

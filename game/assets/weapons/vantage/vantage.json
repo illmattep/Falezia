@@ -1,0 +1,28 @@
+{
+  "id": "vantage",
+  "class": "Fucile da battaglia",
+  "tris": 42660,
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.567
+    },
+    "fire_last": {
+      "length_s": 0.567
+    },
+    "reload": {
+      "length_s": 2.133
+    },
+    "reload_empty": {
+      "length_s": 2.533
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  }
+}

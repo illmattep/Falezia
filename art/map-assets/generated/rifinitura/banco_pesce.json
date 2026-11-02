@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a184eb-88ae-747b-9067-645c4bd1e032/output/model.glb?Expires=4946745600&Signature=XV1FNJC-LQszd600rNgq0znGGLGJPW5soOsQ~0e65a~FZadxfXsQiTHYfFGmbMRDDvHhh67fja1H0kBUc3G~rhRXdoqtcuAfJK6tT-8erZem0Ov1L5~4gefQOrmHlOvcP1PQGnPdz9pROneVQkNNfIXlkqGjLbw0Q6TaviMWmzrvSRdHR1AC1zZRoyUgT2P9mQax5nK-5IFJFgV9QJeKHOWsYp9tLe-8DcStGtpEG0XQEGj1jyAjvo8S4R5xNb89tpdqzdsIwXboBm-WgLGE~3mzY6bUMhYiH8N4rA8u3~ngT4R7l2t2IaJocqKsRWqiTo9Pl2Q87YahXj0iWN5TRQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "banco_pesce",
+ "prompt": "Wooden fish market stall with a striped ochre and cream canvas awning, ice trough, several wooden fish crates, a hanging brass scale and a small chalkboard. Real-world scale 3.0 x 1.4 x 2.4 m. Stylized game prop, Valorant-like art direction: clean readable silhouette, matte PBR with subtle hand-painted wear, no photorealism, no text, no logos. Single object, no ground plane, no background, no shadow, no baked lighting. ",
+ "preview_task_id": "01a184ea-3c20-75e9-955f-96050f357799",
+ "texture_task_id": "01a184eb-88ae-747b-9067-645c4bd1e032",
+ "bytes": 37262880
+}

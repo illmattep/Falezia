@@ -1,0 +1,122 @@
+{
+ "cemento_lastre": {
+  "id": "cemento_lastre",
+  "tile_m": 6.0,
+  "relief_m": 0.01,
+  "style": 1.3,
+  "source": "procedurale",
+  "size": 4096
+ },
+ "coppi": {
+  "id": "coppi",
+  "tile_m": 1.6,
+  "relief_m": 0.04,
+  "style": 1.3,
+  "source": "meshy roof_coppi_02",
+  "size": 4096
+ },
+ "ferro": {
+  "id": "ferro",
+  "tile_m": 1.0,
+  "relief_m": 0.002,
+  "style": 1.0,
+  "source": "meshy ferro_battuto_01",
+  "size": 4096
+ },
+ "intonaco_grezzo": {
+  "id": "intonaco_grezzo",
+  "tile_m": 3.0,
+  "relief_m": 0.004,
+  "style": 1.3,
+  "source": "meshy wall_grezzo_01",
+  "size": 4096
+ },
+ "intonaco_liscio": {
+  "id": "intonaco_liscio",
+  "tile_m": 5.0,
+  "relief_m": 0.004,
+  "style": 1.5,
+  "source": "procedurale",
+  "size": 4096
+ },
+ "intonaco_venez": {
+  "id": "intonaco_venez",
+  "tile_m": 3.0,
+  "relief_m": 0.003,
+  "style": 1.5,
+  "source": "meshy wall_venez_01",
+  "size": 4096
+ },
+ "lamiera_blu": {
+  "id": "lamiera_blu",
+  "tile_m": 1.2,
+  "relief_m": 0.035,
+  "style": 1.0,
+  "source": "meshy lamiera_01",
+  "size": 4096
+ },
+ "lamiera_ruggine": {
+  "id": "lamiera_ruggine",
+  "tile_m": 1.2,
+  "relief_m": 0.035,
+  "style": 1.0,
+  "source": "meshy lamiera_02",
+  "size": 4096
+ },
+ "lastre": {
+  "id": "lastre",
+  "tile_m": 5.0,
+  "relief_m": 0.012,
+  "style": 1.3,
+  "source": "meshy lastrico_piazza_01",
+  "size": 4096
+ },
+ "legno_chiaro": {
+  "id": "legno_chiaro",
+  "tile_m": 1.2,
+  "relief_m": 0.006,
+  "style": 1.2,
+  "source": "meshy legno_cassa_01",
+  "size": 4096
+ },
+ "legno_scuro": {
+  "id": "legno_scuro",
+  "tile_m": 1.5,
+  "relief_m": 0.006,
+  "style": 1.2,
+  "source": "meshy legno_porta_01",
+  "size": 4096
+ },
+ "legno_verniciato": {
+  "id": "legno_verniciato",
+  "tile_m": 1.0,
+  "relief_m": 0.006,
+  "style": 1.2,
+  "source": "meshy legno_persiana_01 (neutro, da tingere)",
+  "size": 4096
+ },
+ "mattone": {
+  "id": "mattone",
+  "tile_m": 1.2,
+  "relief_m": 0.015,
+  "style": 1.6,
+  "source": "procedurale",
+  "size": 4096
+ },
+ "pietra_conci": {
+  "id": "pietra_conci",
+  "tile_m": 3.2,
+  "relief_m": 0.025,
+  "style": 1.5,
+  "source": "procedurale (palette da meshy wall_stone_01)",
+  "size": 4096
+ },
+ "sampietrini": {
+  "id": "sampietrini",
+  "tile_m": 2.0,
+  "relief_m": 0.03,
+  "style": 1.5,
+  "source": "polyhaven cobblestone_floor_08",
+  "size": 4096
+ }
+}

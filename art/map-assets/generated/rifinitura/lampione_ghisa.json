@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a184f2-5f65-7690-b3a1-e6a8bc65d0bc/output/model.glb?Expires=4946745600&Signature=Z-PBjlAwHBfK69IGi2PNEG6PJXATTCgo6-tIC349IH-l3CSS4fjRUTSg~BHPYynkgGVOqy545TbSKunMyChHMmE6rAmDz5fdLB7aDz~wtOLV5OF848tcYbsh-Kz9IyK~KWNENM511xmRRp9uglu54HrxcidyIYi0zNZIu6UWLY1asGUHlFNjkxj2DRjNLLrAnDrOM5-Ike2mqunGt-3VeP699Cs-nb8RiQWM0NaBXh3nWkwwQcaPbtGrolSps4yOdSNPmKrnVRMlbQ3tfVR1fx6D7KKLZsaGRNk68acsX4DLl4QOfg-UEdY~9K3XeR7a4tBNkc79HStQMBIebgN9Bg__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "lampione_ghisa",
+ "prompt": "Cast-iron street lamp, ornate fluted base, slender shaft, glass lantern with a small crown, weathered black paint and rust, warm glass. Real-world scale 0.5 x 3.6 x 0.5 m. Stylized game prop, Valorant-like art direction: clean readable silhouette, matte PBR with subtle hand-painted wear, no photorealism, no text, no logos. Single object, no ground plane, no background, no shadow, no baked lighting. ",
+ "preview_task_id": "01a184f1-aeba-715f-8cf4-16c6e719a0aa",
+ "texture_task_id": "01a184f2-5f65-7690-b3a1-e6a8bc65d0bc",
+ "bytes": 21194888
+}

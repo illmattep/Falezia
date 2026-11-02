@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    IL CONTROL PLANE. Un solo processo da avviare: tiene il pannello web, la coda
+    di matchmaking e le istanze di gioco. Nessun pacchetto esterno: Kestrel e
+    System.Text.Json bastano, così il deploy su VPS è un binario e un file di config.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>12</LangVersion>
+    <AssemblyName>Falezia.Control</AssemblyName>
+    <RootNamespace>Falezia.Control</RootNamespace>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Panel.html" LogicalName="Falezia.Control.Panel.html" />
+  </ItemGroup>
+
+</Project>

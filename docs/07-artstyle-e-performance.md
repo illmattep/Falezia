@@ -72,7 +72,7 @@ comprensibile anche a 1080p con texture piccole.
 | **LightmapGI bakata** | Luce statica a costo runtime ≈ 0. È la chiave per far sembrare bella una mappa a basso dettaglio |
 | **Blob shadow** sui preset bassi | Le ombre dinamiche dei personaggi costano quanto 20 giocatori |
 | **Foschia mediterranea come culling** | 150 m al preset basso, 400 m all'alto. **Si giustifica da sola: è il mare** |
-| **LOD a 3–4 stadi + impostor** oltre i 120 m | Obbligatorio per una mappa di 240 m |
+| **LOD a 3–4 stadi + impostor** oltre i 120 m | Obbligatorio per una mappa di 180 × 200 m |
 | **Occlusion culling con poligoni** | Meno utile su una mappa aperta: la foschia è il vero culling |
 | **Atlanti di texture e atlanti di materiali** | Massimo 8 materiali per zona |
 | **Vertex color per le varianti** | Invece di texture duplicate |
@@ -108,11 +108,30 @@ comprensibile anche a 1080p con texture piccole.
 | Triangoli visibili | **≤ 2,0 M** |
 | Distanza di visibilità utile | **400 m** |
 | LOD | 4 stadi + impostor da 180 m |
-| Ombre | Dinamiche, mappa 4096, distanza 100 m |
+| Ombre | Dinamiche, **atlante 8192**, 4 split (0,08 / 0,22 / 0,48), distanza 90 m, **filtro SoftHigh** |
 | Post-processing | SSAO basso, bloom basso, TAA opzionale |
 | Decal | ≤ 64 |
 | Particelle | ≤ 1.024 |
 | Texture | 2048 sulle superfici primarie |
+
+### Le ombre (seconda passata)
+
+Le ombre erano morbide e puntinate perché il filtro morbido era su **SoftLow** (un solo tap),
+l'atlante a 4096 su 100 m e gli split larghi: ogni metro quadro aveva pochi texel e la penombra
+era rumore. Ora, con il preset **ALTO**:
+
+| Parametro | Valore | Perché |
+|---|---|---|
+| Atlante direzionale | **8192** (16 bit) | 2048 texel per split: i contorni restano netti anche a 20 m |
+| Split | 4, a **0,08 / 0,22 / 0,48** | i primi 7 m (dove si guarda davvero) hanno 4–5× i texel di prima |
+| Distanza | **90 m** + `fade_start` 0,92 | oltre, l'ombra si spegne senza stacco visibile |
+| Filtro morbido | **SoftHigh** | niente più puntinato: la penombra è continua |
+| `shadow_blur` / angolo | **0,35** / **0,35°** | filo definito con una penombra credibile che si allarga con la distanza |
+| Bias | 0,022 / 0,8 | niente "peter-panning" né acne |
+
+Il **viewmodel non proietta ombre**: l'arma è attaccata alla camera e la sua ombra finiva sul muro
+come una macchia puntinata dietro al mirino (si vedeva chiaramente in prima persona). I preset
+**BASSO** usano 4096 + SoftMedium, **PRO** nessuna ombra dinamica.
 
 > **Nota competitiva:** un preset "PRO" ufficiale che **disattiva tutto** (post-processing, ombre,
 > dettagli) è obbligatorio. I giocatori competitivi vogliono il frame rate e la leggibilità, non la
@@ -147,7 +166,7 @@ motore si riduce a una sola:
 |---|---|
 | **GPU Lightmaps Baking** | **Tutta la nostra luce è bakata.** Cucire su GPU significa iterare in **minuti invece che in ore** — e con un'artista sola, il tempo di bake è tempo di produzione |
 | **Realtime GI: DDGI + riflessi con raytracing *software*** | **Non richiede hardware RTX**, quindi gira sul tier della GTX 970 e brilla sul 1070 Ti. È la luce indiretta che rimbalza sui muri ocra: **la cosa che più di ogni altra fa sembrare vero un asset a basso dettaglio** |
-| **Streaming asincrono di ogni asset per default** | Per una mappa di 240×220 m è la differenza fra "carico un livello" e "lo streammo" |
+| **Streaming asincrono di ogni asset per default** | Per una mappa di 180×200 m è la differenza fra "carico un livello" e "lo streammo" |
 | **Fog + open world tools** | La foschia mediterranea è la nostra atmosfera **e** il nostro culling principale |
 | Materiali e specularità curati | Con poco dettaglio geometrico **sono i materiali a portare il look** |
 
@@ -172,6 +191,80 @@ motore si riduce a una sola:
 
 *(Le feature di Flax sono verificate dal sito ufficiale. Il quadro di Godot è una mia valutazione,
 non riverificata in questa sessione.)*
+
+---
+
+## Stato del rendering nel codice (ottobre 2026)
+
+| Voce | Scelta | Perché |
+|---|---|---|
+| **Renderer** | **Forward+**, con ripiego automatico su OpenGL (Compatibility) se Vulkan manca | È quello indicato sopra per i preset; il ripiego tiene in vita le macchine senza Vulkan |
+| **Graybox** | Mesh fuse per settore da 48 m: **una draw call per settore**, non una per scatola | Budget di sviluppo ≤ 200 draw call |
+| **Materiale** | **Uno shader, tre materiali** (parete, facciata con finestre, tetto): palette di questo documento + **griglia a 1 m e 4 m** proiettata nel mondo | Si leggono distanze e proporzioni senza texture (A0). Colore e rugosità viaggiano negli UV; la conversione sRGB→lineare la fa lo shader secondo il renderer |
+| **Luce** | Sole caldo **da Ovest**, cielo procedurale, ambiente metà cielo e metà rimbalzo caldo, tonemap Filmic | Il sole perpendicolare all'asse Nord–Sud rende la luce **simmetrica**: nessuna squadra gioca controluce |
+| **Foschia** | Di profondità, colore dell'orizzonte, fine = distanza di visibilità; il piano lontano della camera la segue | È atmosfera e culling insieme |
+| **Preset** | PRO · BASSO · ALTO come nelle tabelle sopra, più PERSONALIZZATO | Il preset non tocca finestra, V-Sync, FPS e FOV: sono preferenze, non qualità |
+| **Latenza** | "Bassa latenza (stile Reflex)": con V-Sync limite a refresh − 3, senza V-Sync limite al 94% di ciò che regge la GPU | **NVIDIA Reflex non è integrato in Godot** (serve l'SDK dentro il motore). Questo ne riproduce l'effetto principale: nessun fotogramma in coda |
+
+> ⚠️ **Da decidere: la distanza di visibilità è un vantaggio di gioco.** Con i numeri di questo
+> documento chi gioca in BASSO o PRO vede a 150 m, chi gioca in ALTO a 400 m, e la mappa ha linee
+> fino a ~190 m. In un competitivo è un vantaggio comprato con l'hardware. Due strade: foschia
+> **uguale per tutti** (e il preset cambia solo LOD e ombre), oppure un tetto comune a 250 m.
+> Oggi il codice segue la tabella; il cambio è un numero in `GraphicsSettings.ApplyPreset`.
+
+### Cosa c'è dentro il graybox, oltre alle scatole
+
+| Elemento | Dove | Costo |
+|---|---|---|
+| **Tetti in coppi**: lastra rientrata di 35 cm, comignoli, corpi scala, serbatoi, antenne | `tools/mapgen/calanera.py` → `roofscape()`, scritti in `decor` | 1.200 scatole di sola decorazione, **zero collisioni**: la simulazione continua a vedere i 671 volumi |
+| **Facciate**: finestre 1,1 × 1,6 m distribuite sull'altezza vera, persiane su una finestra su quattro, cornice, ombra del davanzale, zoccolo scuro alla base | shader di `MapView.cs`, ramo `windows_mode` | zero geometria: è colore |
+| **Tetti visti dall'alto**: file di coppi da 34 × 42 cm sfalsate di mezza fila | shader, ramo `roof_mode`, materiale a parte | una draw call in più per settore |
+| **Terrazze e porticati**: lastroni da 80 cm con giunti | shader, superfici orizzontali sopra 2,2 m | zero |
+| **Lastricato**: macchie larghe a terra, solo colore | shader | zero |
+
+> L'altezza del volume viaggia nel **colore dei vertici** (`R = altezza / 64`): è quella che fa
+> distribuire i piani delle finestre sull'altezza reale, così l'ultimo piano non finisce mai sul
+> cornicione e un corpo basso non mostra finestre tagliate. Le finestre non sono aperture: la
+> simulazione non le conosce.
+
+### Il cielo
+
+Il cielo è una **panorama equirettangolare** 4096 × 2048 generata da `tools/skybox/make_sky.py`
+(`./run.sh sky make`): sole a Ovest come la luce del gioco, foschia all'orizzonte, mare sotto la
+linea. Se in `game/assets/sky/` metti una panorama tua — Sketchfab, HDRI, `.jpg`, `.png`, `.exr` —
+**vince la tua**, con `RadianceSize` a 2048 perché anche metallo e vetro delle finestre la
+riflettano. Senza nessun file resta il cielo procedurale di scorta.
+
+Il sole resta la **luce direzionale da Ovest**: se la panorama ha un sole dipinto si ruota il
+**cielo** (`Atmosphere.SkyYawDeg`), non la luce — la direzione della luce è una scelta di
+gameplay (D2: nessuna squadra controluce). Le sei facce di un cubo si uniscono con
+`tools/skybox/cubemap_to_panorama.py`; istruzioni passo passo in `game/assets/sky/README.md`.
+
+### Effetti dello sparo
+
+Due shader dedicati, entrambi `unshaded` e in trasparenza, con texture alpha generate da
+`tools/fx/make_fx_textures.py` (`./run.sh fx`):
+
+| Effetto | Shader | Come è fatto |
+|---|---|---|
+| **Scia del proiettile** | `tracer.gdshader` | Cilindro da **7,5 mm**, vita 60 ms. Rumore che scorre lungo l'asse con due strati, nucleo luminoso che si spegne verso la silhouette, punta che evapora. Opacità 0,42 (0,16 la Hush): una scia, non un laser |
+| **Fumo di canna** | `muzzle_smoke.gdshader` | Quad billboard con `INV_VIEW_MATRIX`, due strati di texture in controscorrimento, bordo spento prima dello spigolo. **Effetto piccolo**: 2–3 sbuffi scaglionati (0 / 55 / 115 ms), 0,16–0,22 m, densità 0,12–0,22, erosione 1,45–1,75. Mentre sale, la parte alta si sfilaccia (sfumatura verso l'alto) e lo sbuffo **si allarga in orizzontale** più di quanto cresca in altezza. Quattro texture diverse, ritaglio e velocità di scorrimento casuali: non si vede mai due volte lo stesso fumo. La Hush resta a 2 sbuffi quasi trasparenti |
+
+| **Fori sui muri** | `BulletHoles` (quad billboard + texture generate) | Quad di 6–9 cm **che guarda sempre la camera**: non può mai essere visto di taglio (era il difetto delle strisce stirate). Sei texture 160² generate in codice all'avvio (buca, orlo scheggiato, polvere, crepe): nessun foro è uguale a un altro. Posato 6 mm fuori dalla faccia colpita, polvere tinta per materiale. Resta 12 s, poi svanisce in 1,8 s. Pool di 96 |
+
+Il punto d'impatto lo decide sempre `Trace.Ray` nella simulazione: gli shader non sanno dove si
+spara, ricevono solo due punti (canna → impatto) e disegnano.
+
+**L'ottica.** Due strati: il **modello** 3D (campana, ghiera zigrinata, paraluce, oculare in gomma,
+torrette, anelli con viti, livella) e l'**overlay** `scope.gdshader` — tubo nero, vetro con
+vignettatura e riflesso a mezzaluna, reticolo con pali grossi e croce sottile, mildot sul 6×. Il
+reticolo "respira": due sinusoidi lente lo spostano di un pixel o due, così non sembra incollato
+allo schermo.
+
+**Anteprima fuori dal motore.** `tools/mapgen/calanera_render.py` ricostruisce la mappa in Blender
+dagli stessi dati (scatole + decorazione) e ne renderizza cinque viste in `tools/mapgen/review/`
+(aerea, strada, piazza, porto, tetti). Le facciate dell'anteprima replicano in nodi lo shader,
+comprese finestre, persiane, zoccolo e lastroni: serve a giudicare il look senza aprire Godot.
 
 ---
 

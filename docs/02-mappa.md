@@ -19,43 +19,65 @@ interna (veloce, esposta) o l'anello (lenta, sicura), e la scelta è la fase tat
 
 ---
 
-## Geometria
+## Geometria — lo schema a corsie (versione di ottobre 2026)
+
+> **Revisione:** la prima pianta (croce + anello di strade dritte, 240 × 220 m) era troppo grande,
+> troppo "a blocchi" e piena di corridoi lunghi inutili. La pianta attuale segue lo schema delle mappe
+> di **Valorant**: da ogni spawn partono **tre corsie corte e spezzate**, ognuna con una
+> **strozzatura** e uno **spazio aperto** prima dell'obiettivo; i collegamenti fra le corsie sono
+> pochi, corti e voluti. L'anello non è più una strada dedicata: **nasce dalle corsie laterali**.
 
 ```
-                    PORTO VECCHIO  (spawn Nord)
-                           │
-              Scalinata    │    Via Stretta
-                   ╲       │       ╱
-                    ╲      │      ╱
-     GROTTA DEL      ╲     │     ╱      GALLERIA
-     LEVANTE  ────────[ PIAZZA VECCHIA ]────────  VECCHIA
-     (estrazione Est)      │  (cassa)      (estrazione Ovest)
-                    ╱      │      ╲
-                   ╱       │       ╲
-              Lungomare    │    Mura
-                           │
-                    FORTE SAN VERANO  (spawn Sud)
+                              PORTO VECCHIO (spawn Nord)
+                 Via Stretta ┘      │ Salita      └ Banchina
+                     │              │                 │  Varco (strozzatura)
+        Piazzetta del Forno ── LARGO ── Cortile della Dogana
+                     │        (gradinata)          │
+                 PIAZZALE         Arco         MOLO ── Terrazza
+                     │        Via del Mercato      │
+   GALLERIA ─ Cortile O ─ Mercato ─ PIAZZA ─ Mercato ─ Cortile E ─ GROTTA
+   VECCHIA                       (banca, cassa,                 DEL LEVANTE
+                     │            porticato)        │
+                   MOLO ...       (ruotato)      ... PIAZZALE
+                                     │
+                            FORTE SAN VERANO (spawn Sud)
 ```
+
+| Corsia (da Nord) | Percorso | Carattere |
+|---|---|---|
+| **Centrale** | Salita → **Largo** (fontana, gradinata a 1,5 m) → **Arco** coperto → Via del Mercato a gomito → Piazza | Nessuna linea dritta dallo spawn alla cassa |
+| **Est — Scalinata Lunga** | Banchina → **Varco della Dogana** (6 m, coperto) → Cortile della Dogana → **Molo** (+ Terrazza a 3,4 m) → Grotta | Aperta, a quote, la terrazza domina l'ingresso nord della Grotta |
+| **Ovest — Via Stretta** | Via Stretta a gomito (4 m) → **Piazzetta del Forno** (il forno è una stanza attraversabile) → **Piazzale** → Galleria | Ravvicinata, angoli e porte |
+
+La metà Sud è la Nord ruotata di 180°: la Scalinata ruotata diventa le **Mura** (verso la Galleria),
+la Via Stretta ruotata diventa il **Lungomare** (verso la Grotta).
+
+**Rotazioni (le "link" di Valorant):** dal **Largo** due passaggi coperti verso le corsie laterali (il
+lato di chi attacca); dalla **piazza** due collegamenti verso le estrazioni — il **Mercato coperto**
+(sala a pilastri) e un **cortile** — (il lato di chi difende).
+
+**Ogni estrazione ha tre ingressi:** uno per squadra (dal Molo / dal Piazzale) e uno dal centro.
 
 ### Dimensioni
 
-| Elemento | Distanza dal centro |
+| Elemento | Valore |
 |---|---|
-| Spawn Nord / Sud | **120 m** |
-| Estrazione Est (Grotta del Levante) | **95 m** |
-| Estrazione Ovest (Galleria Vecchia) | **95 m** |
-| Footprint totale | **~240 × 220 m** |
-| Zona viva per round | tutta la mappa, ma la contesa è concentrica |
+| Spawn Nord / Sud | **91 m** dal centro |
+| Estrazione Est (Grotta del Levante) | **77 m** |
+| Estrazione Ovest (Galleria Vecchia) | **72 m** |
+| Footprint totale | **180 × 200 m** |
 
-### Tempi di percorrenza (velocità: passo 4,2 m/s · sprint 6,5 m/s)
+### Tempi di percorrenza (misurati camminando con la simulazione, passo 4,2 m/s)
 
-| Tratta | Passo tattico | Sprint |
+| Tratta | Passo tattico | Sprint (senza stamina) |
 |---|---|---|
-| Spawn → centro | 28,6 s | 18,5 s |
-| Centro → estrazione | 22,6 s | 14,6 s |
-| Estrazione Est ↔ Ovest (via anello) | 52 s | 34 s |
+| Spawn → cassa (corsia centrale) | **22,7 s** | ~14,7 s |
+| Cassa → Grotta / Galleria (via Mercato) | **20,2 s / 19,6 s** | ~13 s |
+| Spawn → estrazione per la corsia laterale, senza piazza | **34,6 – 36,0 s** | ~23 s |
+| Grotta ↔ Galleria senza piazza (giro dalle corsie) | **59,4 s** | ~38 s |
 
-**Tutti i tempi sono identici per le due squadre** — imposto dalla simmetria rotazionale.
+**I tempi delle due squadre coincidono entro il 3%** — imposto dalla simmetria rotazionale e
+verificato a ogni generazione della mappa.
 
 ---
 
@@ -146,10 +168,38 @@ invalicabile, non come spazio di gioco.
 
 ---
 
-## Da disegnare in graybox (M0–M1)
+## Graybox (M0–M1)
 
-- [ ] Footprint 240 × 220 con quote di elevazione annotate
-- [ ] Le 5 zone come volumi grezzi
-- [ ] Verifica dei **tempi di percorrenza** a passo e in sprint (con un cronometro, non a occhio)
-- [ ] Verifica che esistano **2 rotte indipendenti** per ogni coppia spawn-punto di estrazione
-- [ ] Verifica che dalla piazza si vedano al massimo **3 linee di tiro lunghe**
+- [x] Footprint 180 × 200 m con le quote: suolo 0, gradinata del Largo 1,53 m, porticato 3,3 m,
+      Terrazza del Molo 3,4 m
+- [x] Le zone come volumi grezzi — `game/maps/calanera.json`, generato da `tools/mapgen/calanera.py`
+- [x] Tempi di percorrenza **misurati** (tabella sopra)
+- [x] **2 rotte indipendenti** per ogni coppia spawn-estrazione: il generatore trova le rotte, le
+      percorre con il porting Python del movimento e le scrive nel file della mappa; `./run.sh test`
+      le ripercorre con la simulazione C#
+- [ ] Al massimo **3 linee di tiro lunghe** dalla piazza — il gomito della Via del Mercato, la banca,
+      i pilastri del Mercato e la statua del Cortile le spezzano, ma manca una verifica misurata
+
+### Come è costruita
+
+- **Si disegna la metà Nord e si ruota di 180°** (D2): spawn, corsia centrale fino alla piazza, le due
+  corsie laterali con il Molo e il Piazzale. La pelle cambia (intonaco/cemento a Nord, ocra/pietra a
+  Sud), l'architettura no.
+- **Piazza e collegamenti** si disegnano a Est e si ruotano. **Grotta e Galleria** sono disegnate a
+  parte e sono **simmetriche rispetto all'asse Est–Ovest**: Nord e Sud ci arrivano allo stesso modo.
+- Tutto ciò che non è strada o cortile è **edificio pieno** (i gusci del doc 07), lotti ≤ 10 m da 2,
+  3 o 4 piani. Interni giocabili: la banca, il forno, il Mercato coperto, la Grotta, la Galleria.
+- **Il sole viene da Ovest**, perpendicolare all'asse Nord–Sud: nessuna squadra gioca controluce.
+
+### Cosa NON torna fra questo documento e la regola D2
+
+La descrizione delle zone sopra (il Forte "su terrazze", la Lungomare "aperta") dà caratteri diversi a
+pezzi che la rotazione rende **uguali**. Nel graybox **ha vinto D2**: la differenza fra le coppie è
+solo di pelle. Se si vuole un carattere diverso, va deciso dove rinunciare alla rotazione esatta.
+
+### Rigenerare e verificare
+
+```bash
+./run.sh map        # rigenera calanera.json, verifica rotte e tempi, anteprima PNG con le rotte
+./run.sh test       # ripercorre le stesse rotte con la simulazione C#
+```

@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a184ff-ccc7-77e1-a66e-743e439baf0c/output/model.glb?Expires=4946832000&Signature=fwaR5NQ-13vLIWZ4KJ4tKqqWfml3vYG2XLOF7jbfXMT9q-kc7smkkFyu7OaorBjiyKLwe~rIAohFMZVYEnvluWkHeFPkaHtLFRmgp~XWiuGiyoXH~wE8Ab06k3rv2Z0VaZof6AlFuiM7mYqJwon-GA82OB5CyroXxXmZfTdh20NqmRBZZe6geDbD5YosnCKzZuyACDECk3QD-Gwx7q3U8ZAFgHlyQuAQuRw8CPmBMNWB4JywoUBRpg10yiuRb-E4JezKh26b3a6~j5f8JUgjf~VS1u0FZUlwaKbwU5X86E2E9vGK2PEw~FdlUYWLJHYC7SNriHZCew7jpM0yDVZVoQ__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "cannone_forte",
+ "prompt": "Old coastal cannon, dark iron barrel on a wooden carriage with iron wheels and a rope breeching, rust and salt, no cannonballs. Real-world scale 2.4 x 1.2 x 1.4 m. Stylized game prop, Valorant-like art direction: clean readable silhouette, matte PBR with subtle hand-painted wear, no photorealism, no text, no logos. Single object, no ground plane, no background, no shadow, no baked lighting. ",
+ "preview_task_id": "01a184fe-deef-72f2-9854-51c3f488b340",
+ "texture_task_id": "01a184ff-ccc7-77e1-a66e-743e439baf0c",
+ "bytes": 40913256
+}

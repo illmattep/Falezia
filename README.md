@@ -1,10 +1,40 @@
 # FALEZIA
 
-**Tattico 5v5 · Estrazione · Round senza respawn · Godot 4.x · Server dedicati**
+**Tattico 5v5 · Round senza respawn · Unity 6 (URP) · Server dedicato .NET**
 
 > Mappa: **Calanera** — città costiera italiana immaginaria.
 > Modalità principale: **Extract & Secure**, primo a **5 estrazioni**.
 > Titolo di lavoro. Alternativi: *Presidio*, *Testa di Ponte*, *Scalo*.
+
+---
+
+## Dove sta cosa
+
+| Cartella | Cosa contiene |
+|---|---|
+| `game/sim`, `game/net` | **La simulazione e il protocollo** (C# puro, zero motore): movimento, armi, colpi, vite, round, economia |
+| `shared/Falezia.Core` | csproj `netstandard2.1` che compila quei sorgenti: **una sola copia** per client, server e test |
+| `server/Falezia.Server` | **Server dedicato .NET 8**: 64 Hz autoritativi, round, acquisti validati, Docker/systemd |
+| radice (`Assets/`, `Packages/`) | **Client Unity 6 + URP**: mappa, giocatore, armi (GLB+clip), HUD, negozio, rete, ombre e post-processing |
+| `tests/` | **210 test** della simulazione, girano in console senza motore |
+| `game/client`, `game/server` | Il client e il server Godot delle prime iterazioni (non più sviluppati) |
+| `art/`, `tools/`, `docs/` | Modelli delle armi (Blender), generazione mappa/cielo/fx, documentazione |
+
+Avvio rapido:
+
+```bash
+./run.sh server --players=2  # server dedicato .NET su UDP 27015 (2 in coda = lobby piena)
+./run.sh unity               # editor Unity (scena Assets/Scenes/Main.unity → Play)
+./run.sh sound               # rigenera i suoni delle armi (sintetizzati)
+./run.sh build && ./run.sh play   # player Linux in build/linux/
+./run.sh test                # 210 test, senza motore
+```
+
+Online: `GameRoot.Online = true` nell'Inspector, oppure
+`./build/linux/Falezia.x86_64 -faleziaOnline 127.0.0.1:27015`.
+
+Controllo qualità grafica senza giocare: `-faleziaShots /tmp/shots` salva 8 PNG
+(vedi `docs/16-client-unity.md`).
 
 ---
 
@@ -23,9 +53,9 @@
 | Economia | **Cassa comune** con approvazione di squadra |
 | Attrezzatura | **Si conserva se sopravvivi**, si ricompra se muori. Il **kit permanente non si perde mai** |
 | Progressione | **Nessuna funzionale.** Tutto disponibile dal **livello 1**. Lo shop vende **solo estetica** |
-| Mappa | 240 × 220 m, pianta **a croce con anello**, 5 zone |
-| Motore | **Da decidere** — Godot 4 o **Flax**. Verifica in corso: vedi doc 08, *"Scelta del motore"* |
-| Server | **Dedicati headless**, mai hostati dai giocatori |
+| Mappa | 180 × 200 m, **tre corsie per lato** (schema Valorant), l'anello nasce dalle corsie laterali |
+| Motore | **Unity 6 + URP 17.6** (client, glTFast per le armi) e **server .NET 8 headless**. Il vecchio client Godot resta in `game/client` per riferimento |
+| Server | **Dedicato headless** (`server/Falezia.Server`), mai hostato dai giocatori: Docker o systemd, porta UDP unica |
 | Target basso | **GTX 970 · 1080p · preset basso · 60 fps** |
 | Target alto | **GTX 1070 Ti · 1080p · preset alto · 120 fps** |
 | Target di sviluppo | Graybox: ≤ 200 draw call, ≤ 300 k triangoli, nessuna texture |
@@ -120,7 +150,8 @@ falezia/
 > build, non una linea guida.
 
 ```bash
-./run.sh test      # 26 test, ~2 secondi, senza Godot
+./run.sh test      # 47 test, pochi secondi, senza Godot
+./run.sh map       # rigenera e verifica la mappa Calanera
 ./run.sh build     # compila il progetto Godot
 ./run.sh server    # server headless con console
 ./run.sh game      # menu principale
@@ -169,7 +200,7 @@ git status               # stato
 
 **Codice (M0):**
 
-- [x] Simulazione a passo fisso 64 Hz, deterministica — **26/26 test**
+- [x] Simulazione a passo fisso 64 Hz, deterministica, con gradini — **47 test**
 - [x] Predizione client + riconciliazione + netgraph
 - [x] Server dedicato headless con console e comandi
 - [x] Menu principale con stato WIP visibile
@@ -177,7 +208,9 @@ git status               # stato
 - [ ] **Far parlare client e server end-to-end** ← prossimo passo
 - [ ] Lag compensation
 - [ ] Sparo · round · economia
-- [ ] Graybox e arte
+- [x] **Graybox di Calanera** (schema Valorant, 180 × 200 m): navigabile, rotte verificate da test, tempi misurati (doc 02)
+- [x] Impostazioni grafiche: preset PRO/BASSO/ALTO, V-Sync, limite FPS, bassa latenza, FOV
+- [ ] Arte
 
 ## Prossimo passo operativo
 

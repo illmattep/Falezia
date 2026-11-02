@@ -1,0 +1,10 @@
+{
+ "status": "SUCCEEDED",
+ "progress": 100,
+ "model_url": "https://assets.meshy.ai/5982e2c3-3ef1-4ecd-b4cd-db0d75cdc8cc/tasks/01a184f6-2823-7443-a3ac-a9af5d3eba04/output/model.glb?Expires=4946832000&Signature=hmxTZufRmhw3tPY1l3DaoLhP3mH3vbWkYq3t9ex~xFb6OVwecISMrIsYmTdlHAs0W1lHM6YClXmpxMnFDW58IHwaSZKej0QuDzOIT1WMV0CheWXOUzBar3ZK3uR163kZdB-zzvrifuSWy0OMKaSYPit0XyZGnIyahv2s3G4oduKBCKGiaf6jgx112BvYn~ELHxMJguNc22EBliIj5rrd-tyjgUkcF0pWu1vEW2rfTNNT1VAdmA2sxUbHb2W1yzK1Qkk9d1vjC7e0e~hrFWdbeiGRfrl6Jt~OC4D-OzUSHM5M3J2LWgkVyol-RN3cQ5iAd9lX9CdcgrW5qeuhrTz~zA__&Key-Pair-Id=K1VGYTHIYLM9UM",
+ "id": "tavolino_caffe",
+ "prompt": "Small wrought-iron cafe table with a white marble top and two matching bistro chairs, painted dark green, worn edges, folded newspaper on the table. Real-world scale 1.3 x 1.3 x 0.8 m. Stylized game prop, Valorant-like art direction: clean readable silhouette, matte PBR with subtle hand-painted wear, no photorealism, no text, no logos. Single object, no ground plane, no background, no shadow, no baked lighting. ",
+ "preview_task_id": "01a184f5-65fe-7553-95fe-0112dae3ea80",
+ "texture_task_id": "01a184f6-2823-7443-a3ac-a9af5d3eba04",
+ "bytes": 39392644
+}

@@ -67,6 +67,37 @@ Ha 40 secondi per far collaborare 5 estranei. Deve essere **leggibile in 5 secon
 └──────────────────────────────────────────────────────────────────┘
 ```
 
+### Quello che esiste oggi (stanza debug)
+
+Il pannello c'è, si apre con **B**, ed è la versione a un giocatore della schermata qui sopra:
+niente cassa comune né approvazioni (arriveranno col round), ma la struttura è quella.
+
+```
+┌───────────────────────────────────────────────────────────────┐
+│  ARSENALE                                     $1.000          │
+│  una sola primaria e una sola secondaria · B per chiudere     │
+├──────────────────────────────┬────────────────────────────────┤
+│  SECONDARIE · pistole        │  PRIMARIE · SMG, pompe, AR     │
+│  Standard  25 · 300 c/min    │  Cadence  20 · 800 c/min  $900 │
+│   17/51 · gratis   [IN MANO] │   30/90 · punto rosso  [COMPRA] │
+│  Hush      22 · 273 c/min    │  …                             │
+├──────────────────────────────┴────────────────────────────────┤
+│  IN MANO Cadence · PRIMARIA Cadence · SECONDARIA Standard · COLTELLO │
+│  click su un'arma per comprarla e metterla in mano            │
+└───────────────────────────────────────────────────────────────┘
+```
+
+- **Una primaria e una secondaria.** Comprarne un'altra dello stesso tipo prende il posto della
+  precedente, che viene **consumata** (doc 04: «la vecchia viene consumata»). La Standard e il
+  coltello non si consumano mai: quelli ci sono sempre.
+- **Si spawna con la Standard e il coltello**: un loadout nuovo non ha primarie, e nessuna arma
+  arriva gratis. Dopo l'acquisto si spawna con quello che hai in mano.
+- **In debug i soldi sono illimitati** e il contatore mostra `∞`.
+- Ogni riga porta i numeri che contano per scegliere: danno, cadenza, caricatore/riserva, ADS,
+  ottica. Il prezzo è a destra, e diventa rosso quando non te lo puoi permettere.
+- I tasti **1 / 2 / 3** sono i tre posti (primaria, secondaria, coltello); la **rotella** gira solo
+  fra quelli che hai.
+
 ### Flusso di approvazione
 
 ```
@@ -183,3 +214,84 @@ risolvi, il gioco muore con 500 giocatori.
 
 I comandi rapidi contano: **un gioco che richiede coordinazione deve permetterla anche a chi non
 usa il microfono.**
+
+
+---
+
+## Il riscontro del colpo (stanza debug)
+
+Quattro cose, tutte **immediate** e tutte spente in meno di mezzo secondo — perché il riscontro non
+deve mai coprire il bersaglio:
+
+| Segnale | Quando | Come |
+|---|---|---|
+| **Segno del colpo** | ogni palla a segno | quattro trattini attorno al mirino, bianchi; **rossi e più larghi** quando il colpo uccide |
+| **Numero del danno** | ogni palla a segno | numero 3D sul punto d'impatto, sale di 0,85 m/s e svanisce in 0,9 s; **giallo con "!"** per la testa |
+| **Kill feed** | ogni abbattimento | riga in alto a destra: bersaglio, come, punti; resta 3,2 s e sfuma |
+| **Punteggio** | sempre | in alto: `N abbattuti · N punti · N in piedi` (100 punti per un corpo, 150 per la testa) |
+
+**Barra della vita** sopra ogni bersaglio: verde → gialla → rossa, si accorcia da destra, sparisce
+quando è a terra. È un quad che guarda sempre la camera: si legge da qualsiasi angolo.
+
+**Rinculo della camera.** Ogni colpo alza la mira di `0,42° + 0,045° × danno` (una pistola ~1,5°, il
+cecchino ~4,6°) e la sposta di lato in modo casuale; in mira è il 55%. Rientra da solo, sempre più
+lentamente. **Si spara dove si vede**: la direzione delle palle include il rinculo, quindi quello che
+il mirino mostra è quello che la simulazione traccia.
+
+**Lampo di volata.** Una luce vera (`OmniLight3D`, 7 m di raggio) alla bocca della canna per 45 ms —
+20 ms e metà energia per le armi silenziate. Non è un cartellino: illumina il muro davanti.
+
+**Dove finiscono i colpi.** Ogni palla che prende un muro lascia un **foro**: buca scura, orlo
+scheggiato, polvere attorno, crepe raggiate. Resta dodici secondi e poi si dissolve: si vede dove
+hai sparato senza che la mappa diventi un colabrodo. Il foro è un quad **rivolto alla camera** (`ShotHit.Normal` serve per la polvere e per appoggiarlo 6 mm fuori): non si vede mai di taglio, quindi né strisce sul muro né buchi "stirati", e uno sparo sul pavimento resta a terra.
+
+**Il cambio d'arma non spara.** I contatori degli eventi (`Shots`, `ReloadStarts`) vivono **nell'arma**:
+quando la riprendi in mano sono già avanti. Il client li **adotta** al primo frame invece di
+azzerarli — azzerarli faceva credere che fosse partito un colpo, e al primo 1/2 si sentiva uno
+sparo fantasma (con traccia, bossolo, lampo e rinculo).
+
+
+---
+
+## Il kit della UI (una sola, in tutto il gioco)
+
+Tutta l'interfaccia nasce da due pezzi soli:
+
+| Pezzo | Cosa fa |
+|---|---|
+| `UiKit` | Colori (notte, corallo, ciano, oro), scala responsive, testo (titolo/corpo/didascalia/tag), bottoni (pieno e vetro), divisori, barre delle statistiche, righe chiave-valore, etichetta del tipo di fuoco |
+| `PanelStyle` / `CardStyle` | Pannelli **pieni** (fondo notturno, bordo sottile, angoli morbidi) e schede, con bordo d'accento quando sono selezionate. Niente shader: la UI si legge sopra qualunque scena e non dipende da copie dello schermo |
+
+> Il blur dietro i pannelli (`GlassPanel` + `glass.gdshader`) è pronto ma **non è in uso**:
+> nell'ultima prova i pannelli risultavano invisibili (il nodo partiva 0×0 e lo shader
+> rendeva alfa 0). Prima di riattivarlo va verificato in motore; finché non lo è, la UI
+> usa pannelli pieni, che sono leggibili sempre.
+
+**La scala.** Ogni misura nasce su un disegno di 1600×900 e viene moltiplicata per
+`min(larghezza/1600, altezza/900)` (fra 0,72× e 1,6×): la UI sta dentro lo schermo in 4:3, 16:9 e
+21:9 senza elementi tagliati. I margini sono percentuali, non pixel fissi.
+
+**Dove si usa.** Negozio (`ShopPanel`) e impostazioni (`SettingsPanel`) sono già sul kit; HUD e menu
+useranno gli stessi pezzi. Il negozio è **lo stesso pannello ovunque**: si apre dalla stanza debug,
+dal menu e — quando ci sarà — dalla schermata di acquisto del round.
+
+**La schermata di debug si apre con F8.** La colonna con dati, teleport, cronometro e log parte
+nascosta: in gioco si vede solo l'HUD (punteggio, arma, munizioni, mirino). `F8` la apre e la
+chiude, e il punteggio torna a filo del bordo quando è chiusa.
+
+## Il negozio (B)
+
+Rifatto sul modello di Valorant: **colonna delle categorie** a sinistra, **griglia di schede** al
+centro, **pannello dei dettagli** a destra.
+
+| Zona | Cosa c'è |
+|---|---|
+| **Intestazione** | `NEGOZIO`, la regola ("un'arma per slot"), i soldi (∞ in debug) e `B per chiudere` |
+| **Categorie** | PISTOLE · MITRAGLIETTE · FUCILLI A POMPA · FUCILLI D'ASSALTO · CECCHINI · ARMI PESANTI · MISCHIA |
+| **Schede** | ritratto dell'arma (render laterale 512×256 con sfondo trasparente, `game/assets/weapons/ui/`), nome, classe, **danno, cadenza, colpi e ricarica** (`ric. 1,95/2,35 s`), stato (`IN MANO` / `TUA`) |
+| **Dettagli** | ritratto grande, nome, barre di **danno, cadenza, precisione, caricatore**, **tempo di mira**, **ricarica tattica e a vuoto**, ottica, tipo di fuoco, prezzo e pulsante `ACQUISTA` |
+
+Un click sulla scheda la seleziona (i dettagli si aggiornano), il doppio click compra. Il pulsante
+dice sempre perché è disabilitato (`SOLDI INSUFFICIENTI`, `IN MANO`). Le regole non cambiano: **una
+sola primaria e una sola secondaria**, la Standard e il coltello ci sono sempre, i soldi in debug
+sono infiniti.

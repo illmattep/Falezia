@@ -20,7 +20,8 @@
 | Crouch | 2,2 m/s | Silenzioso, sagoma ridotta, mira più stabile |
 | ADS | **55% della velocità** | Mira precisa, campo visivo ridotto |
 | Vault | — | Supera ostacoli bassi, **rumoroso** |
-| Salita scale | 2,6 m/s (su), 3,8 m/s (giù) | Rumoroso |
+| Salita scale | 2,6 m/s (su), 3,8 m/s (giù) | Rumoroso · *non ancora nel codice: oggi le scale si fanno a passo pieno* |
+| **Gradino** | **35 cm** superati camminando | Un'alzata vera è 17 cm (doc 07). Sopra i 35 cm serve il salto (~1 m) |
 | **Portatore del Nucleo** | **4,2 m/s soltanto** | **Niente sprint, niente arma primaria, niente vault** |
 
 ### Esplicitamente esclusi
@@ -346,3 +347,35 @@ giocatore** — che è esattamente ciò che serve in un gioco dove ogni morte de
 Ogni meccanica che produce morti incomprensibili va tagliata. Le trappole senza tell, i punti ciechi
 irrisolvibili, le armi che uccidono senza che il suono sia stato udibile — tutte fuori.
 In un gioco senza respawn, la frustrazione non è un costo accettabile: è una recensione negativa.
+
+
+---
+
+## Danno, zone colpite e morte
+
+Il danno esiste nella **simulazione**, non nel client: `game/sim/Combat.cs`. La stessa funzione
+decide per il giocatore, per il server e per i test, quindi non c'è modo che i tre vedano cose
+diverse.
+
+**Come si risolve un colpo**
+
+1. Il muro più vicino lungo il raggio (`Trace.Ray`, la stessa geometria della collisione). Se è più
+   vicino del bersaglio, il colpo si ferma lì: **non si spara attraverso i muri**.
+2. Altrimenti si guardano le due scatole di ogni bersaglio — **testa** (25 cm di lato in cima) e
+   **corpo** (48 × 30 cm fino a 1,52 m) — e vince la più vicina.
+3. La zona fine si decide sull'altezza del punto d'impatto: sotto il 42% dell'altezza sono **gambe**.
+
+| Zona | Moltiplicatore |
+|---|---|
+| Testa | **× 2,2** |
+| Corpo | × 1,0 |
+| Gambe | **× 0,75** |
+| Coltello (mischia) | **× 2,0** sul danno dell'arma, senza caduta |
+
+Il danno di base è quello della scheda **alla distanza vera** (`Arsenal.DamageAt`): un colpo a 8 m
+non fa gli stessi danni di un colpo a 40 m, e una pompa a 12 m fa meno di una a 2 m. Il minimo è
+sempre 1: nessun colpo è gratis.
+
+**Morte e rinascita** (`TargetState`): a vita zero il bersaglio cade (il corpo si corica in 0,4 s),
+resta a terra **4 secondi**, poi torna in piedi con la vita piena. Non si può uccidere due volte, e
+un colpo su un cadavere non conta.

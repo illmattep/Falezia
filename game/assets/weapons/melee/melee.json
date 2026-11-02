@@ -1,0 +1,28 @@
+{
+  "id": "melee",
+  "class": "Coltello",
+  "tris": 2036,
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.633
+    },
+    "fire_last": {
+      "length_s": 0.633
+    },
+    "reload": {
+      "length_s": 1.967
+    },
+    "reload_empty": {
+      "length_s": 2.367
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  }
+}

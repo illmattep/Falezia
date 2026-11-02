@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Il cuore del gioco: simulazione + protocollo. NESSUN motore, nessuna dipendenza.
+    Compila i sorgenti che vivono in game/sim e game/net, così esiste UNA sola copia
+    del codice: la usano il server dedicato, i test e (per copia) il client Unity.
+    Target netstandard2.1 = il profilo che Unity sa consumare.
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>10</LangVersion>
+    <Nullable>disable</Nullable>
+    <AssemblyName>Falezia.Core</AssemblyName>
+    <RootNamespace>Falezia</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../../game/sim/*.cs" />
+    <Compile Include="../../game/net/*.cs" />
+  </ItemGroup>
+
+</Project>

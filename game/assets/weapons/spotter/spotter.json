@@ -1,0 +1,28 @@
+{
+  "id": "spotter",
+  "class": "Cecchino semiautomatico",
+  "tris": 43676,
+  "animations": {
+    "idle": {
+      "length_s": 1.167
+    },
+    "fire": {
+      "length_s": 0.533
+    },
+    "fire_last": {
+      "length_s": 0.533
+    },
+    "reload": {
+      "length_s": 2.267
+    },
+    "reload_empty": {
+      "length_s": 2.667
+    },
+    "draw": {
+      "length_s": 0.467
+    },
+    "holster": {
+      "length_s": 0.467
+    }
+  }
+}
